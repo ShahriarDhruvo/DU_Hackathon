@@ -5,18 +5,29 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import './Sign.css';
 
-const axios = require('axios')
+const axios = require('axios');
 
 
 export default class Sign extends Component {
+    // state  = {
+    //     occupation: "student"
+    // }
+    toggleForm = (e) => {
+        //console.log(typeof(e.target.value));
 
+        this.setState({
+            occupation: e.target.value
+        })
+        //console.log(this.state.occupation);
+    }
     constructor(props) {
         super(props)
 
         this.state = {
             username: '',
             password: '',
-            logged_in: false
+            logged_in: false,
+            occupation: "student"
         }
     }
 
@@ -84,49 +95,49 @@ export default class Sign extends Component {
                             </Tab>
                             {/* Sign Up */}
                             <Tab eventKey="signUp" title="Sign Up">
-                                <Form>
-                                    <Form.Group controlId="exampleForm.ControlSelect1">
-                                        <Form.Label>Select Occupation</Form.Label>
-                                        <Form.Control as="select">
-                                            <option>Student</option>
-                                            <option>Teacher</option>
-                                        </Form.Control>
-                                    </Form.Group>
-                                </Form>
-                                <Form>
-                                    {/* For student */}
-                                    <Form.Group controlId="regNo">
-                                        <Form.Label>Registration No</Form.Label>
-                                        {/* specify the type */}
-                                        <Form.Control type="" placeholder="Registration No" />
-                                    </Form.Group>
-                                    {/* For teacher */}
-                                    {/* <Form.Group controlId="signUp__userId">
-                                        <Form.Label>User Name</Form.Label>
-                                        
-                                        <Form.Control type="" placeholder="Enter an User Name" />
-                                    </Form.Group> */}
+                                        <Form onChange={this.toggleForm}>
+                                            <Form.Group controlId="exampleForm.ControlSelect1">
+                                                <Form.Label>Select Occupation</Form.Label>
+                                                <Form.Control as="select">
+                                                    <option value="student">Student</option>
+                                                    <option value="teacher">Teacher</option>
+                                                </Form.Control>
+                                            </Form.Group>
+                                        </Form>
+                                        <Form> 
+                                            {
+                                                this.state.occupation == 'student' ? 
+                                                <Form.Group controlId="regNo">
+                                                    <Form.Label>Registration No</Form.Label>
+                                                    {/* specify the type */}
+                                                    <Form.Control type="" placeholder="Registration No" />
+                                                </Form.Group> : <Form.Group controlId="signUp__userId">
+                                                <Form.Label>User Name</Form.Label>
+                                                {/* specify the type */}
+                                                <Form.Control type="" placeholder="Enter an User Name" />
+                                                </Form.Group>
+                                            }
 
-                                    <Form.Group controlId="signUp__email">
-                                        <Form.Label>Email address</Form.Label>
-                                        <Form.Control type="email" placeholder="Enter email" />
-                                    </Form.Group>
+                                            <Form.Group controlId="signUp__email">
+                                                <Form.Label>Email address</Form.Label>
+                                                <Form.Control type="email" placeholder="Enter email" />
+                                            </Form.Group>
 
-                                    <Form.Group controlId="password">
-                                        <Form.Label>Password</Form.Label>
-                                        <Form.Control type="password" placeholder="Password" />
-                                    </Form.Group>
+                                            <Form.Group controlId="password">
+                                                <Form.Label>Password</Form.Label>
+                                                <Form.Control type="password" placeholder="Password" />
+                                            </Form.Group>
 
-                                    <Form.Group controlId="confirm_password">
-                                        <Form.Label>Confirm Password</Form.Label>
-                                        <Form.Control type="password" placeholder="Re type the password" />
-                                    </Form.Group>
-                                    
-                                    <Button variant="outline-primary" type="submit">
-                                        Submit
-                                    </Button>
-                                </Form>
-                            </Tab>
+                                            <Form.Group controlId="confirm_password">
+                                                <Form.Label>Confirm Password</Form.Label>
+                                                <Form.Control type="password" placeholder="Re type the password" />
+                                            </Form.Group>
+                                            
+                                            <Button variant="outline-primary" type="submit">
+                                                Submit
+                                            </Button>
+                                        </Form>
+                                    </Tab>
                         </Tabs>
                     </div>
                 </div>
