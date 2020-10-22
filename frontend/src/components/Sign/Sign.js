@@ -1,0 +1,90 @@
+import React from 'react';
+import Tabs from 'react-bootstrap/Tabs';
+import Tab from 'react-bootstrap/Tab';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import './Sign.css';
+
+
+const Sign = () => {
+
+    return (
+    <div className="outer"> 
+        <div className="inner1">
+            <div className="container">
+                <div className="row sign">
+                    <div className="col">
+                        <Tabs defaultActiveKey="signIn" id="sign__tabs">
+                            {/* Sign In */}
+                            <Tab eventKey="signIn" title="Sign In">
+                                <Form>
+                                    <Form.Group controlId="signIn__email">
+                                        <Form.Label>Email address</Form.Label>
+                                        <Form.Control type="email" placeholder="Enter email" />
+                                    </Form.Group>
+
+                                    <Form.Group controlId="password">
+                                        <Form.Label>Password</Form.Label>
+                                        <Form.Control type="password" placeholder="Password" />
+                                    </Form.Group>
+                                    
+                                    <Button variant="outline-primary" type="submit">
+                                        Submit
+                                    </Button>
+                                </Form>
+                            </Tab>
+                            {/* Sign Up */}
+                            <Tab eventKey="signUp" title="Sign Up">
+                                <Form>
+                                    <Form.Group controlId="exampleForm.ControlSelect1">
+                                        <Form.Label>Select Occupation</Form.Label>
+                                        <Form.Control as="select">
+                                            <option>Student</option>
+                                            <option>Teacher</option>
+                                        </Form.Control>
+                                    </Form.Group>
+                                </Form>
+                                <Form>
+                                    {/* For student */}
+                                    <Form.Group controlId="regNo">
+                                        <Form.Label>Registration No</Form.Label>
+                                        {/* specify the type */}
+                                        <Form.Control type="" placeholder="Registration No" />
+                                    </Form.Group>
+                                    {/* For teacher */}
+                                    {/* <Form.Group controlId="signUp__userId">
+                                        <Form.Label>User Name</Form.Label>
+                                        
+                                        <Form.Control type="" placeholder="Enter an User Name" />
+                                    </Form.Group> */}
+
+                                    <Form.Group controlId="signUp__email">
+                                        <Form.Label>Email address</Form.Label>
+                                        <Form.Control type="email" placeholder="Enter email" />
+                                    </Form.Group>
+
+                                    <Form.Group controlId="password">
+                                        <Form.Label>Password</Form.Label>
+                                        <Form.Control type="password" placeholder="Password" />
+                                    </Form.Group>
+
+                                    <Form.Group controlId="confirm_password">
+                                        <Form.Label>Confirm Password</Form.Label>
+                                        <Form.Control type="password" placeholder="Re type the password" />
+                                    </Form.Group>
+                                    
+                                    <Button variant="outline-primary" type="submit">
+                                        Submit
+                                    </Button>
+                                </Form>
+                            </Tab>
+                        </Tabs>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    )
+}
+
+export default Sign;
