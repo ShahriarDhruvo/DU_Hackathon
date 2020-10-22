@@ -40,7 +40,10 @@ INSTALLED_APPS = [
 
     'rest_framework',
 
-    'accounts',
+    'accounts.apps.AccountsConfig',
+    'students.apps.StudentsConfig',
+    'teachers.apps.TeachersConfig',
+    'universities.apps.UniversitiesConfig'
 ]
 
 MIDDLEWARE = [
@@ -80,7 +83,7 @@ WSGI_APPLICATION = 'server.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'schoolDatabase',
+        'NAME': 'du_hackathon',
         'USER': 'postgres',
         'PASSWORD': 'emonsust',
         'HOST': 'localhost',
