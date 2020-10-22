@@ -1,8 +1,11 @@
+*.log
+*.pyc
 *.egg-info
 *.pot
 *.py[co]
 .tox/
 __pycache__
+local_settings.py
 MANIFEST
 dist/
 docs/_build/
@@ -13,3 +16,5 @@ tests/report/
 
 venv/
 db.sqlite3
+db.sqlite3-journal
+media
