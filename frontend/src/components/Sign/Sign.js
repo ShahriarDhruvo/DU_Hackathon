@@ -1,4 +1,4 @@
-import React,{ Component } from 'react';
+import React,{ Component, isValidElement } from 'react';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import Button from 'react-bootstrap/Button';
@@ -7,28 +7,29 @@ import './Sign.css';
 
 const axios = require('axios');
 
-
 export default class Sign extends Component {
-    // state  = {
-    //     occupation: "student"
-    // }
-    toggleForm = (e) => {
-        //console.log(typeof(e.target.value));
-
-        this.setState({
-            occupation: e.target.value
-        })
-        //console.log(this.state.occupation);
-    }
     constructor(props) {
         super(props)
 
         this.state = {
+            errors : {},
             username: '',
             password: '',
             logged_in: false,
-            occupation: "student"
+            occupation: "student",
+            registration_no :'',
+            email : '',
+            isValid : true,
+            password_1: '',
+            password_1_confirm : '',
+            Name: '',
         }
+    }
+
+    toggleForm = (e) => {
+        this.setState({
+            occupation: e.target.value
+        })
     }
 
     handle_change_signin = e => {
@@ -46,7 +47,6 @@ export default class Sign extends Component {
         let endpoint = "http://127.0.0.1:8000/";
         var obj = {username: data.username, password: data.password};
         let body = JSON.stringify(obj);
-        console.log(body)
         let config = {
           headers: {
             "Content-Type" : "application/json"
@@ -66,7 +66,80 @@ export default class Sign extends Component {
         })
       };
 
+       handle_signup = (e, data) => {
+        this.validate();
+        if(this.state.isValid) {
+            console.log('gese')
+            e.preventDefault();
+            let endpoint = "http://127.0.0.1:8000/";
+            var obj;
+            if(this.state.occupation=='student')
+                obj = {occupation: data.occupation,registration_no:data.registration_no,name:data.Name,email: data.email,password: data.password_1,confirm_password:data.password_1_confirm};
+            else
+                obj = {occupation: data.occupation,username:data.username,email: data.email,password: data.password_1,confirm_password:data.password_1_confirm}
+            let body = JSON.stringify(obj);
+            console.log(body)
+            let config = {
+            headers: {
+                "Content-Type" : "application/json"
+            }
+            };
+            axios.post(endpoint, body, config)
+            .then(json => {
+            console.log(json.data.token)
+            localStorage.setItem('token', json.data.token);
+            this.setState({
+                username: json.data.user.username,
+            });
+            })
+            .catch(err => {
+            console.log(err)
+            })
+        }
+      };
 
+      validate() {
+        if(this.state.occupation == 'student')
+        {
+            
+            if(this.state.Name=='') {
+                console.log('student');
+                this.setState({
+                    isValid : false,
+                    errors: {
+                        ['error'] : "Please enter your name."
+                    }
+                });
+            }
+            if(this.state.registration_no=='') {
+                this.setState({
+                    isValid : false,
+                    errors: {
+                        ['error'] : "Please enter your registration no."
+                    }
+                });
+            }
+        }
+        if(this.state.occupation=='teacher')
+        {
+            if(this.state.username=='') {
+                this.setState({
+                    isValid : false,
+                    errors: {
+                        ['error'] : "Please check your username."
+                    }
+                });
+            }
+        }
+        if(this.state.email=='') {
+            this.setState({
+                isValid : false,
+                errors: {
+                    ['error'] : "Please enter your email."
+                }
+            });
+        }
+      }
     render () {
     return(
     <div className="outer"> 
@@ -104,23 +177,32 @@ export default class Sign extends Component {
                                                 </Form.Control>
                                             </Form.Group>
                                         </Form>
-                                        <Form> 
+                                        <Form onSubmit={e=> this.handle_signup(e, this.state)}> 
+
+                                            {
+                                                this.state.occupation == 'student' ? 
+                                                <Form.Group controlId="signUp__userId">
+                                                <Form.Label>Name</Form.Label>
+                                                {/* specify the type */}
+                                                <Form.Control type="text" placeholder="Name" name="Name" onChange={this.handle_change_signin}/>
+                                                </Form.Group> : null
+                                            }
                                             {
                                                 this.state.occupation == 'student' ? 
                                                 <Form.Group controlId="regNo">
                                                     <Form.Label>Registration No</Form.Label>
                                                     {/* specify the type */}
-                                                    <Form.Control type="" placeholder="Registration No" />
+                                                    <Form.Control type="text" placeholder="Registration No" name="registration_no" onChange={this.handle_change_signin}/>
                                                 </Form.Group> : <Form.Group controlId="signUp__userId">
                                                 <Form.Label>User Name</Form.Label>
                                                 {/* specify the type */}
-                                                <Form.Control type="" placeholder="Enter an User Name" />
+                                                <Form.Control type="text" placeholder="Enter an User Name" name="username" onChange={this.handle_change_signin}/>
                                                 </Form.Group>
                                             }
 
                                             <Form.Group controlId="signUp__email">
                                                 <Form.Label>Email address</Form.Label>
-                                                <Form.Control type="email" placeholder="Enter email" />
+                                                <Form.Control type="email" placeholder="Enter email" name="email" onChange={this.handle_change_signin} />
                                             </Form.Group>
 
                                             <Form.Group controlId="password">
