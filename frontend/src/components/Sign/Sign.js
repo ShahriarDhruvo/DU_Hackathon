@@ -73,7 +73,7 @@ export default class Sign extends Component {
             e.preventDefault();
             let endpoint = "http://127.0.0.1:8000/";
             var obj;
-            if(this.state.occupation=='student')
+            if(this.state.occupation==='student')
                 obj = {occupation: data.occupation,registration_no:data.registration_no,name:data.Name,email: data.email,password: data.password_1,confirm_password:data.password_1_confirm};
             else
                 obj = {occupation: data.occupation,username:data.username,email: data.email,password: data.password_1,confirm_password:data.password_1_confirm}
@@ -99,10 +99,10 @@ export default class Sign extends Component {
       };
 
       validate() {
-        if(this.state.occupation == 'student')
+        if(this.state.occupation === 'student')
         {
             
-            if(this.state.Name=='') {
+            if(this.state.Name==='') {
                 console.log('student');
                 this.setState({
                     isValid : false,
@@ -111,7 +111,7 @@ export default class Sign extends Component {
                     }
                 });
             }
-            if(this.state.registration_no=='') {
+            if(this.state.registration_no==='') {
                 this.setState({
                     isValid : false,
                     errors: {
@@ -120,9 +120,9 @@ export default class Sign extends Component {
                 });
             }
         }
-        if(this.state.occupation=='teacher')
+        if(this.state.occupation==='teacher')
         {
-            if(this.state.username=='') {
+            if(this.state.username==='') {
                 this.setState({
                     isValid : false,
                     errors: {
@@ -131,7 +131,7 @@ export default class Sign extends Component {
                 });
             }
         }
-        if(this.state.email=='') {
+        if(this.state.email==='') {
             this.setState({
                 isValid : false,
                 errors: {
@@ -142,10 +142,10 @@ export default class Sign extends Component {
       }
     render () {
     return(
-    <div className="outer"> 
-        <div className="inner1">
+            // <div className="outer"> 
             <div className="container">
-                <div className="row sign">
+            {/* <div className="inner"> */}
+                <div className="row">
                     <div className="col">
                         <Tabs defaultActiveKey="signIn" id="sign__tabs">
                             {/* Sign In */}
@@ -158,12 +158,15 @@ export default class Sign extends Component {
 
                                     <Form.Group controlId="password">
                                         <Form.Label>Password</Form.Label>
-                                        <Form.Control type="password" placeholder="Password" name="password" onChange={this.handle_change_signin}/>
+                                        <Form.Control type="password" placeholder="**********" name="password" onChange={this.handle_change_signin}/>
                                     </Form.Group>
                                     
-                                    <Button variant="outline-primary" type="submit">
+                                    <Button variant="outline-primary btn-block" type="submit">
                                         Submit
                                     </Button>
+                                    <p className="forgot-password text-right">
+                                        <a href="#">Forgot password?</a>
+                                    </p>
                                 </Form>
                             </Tab>
                             {/* Sign Up */}
@@ -180,7 +183,7 @@ export default class Sign extends Component {
                                         <Form onSubmit={e=> this.handle_signup(e, this.state)}> 
 
                                             {
-                                                this.state.occupation == 'student' ? 
+                                                this.state.occupation === 'student' ? 
                                                 <Form.Group controlId="signUp__userId">
                                                 <Form.Label>Name</Form.Label>
                                                 {/* specify the type */}
@@ -188,7 +191,7 @@ export default class Sign extends Component {
                                                 </Form.Group> : null
                                             }
                                             {
-                                                this.state.occupation == 'student' ? 
+                                                this.state.occupation === 'student' ? 
                                                 <Form.Group controlId="regNo">
                                                     <Form.Label>Registration No</Form.Label>
                                                     {/* specify the type */}
@@ -207,15 +210,15 @@ export default class Sign extends Component {
 
                                             <Form.Group controlId="password">
                                                 <Form.Label>Password</Form.Label>
-                                                <Form.Control type="password" placeholder="Password" />
+                                                <Form.Control type="password" placeholder="**********" />
                                             </Form.Group>
 
                                             <Form.Group controlId="confirm_password">
                                                 <Form.Label>Confirm Password</Form.Label>
-                                                <Form.Control type="password" placeholder="Re type the password" />
+                                                <Form.Control type="password" placeholder="**********" />
                                             </Form.Group>
                                             
-                                            <Button variant="outline-primary" type="submit">
+                                            <Button variant="outline-primary btn-block" type="submit">
                                                 Submit
                                             </Button>
                                         </Form>
@@ -224,8 +227,8 @@ export default class Sign extends Component {
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+                // </div>
+            // </div>
     )
     }
 }

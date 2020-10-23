@@ -1,18 +1,18 @@
 *{
     box-sizing: border-box;
 }
-.outer {
+/* .outer {
     position: absolute;
     top: 52%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 26%;
-    padding: 50px 15px 15px 15px;
-    /* background-color: rgb(247, 247, 247); */
+    height: 84%; */
+    /* padding: 30px 15px 15px 15px;
     border-radius: 2%;
-    box-shadow: 3px 3px 6px 3px rgb(121, 209, 250);
-}
-.inner1 {
+    box-shadow: 3px 3px 6px 3px rgb(121, 209, 250); */
+/* } */
+.container {
     /* position: absolute;
     top: 50%;
     left: 50%;
@@ -20,26 +20,32 @@
     width: 30%; */
     /* border: 1px rgb(2, 2, 2);
     border-style: solid; */
+    /* max-height: 24%; */
+    /* position: absolute; */
+    position: absolute;
+    top: 52%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 26%;
+    /* position: absolute; */
     padding: 8px;
-    background-color: rgb(239, 252, 253);
+    /* background-color: rgb(223, 253, 255); */
+    box-shadow: 3px 3px 6px 3px rgb(141, 217, 252);
     border-radius: 2%;
-}
-.container {
-    position: relative;
+    border: 8px;
+    border-style: solid;
+    border-color:#e3f2fd;
     background-color: white;
+}
+/* .inner {
+    padding: 5px; */
+    /* position: relative; */
+    /* background-color: white; */
     /* border-radius: 2%;
     border: 1px rgb(0, 140, 255);
     border-style: solid;
     box-shadow: 3px 3px 6px 3px rgb(74, 197, 253); */
-    
-}
-Form {
-    
-    margin-top: 2%;
-}
-.col {
-    padding: 20px;
-}
-Form.active {
-    color: red;
-}
+/*     
+} */
+
+
