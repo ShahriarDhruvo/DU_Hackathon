@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
     'api',
     'rooms',
+    'sections',
     'accounts',
     'students',
     'teachers',
