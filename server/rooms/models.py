@@ -24,7 +24,7 @@ class Room(models.Model):
     teachers = models.ManyToManyField(CustomUser, related_name='room_teachers')
     students = models.ManyToManyField(CustomUser, related_name='room_students')
     owner = models.ForeignKey(
-        CustomUser, related_name='room_owner', on_delete=models.CASCADE)
+        CustomUser, related_name='room_owner', null=True, on_delete=models.CASCADE)
     # Every year the students and teacher changes of a course so we have to keep track of which year this room belongs to.
     year = models.PositiveIntegerField(default=current_year(), validators=[
                                        MinValueValidator(1984), max_value_current_year])
