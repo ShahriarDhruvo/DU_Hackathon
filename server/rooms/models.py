@@ -13,7 +13,7 @@ def current_year():
 
 
 def max_value_current_year(value):
-    return MaxValueValidator(current_year())(value)
+    return MaxValueValidator(current_year()+1)(value)
 
 
 class Room(models.Model):
