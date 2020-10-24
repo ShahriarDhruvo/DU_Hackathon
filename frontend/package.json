@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.20.0",
     "bootstrap": "^4.5.3",
+    "node-sass": "^4.14.1",
     "react": "^17.0.0",
     "react-alert": "^7.0.2",
     "react-alert-template-basic": "^1.0.0",

@@ -12,7 +12,7 @@
     border-radius: 2%;
     box-shadow: 3px 3px 6px 3px rgb(121, 209, 250); */
 /* } */
-.container {
+.sign {
     /* position: absolute;
     top: 50%;
     left: 50%;
@@ -30,7 +30,7 @@
     /* position: absolute; */
     padding: 8px;
     /* background-color: rgb(223, 253, 255); */
-    box-shadow: 3px 3px 6px 3px rgb(141, 217, 252);
+    box-shadow: 3px 3px 6px 3px rgb(146, 218, 252);
     border-radius: 2%;
     border: 8px;
     border-style: solid;

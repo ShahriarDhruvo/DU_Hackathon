@@ -1,4 +1,5 @@
 import React,{ Component, isValidElement } from 'react';
+import Container from 'react-bootstrap/Container';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import Button from 'react-bootstrap/Button';
@@ -143,7 +144,7 @@ export default class Sign extends Component {
     render () {
     return(
             // <div className="outer"> 
-            <div className="container">
+            <Container className="sign">
             {/* <div className="inner"> */}
                 <div className="row">
                     <div className="col">
@@ -226,7 +227,7 @@ export default class Sign extends Component {
                         </Tabs>
                     </div>
                 </div>
-            </div>
+            </Container>
                 // </div>
             // </div>
     )
