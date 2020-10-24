@@ -32,8 +32,7 @@ class Conflict(APIException):
 
 
 class RoomList(ListAPIView):
-    # serializer_class = RoomListSerializer
-    serializer_class = RoomSerializer
+    serializer_class = RoomListSerializer
 
     def get_queryset(self):
         user_id = self.request.user.id
