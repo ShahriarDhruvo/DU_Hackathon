@@ -11,9 +11,9 @@ class Room(models.Model):
     # Subject names, ex: SWE-305W
     title = models.CharField(max_length=50)
     details = models.CharField(max_length=100)
-    admin = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.CASCADE, related_name='admin')
-    teachers = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.CASCADE, related_name='teachers')
-    students = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.CASCADE, related_name='students')
+    admin = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='admin')#, null=True, on_delete=models.CASCADE)
+    teachers = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='teachers')#, null=True, on_delete=models.CASCADE)
+    students = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='students')#, null=True, on_delete=models.CASCADE)
     # sections = models.ManyToManyField(section, related_name='sections')
 
     def __str__(self):
