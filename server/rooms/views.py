@@ -14,13 +14,16 @@ from rest_framework.generics import (
 
 from .serializers import (
     RoomSerializer,
-    RoomUpdateStudentsSerializer
+    RoomListSerializer,
+    RoomCreateSerializer,
+    RoomUpdateSerializer,
+    RoomUpdateUserSerializer
 )
 from .models import Room
 from django.conf import settings
-from django.contrib.auth import get_user_model
-from dj_rest_auth.serializers import UserDetailsSerializer
+from accounts.models import CustomUser
 from django.db.models import Q
+
 
 class Conflict(APIException):
     status_code = 409
@@ -29,31 +32,23 @@ class Conflict(APIException):
 
 
 class RoomList(ListAPIView):
+    # serializer_class = RoomListSerializer
     serializer_class = RoomSerializer
 
     def get_queryset(self):
         user_id = self.request.user.id
 
-        queryset = Room.objects.filter(Q(teachers=user_id) | Q(students=user_id)).order_by('id')
+        queryset = Room.objects.filter(
+            Q(teachers=user_id) | Q(students=user_id)).order_by('id')
 
         if queryset:
             return queryset
         else:
-            raise NotFound("No room has been created yet!")
+            raise NotFound('No room has been created yet!')
 
 
 class RoomCreate(CreateAPIView):
-    serializer_class = RoomSerializer
-
-    # def get_queryset(self):
-    #     user_id = self.request.user.id
-
-    #     queryset = request.user.is_staff
-
-    #     if queryset:
-    #         return queryset
-    #     else:
-    #         raise PermissionDenied("You are not authorized to create a room")
+    serializer_class = RoomCreateSerializer
 
     def create(self, request, *args, **kwargs):
         user_id = request.user.id
@@ -61,49 +56,51 @@ class RoomCreate(CreateAPIView):
         is_authenticated = request.user.is_staff
 
         if not is_authenticated:
-            raise PermissionDenied("You are not authorized to create a room")
+            raise PermissionDenied('You are not authorized to create a room')
 
         request.data._mutable = True
+        request.data['owner'] = user_id
+        request.data['admins'] = user_id
         request.data['teachers'] = user_id
-        request.data['admin'] = user_id
         request.data._mutable = False
 
         return super(RoomCreate, self).create(request, *args, **kwargs)
 
 
 class RoomDelete(DestroyAPIView):
+
     def get_queryset(self):
         user_id = self.request.user.id
         pk = self.kwargs.get('pk', None)
 
-        is_teacher = Room.objects.filter(teachers=user_id, id=pk)
+        is_owner = Room.objects.filter(owner=user_id, id=pk)
 
-        if not is_teacher:
+        if not is_owner:
             raise PermissionDenied(
-                "Only the teacher of this room is authorized for deletion")
+                'Only the owner of this room is authorized for deletion')
 
         queryset = Room.objects.filter(id=pk)
 
         if queryset:
             return queryset
         else:
-            raise NotFound("Room not found")
+            raise NotFound('Room does not exist!')
 
 
 class RoomUpdate(UpdateAPIView):
-    # serializer_class = RoomUpdateSerializer
-    serializer_class = RoomSerializer
+    serializer_class = RoomUpdateSerializer
 
     def get_queryset(self):
         user_id = self.request.user.id
         pk = self.kwargs.get('pk', None)
 
-        queryset = Room.objects.filter(admin=user_id, id=pk)
+        queryset = Room.objects.filter(admins=user_id, id=pk)
 
         if queryset:
             return queryset
         else:
-            raise NotFound("Room not found")
+            raise NotFound(
+                'Room does not exist or you are not authorized for this action')
 
 
 class RoomDetails(ListAPIView):
@@ -113,90 +110,126 @@ class RoomDetails(ListAPIView):
         user_id = self.request.user.id
         pk = self.kwargs.get('pk', None)
 
-        queryset = Room.objects.filter(Q(teachers=user_id) | Q(students=user_id), id=pk)
+        queryset = Room.objects.filter(
+            Q(teachers=user_id) | Q(students=user_id), id=pk)
 
         if queryset:
             return queryset
         else:
-            raise NotFound("Room not found")
+            raise NotFound('Room does not exist!')
 
-class RoomAddStudent(UpdateAPIView):
 
-    serializer_class = RoomUpdateStudentsSerializer
+class RoomAddUser(UpdateAPIView):
+    serializer_class = RoomUpdateUserSerializer
 
     def get_queryset(self):
-
         user_id = self.request.user.id
-        room_pk = self.kwargs.get('pk', None)
+        pk = self.kwargs.get('pk', None)
 
-        current_room = Room.objects.filter(id=room_pk)
-        owned_room = Room.objects.filter(admin=user_id, id=room_pk)
+        admin = Room.objects.filter(admins=user_id, id=pk)
 
-        if not owned_room:
-            raise PermissionDenied("Only the admin of this room can add students!")
+        if not admin:
+            raise PermissionDenied(
+                'Only the admin of this room can add userss!')
 
-        if current_room:
-            return current_room
+        queryset = Room.objects.filter(id=pk)
+
+        if queryset:
+            return queryset
         else:
-            raise NotFound("Room doesn't exist!")
+            raise NotFound('Room does not exist!')
 
     def patch(self, request, *args, **kwargs):
+        pk = self.kwargs.get('pk', None)
+        user = self.kwargs.get('user', None)
 
-        rooom_pk = self.kwargs.get('pk', None)
-        student = self.kwargs.get('student', None)
+        if user in ('student', 'admin', 'teacher'):
+            username = self.kwargs.get('username', None)
+        else:
+            raise NotFound('Page not Found')
 
         try:
-            new_student_id = get_user_model().objects.filter(username=student).values('id').first()['id']
+            new_user_id = CustomUser.objects.filter(
+                username=username).values('id').first()['id']
         except:
-            raise NotFound("User doesn't exist!")
+            raise NotFound('User does not exist!')
 
-        #existing_student_ids = Room.objects.filter(id=rooom_pk).values_list('students', flat=True)
-        existing_student_ids = list(Room.objects.filter(id=rooom_pk).values('students'))
+        existing_users_ids = list(
+            Room.objects.filter(id=pk).values(user + 's'))
 
-        students = []
+        users = []
 
-        for i in range(len(existing_student_ids)):
-            if new_student_id == existing_student_id[i]['students']:
-                raise Conflict("This student is already registered to this room!")
+        for i in range(len(existing_users_ids)):
+            if new_user_id == existing_users_ids[i][user + 's']:
+                raise Conflict(
+                    'This user is already registered to this room!')
+            elif existing_users_ids[i][user + 's']:
+                users.append(existing_users_ids[i][user + 's'])
 
-            students.append(existing_student_ids[i]['students'])
+        users.append(new_user_id)
 
-        students.append(new_student_id)
-
-        request.data._mutable = True
-        request.data['students'] = students
-        request.data._mutable = False
+        request.data[user + 's'] = users
 
         return self.partial_update(request, *args, **kwargs)
 
-    def put(self, request, *args, **kwargs):
 
-        rooom_pk = self.kwargs.get('pk', None)
-        student = self.kwargs.get('student', None)
+class RoomRemoveUser(UpdateAPIView):
+    serializer_class = RoomUpdateUserSerializer
+
+    def get_queryset(self):
+        user_id = self.request.user.id
+        pk = self.kwargs.get('pk', None)
+
+        admin = Room.objects.filter(admins=user_id, id=pk)
+
+        if not admin:
+            raise PermissionDenied(
+                'Only the admin of this room can remove users!')
+
+        queryset = Room.objects.filter(id=pk)
+
+        if queryset:
+            return queryset
+        else:
+            raise NotFound('Room does not exist!')
+
+    def patch(self, request, *args, **kwargs):
+        pk = self.kwargs.get('pk', None)
+        user = self.kwargs.get('user', None)
+
+        if user in ('student', 'admin', 'teacher'):
+            username = self.kwargs.get('username', None)
+        else:
+            raise NotFound('Page not Found')
 
         try:
-            new_student_id = get_user_model().objects.filter(username=student).values('id').first()['id']
+            user_id = CustomUser.objects.filter(
+                username=username).values('id').first()['id']
         except:
-            raise NotFound("User doesn't exist!")
+            raise NotFound('User does not exist!')
 
-        #existing_student_ids = Room.objects.filter(id=rooom_pk).values_list('students', flat=True)
-        existing_student_ids = list(Room.objects.filter(id=rooom_pk).values('students'))
+        is_owner = Room.objects.filter(owner=user_id, id=pk)
 
-        students = []
+        if is_owner:
+            raise PermissionDenied(
+                "The owner cannot be removed from the member's list of a room")
 
-        for i in range(len(existing_student_ids)):
-            if new_student_id == existing_student_ids[i]['students']:
-                raise Conflict("This student is already registered to this room!")
+        existing_users_ids = list(
+            Room.objects.filter(id=pk).values(user + 's'))
 
-            students.append(existing_student_ids[i]['students'])
+        users = []
+        user_existance = False
 
-        students.append(new_student_id)
+        for i in range(len(existing_users_ids)):
+            if user_id == existing_users_ids[i][user + 's']:
+                user_existance = True
+                continue
+            elif existing_users_ids[i][user + 's']:
+                users.append(existing_users_ids[i][user + 's'])
 
-        request.data._mutable = True
-        request.data['students'] = students
-        request.data._mutable = False
+        if not user_existance:
+            raise NotFound("This user is not a member of this room")
 
-        return self.update(request, *args, **kwargs)
+        request.data[user + 's'] = users
 
-
-
+        return self.partial_update(request, *args, **kwargs)

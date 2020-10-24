@@ -27,7 +27,12 @@ def apiOverview(request):
         'Room Update'                       : 'api/v1/room/update/<str:pk>/',
         'Room Delete'                       : 'api/v1/room/delete/<str:pk>/',
         'Room Details'                      : 'api/v1/room/details/<str:pk>/',
-        'Room Add Student'                  : 'api/v1/room/add/student/<str:pk>/<str:student>',
+        'Room Add Admin'                    : 'api/v1/room/add/admin/<str:pk>/<str:username>',
+        'Room Add Student'                  : 'api/v1/room/add/student/<str:pk>/<str:username>',
+        'Room Add Teacher'                  : 'api/v1/room/add/teacher/<str:pk>/<str:username>',
+        'Room Remove Admin'                 : 'api/v1/room/remove/admin/<str:pk>/<str:username>',
+        'Room Remove Student'               : 'api/v1/room/remove/student/<str:pk>/<str:username>',
+        'Room Remove Teacher'               : 'api/v1/room/remove/teacher/<str:pk>/<str:username>',
 
         'Sections List'                     : 'api/v1/sections/<str:rpk>/list/',
         #'Sections Create'                   : 'api/v1/'

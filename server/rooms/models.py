@@ -1,20 +1,33 @@
+import datetime
 from django.db import models
 from django.conf import settings
-#from django.contrib.auth import get_user_model
+from accounts.models import CustomUser
+from django.core.validators import (
+    MaxValueValidator,
+    MinValueValidator
+)
 
-# Can only be added by the admin
 
-######task = section, work = room
+def current_year():
+    return datetime.date.today().year
+
+
+def max_value_current_year(value):
+    return MaxValueValidator(current_year())(value)
+
+
 class Room(models.Model):
-    # Every year the students and teacher changes of a course.
-    year = models.CharField(max_length=4)
     # Subject names, ex: SWE-305W
     title = models.CharField(max_length=50)
     details = models.CharField(max_length=100)
-    admin = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='admin')#, null=True, on_delete=models.CASCADE)
-    teachers = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='teachers')#, null=True, on_delete=models.CASCADE)
-    students = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='students')#, null=True, on_delete=models.CASCADE)
-    # sections = models.ManyToManyField(section, related_name='sections')
+    admins = models.ManyToManyField(CustomUser, related_name='room_admins')
+    teachers = models.ManyToManyField(CustomUser, related_name='room_teachers')
+    students = models.ManyToManyField(CustomUser, related_name='room_students')
+    owner = models.ForeignKey(
+        CustomUser, related_name='room_owner', on_delete=models.CASCADE)
+    # Every year the students and teacher changes of a course so we have to keep track of which year this room belongs to.
+    year = models.PositiveIntegerField(default=current_year(), validators=[
+                                       MinValueValidator(1984), max_value_current_year])
 
     def __str__(self):
-        return self.title + '_(' + self.year + ')'
+        return '%s (%s)' % (self.title, str(self.year))
