@@ -18,7 +18,7 @@ class RoomListSerializer(serializers.ModelSerializer):
 class RoomCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Room
-        fields = ['id', 'year', 'title', 'details', 'admins', 'teachers']
+        fields = ['id', 'year', 'title', 'details', 'owner', 'admins', 'teachers']
         read_only_fields = ['students']
 
 
