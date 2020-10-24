@@ -14,9 +14,11 @@ from rest_framework.generics import (
 
 from .serializers import (
     RoomSerializer,
+    RoomUpdateStudentsSerializer
 )
 from .models import Room
-from django.contrib.auth.models import User
+from django.conf import settings
+from django.contrib.auth import get_user_model
 from dj_rest_auth.serializers import UserDetailsSerializer
 from django.db.models import Q
 
@@ -117,5 +119,84 @@ class RoomDetails(ListAPIView):
             return queryset
         else:
             raise NotFound("Room not found")
+
+class RoomAddStudent(UpdateAPIView):
+
+    serializer_class = RoomUpdateStudentsSerializer
+
+    def get_queryset(self):
+
+        user_id = self.request.user.id
+        room_pk = self.kwargs.get('pk', None)
+
+        current_room = Room.objects.filter(id=room_pk)
+        owned_room = Room.objects.filter(admin=user_id, id=room_pk)
+
+        if not owned_room:
+            raise PermissionDenied("Only the admin of this room can add students!")
+
+        if current_room:
+            return current_room
+        else:
+            raise NotFound("Room doesn't exist!")
+
+    def patch(self, request, *args, **kwargs):
+
+        rooom_pk = self.kwargs.get('pk', None)
+        student = self.kwargs.get('student', None)
+
+        try:
+            new_student_id = get_user_model().objects.filter(username=student).values('id').first()['id']
+        except:
+            raise NotFound("User doesn't exist!")
+
+        #existing_student_ids = Room.objects.filter(id=rooom_pk).values_list('students', flat=True)
+        existing_student_ids = list(Room.objects.filter(id=rooom_pk).values('students'))
+
+        students = []
+
+        for i in range(len(existing_student_ids)):
+            if new_student_id == existing_student_id[i]['students']:
+                raise Conflict("This student is already registered to this room!")
+
+            students.append(existing_student_ids[i]['students'])
+
+        students.append(new_student_id)
+
+        request.data._mutable = True
+        request.data['students'] = students
+        request.data._mutable = False
+
+        return self.partial_update(request, *args, **kwargs)
+
+    def put(self, request, *args, **kwargs):
+
+        rooom_pk = self.kwargs.get('pk', None)
+        student = self.kwargs.get('student', None)
+
+        try:
+            new_student_id = get_user_model().objects.filter(username=student).values('id').first()['id']
+        except:
+            raise NotFound("User doesn't exist!")
+
+        #existing_student_ids = Room.objects.filter(id=rooom_pk).values_list('students', flat=True)
+        existing_student_ids = list(Room.objects.filter(id=rooom_pk).values('students'))
+
+        students = []
+
+        for i in range(len(existing_student_ids)):
+            if new_student_id == existing_student_ids[i]['students']:
+                raise Conflict("This student is already registered to this room!")
+
+            students.append(existing_student_ids[i]['students'])
+
+        students.append(new_student_id)
+
+        request.data._mutable = True
+        request.data['students'] = students
+        request.data._mutable = False
+
+        return self.update(request, *args, **kwargs)
+
 
 

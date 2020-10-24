@@ -10,6 +10,13 @@ class RoomSerializer(serializers.ModelSerializer):
         model = Room
         fields = '__all__'
 
+class RoomUpdateStudentsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Room
+        fields = '__all__'
+
+        read_only_fields = ['year', 'title', 'details', 'admin', 'teacher']
+
 # class RoomUpdateSerializer(serializers.ModelSerializer):
 #     class Meta:
 #         model = Room
