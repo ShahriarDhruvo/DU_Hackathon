@@ -68,7 +68,7 @@ class RoomCreate(CreateAPIView):
         request.data['admin'] = user_id
         request.data._mutable = False
 
-        return super(RoomCreate, self).create(request, *args, kwargs)
+        return super(RoomCreate, self).create(request, *args, **kwargs)
 
 
 class RoomDelete(DestroyAPIView):

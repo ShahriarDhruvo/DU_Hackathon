@@ -27,7 +27,7 @@ class SectionList(ListAPIView):
     serializer_class = SectionSerializer
 
     def get_queryset(self):
-
+        
         rpk = self.kwargs.get('rpk', None)
 
         queryset = Section.objects.filter(room_id=rpk).order_by('id')
