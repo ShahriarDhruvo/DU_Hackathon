@@ -1,17 +1,8 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-from django.contrib.auth.models import (
-    AbstractBaseUser, BaseUserManager, PermissionsMixin)
-from django.db import models
 
-class UserManager(BaseUserManager):
-
-    def create_user(self, username, email, password=None):
-        if username is None:
-            raise TypeError('User should have a username')
-        if email is None:
-            raise TypeError('User should have a email')
-
-        user = self.model(username=username, email=self.normalize_email(email))
-        user.set_password(password)
-        user.save()
+class CustomUser(AbstractUser):
+    department = models.CharField(max_length=5)
+    university = models.CharField(max_length=100)
+    reg_no = models.CharField(max_length=10, blank=True, null=True)
