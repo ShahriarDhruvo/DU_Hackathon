@@ -22,9 +22,14 @@ def apiOverview(request):
         'User Account Confirm Email'        : 'api/v1/accounts/account-confirm-email/',
         'User Password Reset Confirm'       : 'api/v1/accounts/password/reset/confirm/',
 
-        'Rooms List'                        : 'api/v1/rooms/list',
+        'Rooms List'                        : 'api/v1/room/list/',
+        'Room Create'                       : 'api/v1/room/create/',
+        'Room Update'                       : 'api/v1/room/update/<str:pk>/',
+        'Room Delete'                       : 'api/v1/room/delete/<str:pk>/',
+        'Room Details'                      : 'api/v1/room/details/<str:pk>/',
 
-        'Sections List'                     : 'api/v1/<str:rpk>/sections/list/',
+        'Sections List'                     : 'api/v1/sections/<str:rpk>/list/',
+        #'Sections Create'                   : 'api/v1/'
 	}
 
     return Response(api_urls)
