@@ -20,9 +20,9 @@ from .serializers import (
     RoomUpdateUserSerializer
 )
 from .models import Room
-from django.conf import settings
-from accounts.models import CustomUser
 from django.db.models import Q
+from django.conf import settings
+from django.contrib.auth import get_user_model
 
 
 class Conflict(APIException):
@@ -129,7 +129,7 @@ class RoomAddUser(UpdateAPIView):
 
         if not admin:
             raise PermissionDenied(
-                'Only the admin of this room can add userss!')
+                'Only admin of this room can add users!')
 
         queryset = Room.objects.filter(id=pk)
 
@@ -148,10 +148,28 @@ class RoomAddUser(UpdateAPIView):
             raise NotFound('Page not Found')
 
         try:
-            new_user_id = CustomUser.objects.filter(
+            new_user_id = get_user_model().objects.filter(
                 username=username).values('id').first()['id']
+            is_staff = get_user_model().objects.filter(
+                username=username).values('is_staff').first()['is_staff']
         except:
             raise NotFound('User does not exist!')
+
+        if user == 'admin':
+            teacher_or_student = Room.objects.filter(
+                Q(teachers=new_user_id) | Q(students=new_user_id), id=pk)
+
+            if not teacher_or_student:
+                raise PermissionDenied(
+                    'First, this user has to be a member of this room to be an admin')
+
+        elif user == 'teacher' and not is_staff:
+            raise PermissionDenied(
+                'This user is not authorized to be added as a teacher')
+
+        elif user == 'student' and is_staff:
+            raise PermissionDenied(
+                'This user has too much authorization to be added as a student')
 
         existing_users_ids = list(
             Room.objects.filter(id=pk).values(user + 's'))
@@ -162,6 +180,7 @@ class RoomAddUser(UpdateAPIView):
             if new_user_id == existing_users_ids[i][user + 's']:
                 raise Conflict(
                     'This user is already registered to this room!')
+
             elif existing_users_ids[i][user + 's']:
                 users.append(existing_users_ids[i][user + 's'])
 
@@ -183,7 +202,7 @@ class RoomRemoveUser(UpdateAPIView):
 
         if not admin:
             raise PermissionDenied(
-                'Only the admin of this room can remove users!')
+                'Only admins of this room can remove users!')
 
         queryset = Room.objects.filter(id=pk)
 
@@ -202,7 +221,7 @@ class RoomRemoveUser(UpdateAPIView):
             raise NotFound('Page not Found')
 
         try:
-            user_id = CustomUser.objects.filter(
+            user_id = get_user_model().objects.filter(
                 username=username).values('id').first()['id']
         except:
             raise NotFound('User does not exist!')
@@ -223,11 +242,12 @@ class RoomRemoveUser(UpdateAPIView):
             if user_id == existing_users_ids[i][user + 's']:
                 user_existance = True
                 continue
+
             elif existing_users_ids[i][user + 's']:
                 users.append(existing_users_ids[i][user + 's'])
 
         if not user_existance:
-            raise NotFound("This user is not a member of this room")
+            raise NotFound("This user doesn't exist in %s list" % (user + 's'))
 
         request.data[user + 's'] = users
 
