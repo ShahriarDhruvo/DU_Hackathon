@@ -35,7 +35,10 @@ def apiOverview(request):
         'Room Remove Teacher'               : 'api/v1/room/remove/teacher/<str:pk>/<str:username>',
 
         'Sections List'                     : 'api/v1/sections/<str:rpk>/list/',
-        #'Sections Create'                   : 'api/v1/'
+        'Sections Create'                   : 'api/v1/sections/<str:rpk>/create/',
+        'Sections Update'                   : 'api/v1/sections/<str:rpk>/update/<str:pk>',
+        'Sections Delete'                   : 'api/v1/sections/<str:rpk>/delete/<str:pk>',
+        'Sections Details'                  : 'api/v1/sections/<str:rpk>/details/<str:pk>'
 	}
 
     return Response(api_urls)
