@@ -12,7 +12,7 @@ class RoomSerializer(serializers.ModelSerializer):
 class RoomListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Room
-        fields = ['id', 'year', 'title']
+        fields = ['id', 'year', 'title', 'details']
 
 
 class RoomCreateSerializer(serializers.ModelSerializer):
