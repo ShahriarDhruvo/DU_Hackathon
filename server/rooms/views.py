@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework.exceptions import (
     NotFound,
     APIException,
+    NotAcceptable,
     PermissionDenied,
 )
 from rest_framework.generics import (
@@ -35,10 +36,11 @@ class RoomList(ListAPIView):
     serializer_class = RoomListSerializer
 
     def get_queryset(self):
-        user_id = self.request.user.id
+        # user_id = self.request.user.id
 
-        queryset = Room.objects.filter(
-            Q(teachers=user_id) | Q(students=user_id)).order_by('id')
+        # queryset = Room.objects.filter(
+        #     Q(teachers=user_id) | Q(students=user_id)).order_by('id')
+        queryset = Room.objects.all()
 
         if queryset:
             return queryset
@@ -67,38 +69,32 @@ class RoomCreate(CreateAPIView):
 
 
 class RoomDelete(DestroyAPIView):
+    lookup_url_kwarg = 'room_pk'
 
     def get_queryset(self):
         user_id = self.request.user.id
-        room_pk = self.kwargs.get('room_pk', None)
 
-        is_owner = Room.objects.filter(owner=user_id, id=room_pk)
+        is_owner = Room.objects.filter(owner=user_id)
 
-        if not is_owner:
-            raise PermissionDenied(
-                'Only the owner of this room is authorized for deletion')
-
-        queryset = Room.objects.filter(id=room_pk)
-
-        if queryset:
-            return queryset
+        if is_owner:
+            return is_owner
         else:
-            raise NotFound('Room does not exist!')
+            raise NotAcceptable(
+                'Room does not exist or only the owner of this room is authorized for deletion')
 
 
 class RoomUpdate(UpdateAPIView):
     serializer_class = RoomUpdateSerializer
+    lookup_url_kwarg = 'room_pk'
 
     def get_queryset(self):
         user_id = self.request.user.id
-        room_pk = self.kwargs.get('room_pk', None)
-
-        queryset = Room.objects.filter(admins=user_id, id=room_pk)
+        queryset = Room.objects.filter(admins=user_id)
 
         if queryset:
             return queryset
         else:
-            raise NotFound(
+            raise NotAcceptable(
                 'Room does not exist or you are not authorized for this action')
 
 
@@ -115,38 +111,45 @@ class RoomDetails(ListAPIView):
         if queryset:
             return queryset
         else:
-            raise NotFound('Room does not exist or you are not authorized!')
+            raise NotAcceptable(
+                'Room does not exist or you are not authorized!')
 
 
 class RoomAddUser(UpdateAPIView):
     serializer_class = RoomUpdateUserSerializer
+    lookup_url_kwarg = 'room_pk'
 
     def get_queryset(self):
         user_id = self.request.user.id
-        room_pk = self.kwargs.get('room_pk', None)
+        # room_pk = self.kwargs.get('room_pk', None)
         user = self.kwargs.get('user', None)
 
-        if user in ('student', 'admin', 'teacher'):
-            username = self.kwargs.get('username', None)
-        else:
+        if user not in ('student', 'admin', 'teacher'):
             raise NotFound('Page not Found')
 
-        admin = Room.objects.filter(admins=user_id, id=room_pk)
-
-        if not admin:
-            raise PermissionDenied(
-                'Only admin of this room can add users!')
-
-        queryset = Room.objects.filter(id=room_pk)
+        queryset = Room.objects.filter(admins=user_id)  # , id=room_pk)
 
         if queryset:
             return queryset
         else:
-            raise NotFound('Room does not exist!')
+            raise NotAcceptable(
+                'Room does not exist or you are not authorized for this action!')
+
+        # if not admin:
+        #     raise PermissionDenied(
+        #         'Only admin of this room can add users!')
+
+        # queryset = Room.objects.filter(id=room_pk)
+
+        # if queryset:
+        #     return queryset
+        # else:
+        #     raise NotFound('Room does not exist!')
 
     def patch(self, request, *args, **kwargs):
-        room_pk = self.kwargs.get('room_pk', None)
         user = self.kwargs.get('user', None)
+        room_pk = self.kwargs.get('room_pk', None)
+        username = self.kwargs.get('username', None)
 
         try:
             new_user_id = get_user_model().objects.filter(
@@ -198,33 +201,39 @@ class RoomAddUser(UpdateAPIView):
 
 class RoomRemoveUser(UpdateAPIView):
     serializer_class = RoomUpdateUserSerializer
+    lookup_url_kwarg = 'room_pk'
 
     def get_queryset(self):
         user_id = self.request.user.id
-        room_pk = self.kwargs.get('room_pk', None)
+        # room_pk = self.kwargs.get('room_pk', None)
         user = self.kwargs.get('user', None)
 
-        if user in ('student', 'admin', 'teacher'):
-            username = self.kwargs.get('username', None)
-        else:
+        if user not in ('student', 'admin', 'teacher'):
             raise NotFound('Page not Found')
 
-        admin = Room.objects.filter(admins=user_id, id=room_pk)
-
-        if not admin:
-            raise PermissionDenied(
-                'Only admins of this room can remove users!')
-
-        queryset = Room.objects.filter(id=room_pk)
+        queryset = Room.objects.filter(admins=user_id)  # , id=room_pk)
 
         if queryset:
             return queryset
         else:
-            raise NotFound('Room does not exist!')
+            raise NotAcceptable(
+                'Room does not exist or you are not authorized for this action!')
+
+        # if not admin:
+        #     raise PermissionDenied(
+        #         'Only admins of this room can remove users!')
+
+        # queryset = Room.objects.filter(id=room_pk)
+
+        # if queryset:
+        #     return queryset
+        # else:
+        #     raise NotFound('Room does not exist!')
 
     def patch(self, request, *args, **kwargs):
-        room_pk = self.kwargs.get('room_pk', None)
         user = self.kwargs.get('user', None)
+        room_pk = self.kwargs.get('room_pk', None)
+        username = self.kwargs.get('username', None)
 
         try:
             user_id = get_user_model().objects.filter(
