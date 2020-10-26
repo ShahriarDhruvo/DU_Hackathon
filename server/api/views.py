@@ -22,20 +22,29 @@ def apiOverview(request):
         'User Account Confirm Email'        : 'api/v1/accounts/account-confirm-email/',
         'User Password Reset Confirm'       : 'api/v1/accounts/password/reset/confirm/',
 
-        'Rooms List'                        : 'api/v1/room/list/',
-        'Room Create'                       : 'api/v1/room/create/',
-        'Room Update'                       : 'api/v1/room/update/<str:pk>/',
-        'Room Delete'                       : 'api/v1/room/delete/<str:pk>/',
-        'Room Details'                      : 'api/v1/room/details/<str:pk>/',
-        'Room Add Admin'                    : 'api/v1/room/add/admin/<str:pk>/<str:username>',
-        'Room Add Student'                  : 'api/v1/room/add/student/<str:pk>/<str:username>',
-        'Room Add Teacher'                  : 'api/v1/room/add/teacher/<str:pk>/<str:username>',
-        'Room Remove Admin'                 : 'api/v1/room/remove/admin/<str:pk>/<str:username>',
-        'Room Remove Student'               : 'api/v1/room/remove/student/<str:pk>/<str:username>',
-        'Room Remove Teacher'               : 'api/v1/room/remove/teacher/<str:pk>/<str:username>',
+        'Rooms List'                        : 'api/v1/rooms/list/',
+        'Rooms Create'                      : 'api/v1/rooms/create/',
+        'Rooms Update'                      : 'api/v1/rooms/update/<str:room_pk>/',
+        'Rooms Delete'                      : 'api/v1/rooms/delete/<str:room_pk>/',
+        'Rooms Details'                     : 'api/v1/rooms/details/<str:room_pk>/',
+        'Rooms Add Admin'                   : 'api/v1/rooms/add/admin/<str:room_pk>/<str:username>',
+        'Rooms Add Student'                 : 'api/v1/rooms/add/student/<str:room_pk>/<str:username>',
+        'Rooms Add Teacher'                 : 'api/v1/rooms/add/teacher/<str:room_pk>/<str:username>',
+        'Rooms Remove Admin'                : 'api/v1/rooms/remove/admin/<str:room_pk>/<str:username>',
+        'Rooms Remove Student'              : 'api/v1/rooms/remove/student/<str:room_pk>/<str:username>',
+        'Rooms Remove Teacher'              : 'api/v1/rooms/remove/teacher/<str:room_pk>/<str:username>',
 
-        'Sections List'                     : 'api/v1/sections/<str:rpk>/list/',
-        #'Sections Create'                   : 'api/v1/'
+        'Sections List'                     : 'api/v1/rooms/sections/<str:room_pk>/list/',
+        'Sections Create'                   : 'api/v1/rooms/sections/<str:room_pk>/create/',
+        'Sections Update'                   : 'api/v1/rooms/sections/<str:room_pk>/update/<str:section_pk>',
+        'Sections Delete'                   : 'api/v1/rooms/sections/<str:room_pk>/delete/<str:section_pk>',
+        'Sections Details'                  : 'api/v1/rooms/sections/<str:room_pk>/details/<str:section_pk>',
+
+        'Items List'                        : 'api/v1/rooms/sections/items/<str:room_pk>/<str:section_pk>/list/',
+        'Items Create'                      : 'api/v1/rooms/sections/items/<str:room_pk>/<str:section_pk>/create/',
+        'Items Update'                      : 'api/v1/rooms/sections/items/<str:room_pk>/<str:section_pk>/update/<str:item_pk>',
+        'Items Delete'                      : 'api/v1/rooms/sections/items/<str:room_pk>/<str:section_pk>/delete/<str:item_pk>',
+        'Items Details'                     : 'api/v1/rooms/sections/items/<str:room_pk>/<str:section_pk>/details/<str:item_pk>'
 	}
 
     return Response(api_urls)
