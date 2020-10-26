@@ -12,4 +12,4 @@ class ItemSerializer(serializers.ModelSerializer):
 class ItemUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
-        fields = ['content', 'date', 'time']
+        fields = ['id', 'content', 'date', 'time']
