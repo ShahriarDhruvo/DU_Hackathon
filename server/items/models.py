@@ -2,7 +2,7 @@ from django.db import models
 
 class Item(models.Model):
 
-    section = models.ForeignKey('sections.section', null=True)
+    section = models.ForeignKey('sections.section', null=True, on_delete=models.CASCADE)
 
     content = models.TextField(null=True)
 

@@ -9,9 +9,11 @@ from .views import (
 )
 
 urlpatterns = [
-    path('<str:rpk>/list/', SectionList.as_view(), name="sections-list"),
-    path('<str:rpk>/create/', SectionCreate.as_view(), name="section-create"),
-    path('<str:rpk>/delete/<str:pk>', SectionDelete.as_view(), name="section-delete"),
-    path('<str:rpk>/update/<str:pk>', SectionUpdate.as_view(), name="section-update"),
-    path('<str:rpk>/details/<str:pk>', SectionDetails.as_view(), name="section-details")
+    path('<str:room_pk>/list/', SectionList.as_view(), name="section-list"),
+    path('<str:room_pk>/create/', SectionCreate.as_view(), name="section-create"),
+    path('<str:room_pk>/delete/<str:section_pk>', SectionDelete.as_view(), name="section-delete"),
+    path('<str:room_pk>/update/<str:section_pk>', SectionUpdate.as_view(), name="section-update"),
+    path('<str:room_pk>/details/<str:section_pk>', SectionDetails.as_view(), name="section-details"),
+
+    path('items/', include('items.urls'))
 ]
