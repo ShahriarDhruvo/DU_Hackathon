@@ -21,6 +21,7 @@ from .serializers import (
     RoomUpdateUserSerializer
 )
 from .models import Room
+from universities.models import Course
 from django.db.models import Q
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -53,11 +54,15 @@ class RoomCreate(CreateAPIView):
 
     def create(self, request, *args, **kwargs):
         user_id = request.user.id
-
+        user_department = request.user.department
+        selected_course_id = request.POST['course']
         is_authenticated = request.user.is_staff
 
         if not is_authenticated:
             raise PermissionDenied('You are not authorized to create a room')
+
+        if user_department != Course.objects.filter(department_id=selected_course_id):
+            raise PermissionDenied('The course you have selected belong to another department!')
 
         request.data._mutable = True
         request.data['owner'] = user_id

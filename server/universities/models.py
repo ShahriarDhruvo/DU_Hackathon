@@ -9,9 +9,17 @@ class University(models.Model):
 
 class Department(models.Model):
 
-    university = models.ForeignKey(University, on_delete=models.CASCADE)
-    name = models.CharField(max_length=50, null=True, blank=False)
+    #university = models.ForeignKey(University, on_delete=models.CASCADE)
+    name = models.CharField(max_length=50, null=True, blank=False, unique=True)
 
     def __str__(self):
         return self.name
 
+class Course(models.Model):
+
+    department = models.ForeignKey(Department,null=True, on_delete=models.CASCADE)
+    title = models.CharField(max_length=10, null=True, blank=False, unique=True)
+    details = models.CharField(max_length=30, null=True, blank=False)
+
+    def __str__(self):
+        return '%s, %s' % (self.title, self.details)
