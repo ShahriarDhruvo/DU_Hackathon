@@ -12,27 +12,26 @@ class RoomSerializer(serializers.ModelSerializer):
 class RoomListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Room
-        fields = ['id', 'year', 'title', 'details']
+        fields = ['id', 'year', 'course']
 
 
 class RoomCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Room
-        fields = ['id', 'year', 'title', 'details',
-                  'owner', 'admins', 'teachers']
+        fields = ['id','course', 'year', 'owner', 'admins', 'teachers']
 
 
 class RoomUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Room
-        fields = ['id', 'year', 'title', 'details']
+        fields = ['id', 'year']
 
 
 class RoomUpdateUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = Room
-        fields = ['id', 'year', 'title', 'admins', 'teachers', 'students']
-        read_only_fields = ['year', 'title']
+        fields = ['id', 'year', 'course', 'admins', 'teachers', 'students']
+        read_only_fields = ['year', 'course']
         extra_kwargs = {
             'students': {
                 'allow_empty': True

@@ -1,9 +1,11 @@
 from rest_framework import serializers
 
-from .models import Item
+from .models import (
+    Item, 
+    Comment
+)
 
-
-# All Section serializers
+# All item serializers
 class ItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
@@ -13,3 +15,15 @@ class ItemUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
         fields = ['id', 'content', 'date', 'time']
+
+# All comment serializers
+class CommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = '__all__'
+
+class CommentUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = ['id', 'content']
+
