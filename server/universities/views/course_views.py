@@ -39,7 +39,7 @@ class CourseList(ListAPIView):
 
         department_pk = self.kwargs.get('department_pk', None)
 
-        is_authenticated = self.request.user.is_superuser
+        is_authenticated = self.request.user.status == 0
 
         if not is_authenticated:
             raise PermissionDenied('You are not authorized to view course list!')
@@ -59,7 +59,7 @@ class CourseCreate(CreateAPIView):
 
         department_pk = self.kwargs.get('department_pk', None)
 
-        is_authenticated = request.user.is_superuser
+        is_authenticated = request.user.status == 0
 
         if not is_authenticated:
             raise PermissionDenied('You are not authorized to create a course!')
@@ -78,7 +78,7 @@ class CourseDelete(DestroyAPIView):
 
         department_pk = self.kwargs.get('department_pk', None)
 
-        is_authenticated = self.request.user.is_superuser
+        is_authenticated = self.request.user.status == 0
 
         if not is_authenticated:
             raise PermissionDenied('You are not authorized to delete courses!')
@@ -100,7 +100,7 @@ class CourseUpdate(UpdateAPIView):
         
         department_pk = self.kwargs.get('department_pk', None)
 
-        is_authenticated = self.request.user.is_superuser
+        is_authenticated = self.request.user.status == 0
 
         if not is_authenticated:
             raise PermissionDenied('You are not authorized to update courses!')
@@ -122,7 +122,7 @@ class CourseDetails(ListAPIView):
         department_pk = self.kwargs.get('department_pk', None)
         course_pk = self.kwargs.get('course_pk', None)
 
-        is_authenticated = self.request.user.is_superuser
+        is_authenticated = self.request.user.status == 0
 
         if not is_authenticated:
             raise NotAcceptable('You are not authoraised to view this!')

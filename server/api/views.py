@@ -22,7 +22,7 @@ def apiOverview(request):
         'User Account Confirm Email'        : 'api/v1/accounts/account-confirm-email/',
         'User Password Reset Confirm'       : 'api/v1/accounts/password/reset/confirm/',
 
-        'University Details'                : 'api/v1/university/details',
+        'University Details'                : 'api/v1/university/details/',
 
         'Departments List'                  : 'api/v1/university/departments/list/',
         'Departments Create'                : 'api/v1/university/departments/create/',
@@ -32,9 +32,9 @@ def apiOverview(request):
                 
         'Courses List'                      : 'api/v1/university/departments/courses/<str:department_pk>/list/',
         'Courses Create'                    : 'api/v1/university/departments/courses/<str:department_pk>/create/',
-        'Courses Update'                    : 'api/v1/university/departments/courses/<str:department_pk>/update/<str:course_pk>',
-        'Courses Delete'                    : 'api/v1/university/departments/courses/<str:department_pk>/delete/<str:course_pk>',
-        'Courses Details'                   : 'api/v1/university/departments/courses/<str:department_pk>/details/<str:course_pk>',
+        'Courses Update'                    : 'api/v1/university/departments/courses/<str:department_pk>/update/<str:course_pk>/',
+        'Courses Delete'                    : 'api/v1/university/departments/courses/<str:department_pk>/delete/<str:course_pk>/',
+        'Courses Details'                   : 'api/v1/university/departments/courses/<str:department_pk>/details/<str:course_pk>/',
 
         'Rooms List'                        : 'api/v1/rooms/list/',
         'Rooms Create'                      : 'api/v1/rooms/create/',
@@ -56,21 +56,21 @@ def apiOverview(request):
 
         'Items List'                        : 'api/v1/rooms/sections/items/<str:room_pk>/<str:section_pk>/list/',
         'Items Create'                      : 'api/v1/rooms/sections/items/<str:room_pk>/<str:section_pk>/create/',
-        # 'Items Update'                      : 'api/v1/rooms/sections/items/<str:room_pk>/<str:section_pk>/update/<str:item_pk>',
-        # 'Items Delete'                      : 'api/v1/rooms/sections/items/<str:room_pk>/<str:section_pk>/delete/<str:item_pk>',
-        # 'Items Details'                     : 'api/v1/rooms/sections/items/<str:room_pk>/<str:section_pk>/details/<str:item_pk>',
-        'Items Update'                      : 'api/v1/rooms/sections/items/<str:room_pk>/update/<str:item_pk>',
-        'Items Delete'                      : 'api/v1/rooms/sections/items/<str:room_pk>/delete/<str:item_pk>',
-        'Items Details'                     : 'api/v1/rooms/sections/items/<str:room_pk>/details/<str:item_pk>',
+        # 'Items Update'                      : 'api/v1/rooms/sections/items/<str:room_pk>/<str:section_pk>/update/<str:item_pk>/',
+        # 'Items Delete'                      : 'api/v1/rooms/sections/items/<str:room_pk>/<str:section_pk>/delete/<str:item_pk>/',
+        # 'Items Details'                     : 'api/v1/rooms/sections/items/<str:room_pk>/<str:section_pk>/details/<str:item_pk>/',
+        'Items Update'                      : 'api/v1/rooms/sections/items/<str:room_pk>/update/<str:item_pk>/',
+        'Items Delete'                      : 'api/v1/rooms/sections/items/<str:room_pk>/delete/<str:item_pk>/',
+        'Items Details'                     : 'api/v1/rooms/sections/items/<str:room_pk>/details/<str:item_pk>/',
 
         # 'Comment List'                      : 'api/v1/rooms/sections/items/comments/<str:room_pk>/<str:section_pk>/<str:item_pk>/list/',
         # 'Comment Create'                    : 'api/v1/rooms/sections/items/comments/<str:room_pk>/<str:section_pk>/<str:item_pk>/create/',
-        # 'Comment Update'                    : 'api/v1/rooms/sections/items/comments/<str:room_pk>/<str:section_pk>/<str:item_pk>/update/<str:comment_pk>',
-        # 'Comment Delete'                    : 'api/v1/rooms/sections/items/comments/<str:room_pk>/<str:section_pk>/<str:item_pk>/delete/<str:comment_pk>'
+        # 'Comment Update'                    : 'api/v1/rooms/sections/items/comments/<str:room_pk>/<str:section_pk>/<str:item_pk>/update/<str:comment_pk>/',
+        # 'Comment Delete'                    : 'api/v1/rooms/sections/items/comments/<str:room_pk>/<str:section_pk>/<str:item_pk>/delete/<str:comment_pk>/'
         'Comment List'                      : 'api/v1/rooms/sections/items/comments/<str:room_pk>/<str:item_pk>/list/',
         'Comment Create'                    : 'api/v1/rooms/sections/items/comments/<str:room_pk>/<str:item_pk>/create/',
-        'Comment Update'                    : 'api/v1/rooms/sections/items/comments/<str:room_pk>/update/<str:comment_pk>',
-        'Comment Delete'                    : 'api/v1/rooms/sections/items/comments/<str:room_pk>/delete/<str:comment_pk>'
+        'Comment Update'                    : 'api/v1/rooms/sections/items/comments/<str:room_pk>/update/<str:comment_pk>/',
+        'Comment Delete'                    : 'api/v1/rooms/sections/items/comments/<str:room_pk>/delete/<str:comment_pk>/'
 
 	}
 
