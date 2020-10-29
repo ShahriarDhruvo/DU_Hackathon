@@ -1,0 +1,28 @@
+.header {
+    width: 100%;
+    height: 85vh;
+    background: hsla(278, 100%, 68%, 1);
+    background-image: url(../assets/3794012.png), linear-gradient(360deg, hsla(278, 100%, 68%, 1) 19%, hsla(254, 83%, 64%, 1) 100%);
+    background-position: 99% 95%;
+    background-repeat: no-repeat;
+    background-size: auto auto;
+    box-shadow: -4px 4px 8px 1px rgb(165, 164, 164);
+    
+    // background: -moz-linear-gradient(360deg, hsla(278, 100%, 68%, 1) 19%, hsla(254, 83%, 64%, 1) 100%);
+    
+    // background: -webkit-linear-gradient(360deg, hsla(278, 100%, 68%, 1) 19%, hsla(254, 83%, 64%, 1) 100%);
+    &__text {
+        margin-top: 9%;
+        color: white;
+        text-shadow: -4px 1px 5px rgba(0,0,0,0.6);
+    }
+    &__heading {
+        text-align: left;
+        font-size: 8vw;
+        font-family: 'Noto Sans JP', sans-serif;
+    }
+    &__intro {
+        text-align: left;
+        font-family: 'Roboto', sans-serif;
+    }
+}
