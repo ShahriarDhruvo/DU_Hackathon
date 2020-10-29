@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import "./Sign.css";
+import "./Sign.scss";
 import { Row, Col, Container, InputGroup, FormControl } from "react-bootstrap";
 
 const axios = require("axios");
@@ -82,33 +82,38 @@ export default class SignUp extends Component {
   render() {
     return (
       <Modal
+        className="sign"
         {...this.props}
         size="lg"
         animation={false}
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
-        <Modal.Body>
-          <Container fluid>
+        <Modal.Body className="sign__body">
+          {/* <Container fluid>
             <Row>
               <Col sm={3}>
                 <h1 className="text-center">Welcome</h1>
               </Col>
-              <Col sm={9}>
-                <h2 className="text-center">Sign Up</h2>
-                {/* <Form onChange={this.toggleForm}> */}
-                <Form onChange={this.toggleForm}>
-                  <Form.Group controlId="exampleForm.ControlSelect1">
-                    <Form.Label>Select Occupation</Form.Label>
-                    <Form.Control as="select">
-                      <option value="student">Student</option>
-                      <option value="teacher">Teacher</option>
-                      <option value="Admin">Admin</option>
-                    </Form.Control>
-                  </Form.Group>
-                </Form>
-                {this.state.occupation === "student" ? (
-                  <Form>
+              <Col sm={9}> */}
+          <h2 className="text-center sign__heading">Sign Up</h2>
+          {/* <Form onChange={this.toggleForm}> */}
+          <Form className="sign__form">
+            <Form.Group
+              controlId="exampleForm.ControlSelect1"
+              onChange={this.toggleForm}
+            >
+              {/* <Form.Label>Select Occupation</Form.Label> */}
+              <Form.Control as="select">
+                <option value="null">Select Role</option>
+                <option value="student">Student</option>
+                <option value="teacher">Teacher</option>
+                <option value="Admin">Admin</option>
+              </Form.Control>
+            </Form.Group>
+            <Form.Row>
+              {this.state.occupation === "student" ? (
+                /*                   <Form>
                   <label>Name</label>
                   <InputGroup controlId="signUp__userId">
                     <InputGroup.Prepend>
@@ -118,64 +123,89 @@ export default class SignUp extends Component {
                     </InputGroup.Prepend>
                     <FormControl type="" placeholder="Name"/>
                   </InputGroup>
-                  </Form>
-                  // <Form.Group controlId="signUp__userId">
-                  //   <Form.Label>Name</Form.Label>
-                  //   <Form.Control type="" placeholder="Name" />
-                  // </Form.Group>
-                ) : null}
-                {this.state.occupation === "student" ? (
-                  <Form.Group controlId="regNo">
-                    <Form.Label>Registration No</Form.Label>
-                    <Form.Control type="" placeholder="Registration No" />
-                  </Form.Group>
-                ) : (
-                  <Form.Group controlId="signUp__userId">
-                    <Form.Label>User Name</Form.Label>
-                    <Form.Control type="" placeholder="Enter an User Name" />
-                  </Form.Group>
-                )}
-                <Form onSubmit={(e) => this.handle_signup(e, this.state)}>
-                  <Form.Group controlId="signUp__email">
-                    <Form.Label>Email address</Form.Label>
-                    <Form.Control
-                      type="email"
-                      placeholder="Enter email"
-                      name="email"
-                      onChange={this.handle_change_signin}
-                    />
-                  </Form.Group>
-
-                  <Form.Group controlId="password">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control
-                      type="password"
-                      placeholder="********"
-                      name="password"
-                      onChange={this.handle_change_signin}
-                    />
-                  </Form.Group>
-
-                  <Form.Group controlId="confirm_password">
-                    <Form.Label>Confirm Password</Form.Label>
-                    <Form.Control
-                      type="password"
-                      placeholder="********"
-                      name="password_confirm"
-                      onChange={this.handle_change_signin}
-                    />
-                  </Form.Group>
-
-                  <Button variant="outline-primary btn-block" type="submit">
-                    Submit
-                  </Button>
-                </Form>
-              </Col>
+                  </Form> */
+                <Form.Group as={Col} controlId="signUp__userId">
+                  {/* <Form.Label>Name</Form.Label> */}
+                  <Form.Control type="" placeholder="Name" />
+                </Form.Group>
+              ) : null}
+              {this.state.occupation === "student" ? (
+                <Form.Group as={Col} controlId="regNo">
+                  {/* <Form.Label>Registration No</Form.Label> */}
+                  <Form.Control type="" placeholder="Registration No" />
+                </Form.Group>
+              ) : (
+                <Form.Group as={Col} controlId="signUp__userId">
+                  {/* <Form.Label>User Name</Form.Label> */}
+                  <Form.Control type="" placeholder="User Name" />
+                </Form.Group>
+              )}
+            </Form.Row>
+            <Form onSubmit={(e) => this.handle_signup(e, this.state)}>
+              <Form.Row>
+                <Form.Group as={Col} controlId="university">
+                  {/* <Form.Label>University</Form.Label> */}
+                  <Form.Control as="select">
+                    <option value="null">Select University</option>
+                    <option value="sust">SUST</option>
+                    <option value="du">DU</option>
+                  </Form.Control>
+                </Form.Group>
+                <Form.Group as={Col} controlId="department">
+                  {/* <Form.Label>Department</Form.Label> */}
+                  <Form.Control as="select">
+                    <option value="null">Select Department</option>
+                    <option value="swe">SWE</option>
+                    <option value="cse">EEE</option>
+                  </Form.Control>
+                </Form.Group>
+              </Form.Row>
+              <Form.Group controlId="signUp__email">
+                {/* <Form.Label>Email address</Form.Label> */}
+                <Form.Control
+                  type="email"
+                  placeholder="Email Address"
+                  name="email"
+                  onChange={this.handle_change_signin}
+                />
+              </Form.Group>
+              <Form.Row>
+                <Form.Group as={Col} controlId="password">
+                  {/* <Form.Label>Password</Form.Label> */}
+                  <Form.Control
+                    type="password"
+                    placeholder="Password"
+                    name="password"
+                    onChange={this.handle_change_signin}
+                  />
+                </Form.Group>
+                <Form.Group as={Col} controlId="confirm_password">
+                  {/* <Form.Label>Confirm Password</Form.Label> */}
+                  <Form.Control
+                    type="password"
+                    placeholder="Confirm Password"
+                    name="password_confirm"
+                    onChange={this.handle_change_signin}
+                  />
+                </Form.Group>
+              </Form.Row>
+              <div className="text-center">
+                <Button
+                  variant="btn-block"
+                  type="submit"
+                  className="sign__submit"
+                >
+                  Submit
+                </Button>
+              </div>
+            </Form>
+          </Form>
+          {/* </Col>
             </Row>
-          </Container>
+          </Container> */}
         </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={this.props.onHide} variant="secondary">
+        <Modal.Footer className="sign__footer">
+          <Button onClick={this.props.onHide} variant="outline-secondary">
             Close
           </Button>
         </Modal.Footer>
