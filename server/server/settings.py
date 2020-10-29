@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'dj_rest_auth',
-    
+
     'allauth',
     'allauth.account',
     'dj_rest_auth.registration',
@@ -199,9 +199,3 @@ OLD_PASSWORD_FIELD_ENABLED = True
 
 # For development
 CORS_ORIGIN_ALLOW_ALL = True
-
-# JWT_AUTH = {
-#     # 'JWT_RESPONSE_PAYLOAD_HANDLER': 'core.views.my_jwt_response_handler',
-#     'JWT_RESPONSE_PAYLOAD_HANDLER': 'back_end.utils.my_jwt_response_handler',
-#     'JWT_PAYLOAD_HANDLER': 'rest_framework_jwt.utils.jwt_payload_handler',
-# }

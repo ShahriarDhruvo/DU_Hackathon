@@ -37,7 +37,7 @@ class DepartmentList(ListAPIView):
         # queryset = Department.objects.filter(
         #     Q(teachers=user_id) | Q(students=user_id)).order_by('id')
 
-        is_authenticated = self.request.user.is_superuser
+        is_authenticated = self.request.user.status == 0
 
         if not is_authenticated:
             raise PermissionDenied('You are not authorized to view department list!')
@@ -55,7 +55,7 @@ class DepartmentCreate(CreateAPIView):
 
     def create(self, request, *args, **kwargs):
 
-        is_authenticated = request.user.is_superuser
+        is_authenticated = request.user.status == 0
 
         if not is_authenticated:
             raise PermissionDenied('You are not authorized to create a department!')
@@ -67,7 +67,7 @@ class DepartmentDelete(DestroyAPIView):
     lookup_url_kwarg = 'department_pk'
 
     def get_queryset(self):
-        is_authenticated = self.request.user.is_superuser
+        is_authenticated = self.request.user.status == 0
 
         if is_authenticated:
             return Department.objects.all()
@@ -81,7 +81,7 @@ class DepartmentUpdate(UpdateAPIView):
     lookup_url_kwarg = 'department_pk'
 
     def get_queryset(self):
-        is_authenticated = self.request.user.is_superuser
+        is_authenticated = self.request.user.status == 0
 
         if is_authenticated:
             return Department.objects.all()
@@ -96,7 +96,7 @@ class DepartmentDetails(ListAPIView):
     def get_queryset(self):
         department_pk = self.kwargs.get('department_pk', None)
 
-        is_authenticated = self.request.user.is_superuser
+        is_authenticated = self.request.user.status == 0
 
         if not is_authenticated:
             raise NotAcceptable('You are not authoraised to view this!')

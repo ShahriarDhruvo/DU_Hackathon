@@ -1,11 +1,25 @@
+# from django.core.validators import MaxValueValidator
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
 class CustomUser(AbstractUser):
 
-    #university = models.ForeignKey('universities.University',null=True, on_delete=models.CASCADE)
-    department = models.ForeignKey('universities.Department',null=True, on_delete=models.CASCADE)
-    #department = models.CharField(max_length=10, blank=True, null=True)
-    university = models.CharField(max_length=10, blank=True, null=True)
-    reg_no = models.CharField(max_length=10, blank=True, null=True)
+    Admin = 0
+    Teacher = 1
+    Student = 2
+
+    STATUS_CHOICES = [
+        (Admin, 'Admin'),
+        (Teacher, 'Teacher'),
+        (Student, 'Student')
+    ]
+
+    # reg_no = models.PositiveIntegerField(
+    #     validators=[MaxValueValidator(9999999999)], null=True, blank=True, unique=True)
+    university = models.ForeignKey(
+        'universities.University', null=True, blank=False, on_delete=models.CASCADE)
+    department = models.ForeignKey(
+        'universities.Department', null=True, blank=False, on_delete=models.CASCADE)
+    status = models.PositiveSmallIntegerField(
+        choices=STATUS_CHOICES, default=2)
