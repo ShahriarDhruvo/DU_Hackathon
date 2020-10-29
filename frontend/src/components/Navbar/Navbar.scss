@@ -1,0 +1,38 @@
+.nav {
+    background-color: transparent;
+}
+
+.btn__sign{
+    background-image: linear-gradient(180deg, hsla(34, 91%, 64%, 1) 0%, hsla(8, 100%, 68%, 1) 100%);;
+    background-image: -moz-linear-gradient(180deg, hsla(34, 91%, 64%, 1) 0%, hsla(8, 100%, 68%, 1) 100%);
+    box-shadow: 0px 4px 3px 1px rgba(238,103,97,0.5);
+    border: transparent;
+    font-size: 110%;
+    font-family: 'Roboto', sans-serif;
+    border-radius: 15px;
+
+    &:hover {
+        background-image: transparent;
+        transform:translatey(1px);
+        box-shadow: none;
+        outline: none;
+    }
+}
+
+.src__form {
+    font: 1em/1.618 Open Sans, Arial, Sans-serif;
+    color: #F7AE50;
+    border: .125em solid #F7AE50;
+    border-width: 0 0 3px;
+    background-color: transparent;
+    padding: .1875em .375em;
+    &:focus {
+        background-color: transparent;
+        color: #F7AE50;
+        outline: 0;
+    }
+    &::placeholder {
+        color: #F7AE50;
+        font-family: 'Roboto', sans-serif;
+    }
+}

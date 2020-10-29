@@ -1,0 +1,14 @@
+hr {
+    background-color:#e3f2fd;
+}
+.course {
+    &:hover {
+        box-shadow: 3px 3px 3px 2px rgb(165, 224, 252); 
+        transition-duration: 0.3s;
+    }
+    &__code {
+        background: rgb(0,212,255);
+        background: linear-gradient(90deg, rgba(0,212,255,1) 0%, rgba(77,77,206,1) 0%, rgba(77,252,247,1) 100%); 
+        font-size: 20px;
+    }
+}
