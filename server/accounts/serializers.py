@@ -25,12 +25,14 @@ class CustomPasswordResetSerializer(PasswordResetSerializer):
 
 class CustomRegisterSerializer(RegisterSerializer):
     reg_no = serializers.CharField(max_length=10)
+    is_staff = serializers.BooleanField(default=False)
     department = serializers.CharField(required=True, max_length=5)
     university = serializers.CharField(required=True, max_length=100)
 
     def get_cleaned_data(self):
         data_dict = super().get_cleaned_data()
         data_dict['reg_no'] = self.validated_data.get('reg_no', '')
+        data_dict['is_staff'] = self.validated_data.get('is_staff', '')
         data_dict['department'] = self.validated_data.get('department', '')
         data_dict['university'] = self.validated_data.get('university', '')
         return data_dict
@@ -39,5 +41,6 @@ class CustomRegisterSerializer(RegisterSerializer):
 class CustomUserDetailsSerializer(UserDetailsSerializer):
 
     class Meta(UserDetailsSerializer.Meta):
-        fields = UserDetailsSerializer.Meta.fields + \
-            ('reg_no', 'is_staff', 'department', 'university',)
+        fields = ('pk', 'username', 'is_staff', 'email',
+                  'reg_no', 'department', 'university', )
+        read_only_fields = ('email', )

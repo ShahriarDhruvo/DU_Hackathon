@@ -1,20 +1,34 @@
+import datetime
 from django.db import models
+#from accounts.models import CustomUser
 from django.conf import settings
-#from django.contrib.auth import get_user_model
+from django.core.validators import (
+    MaxValueValidator,
+    MinValueValidator
+)
 
-# Can only be added by the admin
 
-######task = section, work = room
+def current_year():
+    return datetime.date.today().year
+
+
+def max_value_current_year(value):
+    return MaxValueValidator(current_year()+1)(value)
+
+
 class Room(models.Model):
-    # Every year the students and teacher changes of a course.
-    year = models.CharField(max_length=4)
     # Subject names, ex: SWE-305W
-    title = models.CharField(max_length=50)
-    details = models.CharField(max_length=100)
-    admin = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.CASCADE, related_name='admin')
-    teachers = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.CASCADE, related_name='teachers')
-    students = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.CASCADE, related_name='students')
-    # sections = models.ManyToManyField(section, related_name='sections')
+    #title = models.CharField(max_length=50, null=True)
+    #details = models.CharField(max_length=100, null=True)
+    course = models.ForeignKey('universities.Course',null=True, on_delete=models.CASCADE)#, unique=True)
+    admins = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='room_admins')
+    teachers = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='room_teachers')
+    students = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='room_students')
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, related_name='room_owner', on_delete=models.CASCADE)
+    # Every year the students and teacher changes of a course so we have to keep track of which year this room belongs to.
+    year = models.PositiveIntegerField(default=current_year(), validators=[
+                                       MinValueValidator(2015), max_value_current_year])
 
     def __str__(self):
-        return self.title + '_(' + self.year + ')'
+        return '%s' % self.course
+        #return '%s (%s)' % (self.course, str(self.year))

@@ -9,16 +9,19 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('rooms', '0001_initial'),
+        ('sections', '0001_initial'),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Section',
+            name='Item',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=50)),
-                ('room', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='rooms.room')),
+                ('content', models.TextField(null=True)),
+                ('date', models.DateField()),
+                ('time', models.TimeField()),
+                ('post_datetime', models.DateTimeField(auto_now=True)),
+                ('section', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='sections.section')),
             ],
         ),
     ]
