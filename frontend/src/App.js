@@ -1,21 +1,23 @@
 import React from 'react';
 import './App.css';
+import './components/assets/fonts.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Sign from './components/Sign/Sign';
-import Navs from './components/Navbar/Navbar';
+import FooterPage from './components/Footer/Footer';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from "@fortawesome/free-solid-svg-icons";
+import Header from './components/Header/Header';
 import Home from './components/Home/Home';
-import Footer from './components/Footer/Footer';
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+
+library.add(fas);
 
 function App() {
   return (
-    <div className="App">
-      <Router>
-        <Navs />
-        {/* <Route path="/" component={Sign} /> */}
-        <Home/>
-        <Footer />
-      </Router>
+    <div>
+      <Header/>
+      {/* <Navs/> */}
+      {/* <Sign/> */}
+      <Home/>
+      {/* <FooterPage/> */}
     </div>
   );
 }
