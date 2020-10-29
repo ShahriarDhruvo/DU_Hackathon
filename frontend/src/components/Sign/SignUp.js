@@ -89,6 +89,7 @@ export default class SignUp extends Component {
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
+        <Modal.Header closeButton className="sign__header"></Modal.Header>
         <Modal.Body className="sign__body">
           {/* <Container fluid>
             <Row>
@@ -205,9 +206,6 @@ export default class SignUp extends Component {
           </Container> */}
         </Modal.Body>
         <Modal.Footer className="sign__footer">
-          <Button onClick={this.props.onHide} variant="outline-secondary">
-            Close
-          </Button>
         </Modal.Footer>
       </Modal>
     );

@@ -63,11 +63,7 @@ export default class SignIn extends Component {
           aria-labelledby="contained-modal-title-vcenter"
           centered
         >
-          {/* <Modal.Header closeButton >
-        <Modal.Title id="contained-modal-title-vcenter">
-          Welcome Back!
-        </Modal.Title>
-      </Modal.Header> */}
+          <Modal.Header closeButton className="sign__header"></Modal.Header>
           <Modal.Body className="sign__body">
             <h2 className="text-center sign__heading">Sign In</h2>
             <Form onSubmit={(e) => this.handle_signin(e, this.state)}>
@@ -99,15 +95,12 @@ export default class SignIn extends Component {
                   Submit
                 </Button>
               </div>
-              <p className="forgot-password text-right">
-                <a href="#">Forgot password?</a>
-              </p>
             </Form>
           </Modal.Body>
           <Modal.Footer className="sign__footer">
-            <Button onClick={this.props.onHide} variant="outline-secondary">
-              Close
-            </Button>
+            <p className="forgot-password text-right">
+              <a href="#">Forgot password?</a>
+            </p>
           </Modal.Footer>
         </Modal>
       );

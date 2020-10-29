@@ -17,14 +17,24 @@
         &:hover {
             border: solid 2px hsla(278, 100%, 68%, 1);
             scale: 0.985;
+            color: white;
         }
     }
     &__heading {
         color: #7400B8;
+        padding: 0;
+        padding-bottom: 15px;
+    }
+    &__header {
+        border: none;
+        padding: 0;
+        padding-right: 8px;
     }
     &__footer {
         border: none;
-        padding-top: 0;
+        padding: 0;
+        padding-bottom: 20px;
+        padding-right: 10px;
     }
     
 }
