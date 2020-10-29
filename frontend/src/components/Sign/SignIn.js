@@ -4,10 +4,14 @@ import Modal from 'react-bootstrap/Modal'
 import Form from 'react-bootstrap/Form';
 import './Sign.css';
  
-function SignIn(props) {
-    return (
+export default class SignIn extends Component {
+    constructor(props) {
+      super(props)
+    }
+    render () {
+      return (
       <Modal
-        {...props}
+        {...this.props}
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
         centered
@@ -39,10 +43,9 @@ function SignIn(props) {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={props.onHide} variant="secondary">Close</Button>
+          <Button onClick={this.props.onHide} variant="secondary">Close</Button>
         </Modal.Footer>
       </Modal>
     );
+      }
   }
-
-  export default SignIn;
