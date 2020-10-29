@@ -7,6 +7,8 @@ from allauth.account.utils import setup_user_email
 
 from dj_rest_auth.registration.serializers import RegisterSerializer
 
+from universities.models import University, Department
+
 
 class CustomPasswordResetSerializer(PasswordResetSerializer):
     def save(self):
@@ -24,20 +26,34 @@ class CustomPasswordResetSerializer(PasswordResetSerializer):
 
 
 class CustomRegisterSerializer(RegisterSerializer):
-    reg_no = serializers.CharField(max_length=10)
-    department = serializers.CharField(required=True, max_length=5)
-    university = serializers.CharField(required=True, max_length=100)
+
+    Admin = 0
+    Teacher = 1
+    Student = 2
+
+    STATUS_CHOICES = [
+        (Admin, 'Admin'),
+        (Teacher, 'Teacher'),
+        (Student, 'Student')
+    ]
+
+    department = serializers.PrimaryKeyRelatedField(
+        queryset=Department.objects, required=True)
+    university = serializers.PrimaryKeyRelatedField(
+        queryset=University.objects, required=True)
+    status = serializers.ChoiceField(choices=STATUS_CHOICES)
 
     def get_cleaned_data(self):
         data_dict = super().get_cleaned_data()
-        data_dict['reg_no'] = self.validated_data.get('reg_no', '')
-        data_dict['department'] = self.validated_data.get('department', '')
-        data_dict['university'] = self.validated_data.get('university', '')
+        data_dict['status'] = self.validated_data.get('status', None)
+        data_dict['department'] = self.validated_data.get('department', None)
+        data_dict['university'] = self.validated_data.get('university', None)
         return data_dict
 
 
 class CustomUserDetailsSerializer(UserDetailsSerializer):
 
     class Meta(UserDetailsSerializer.Meta):
-        fields = UserDetailsSerializer.Meta.fields + \
-            ('reg_no', 'is_staff', 'department', 'university',)
+        fields = ('pk', 'username', 'status', 'email',
+                  'department', 'university', )
+        read_only_fields = ('email', )

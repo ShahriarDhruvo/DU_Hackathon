@@ -14,8 +14,12 @@ from rest_framework.generics import (
 
 from .serializers import (
     SectionSerializer,
+    SectionUpdateSerializer
 )
 from .models import Section
+from rooms.models import Room
+from django.db.models import Q
+
 
 class Conflict(APIException):
     status_code = 409
@@ -28,9 +32,9 @@ class SectionList(ListAPIView):
 
     def get_queryset(self):
 
-        rpk = self.kwargs.get('rpk', None)
+        room_pk = self.kwargs.get('room_pk', None)
 
-        queryset = Section.objects.filter(room_id=rpk).order_by('id')
+        queryset = Section.objects.filter(room_id=room_pk).order_by('id')
 
         if queryset:
             return queryset
@@ -41,13 +45,44 @@ class SectionList(ListAPIView):
 class SectionCreate(CreateAPIView):
     serializer_class = SectionSerializer
 
-class SectionDelete(DestroyAPIView):
-    def get_queryset(self):
-        
-        pk = self.kwargs.get('pk', None)
+    def create(self, request, *args, **kwargs):
+        user_id = request.user.id
 
-        queryset = Section.objects.filter(id=pk)
-        
+        room_pk = self.kwargs.get('room_pk', None)
+
+        #is_authenticated = request.user.is_staff
+        is_teacher = Room.objects.filter(teachers=user_id, id=room_pk)
+
+        # if not is_authenticated:
+        if not is_teacher:
+            raise PermissionDenied(
+                "You are not authorized to create this section!")
+
+        request.data._mutable = True
+        request.data['room'] = room_pk
+        request.data._mutable = False
+
+        return super(SectionCreate, self).create(request, *args, **kwargs)
+
+
+class SectionDelete(DestroyAPIView):
+    lookup_url_kwarg = 'section_pk'
+
+    def get_queryset(self):
+
+        user_id = self.request.user.id
+
+        #section_pk = self.kwargs.get('section_pk', None)
+        room_pk = self.kwargs.get('room_pk', None)
+
+        is_teacher = Room.objects.filter(teachers=user_id, id=room_pk)
+
+        if not is_teacher:
+            raise PermissionDenied(
+                "You are not authorized to delete this section!")
+
+        queryset = Section.objects.filter(room_id=room_pk)#id=section_pk)
+
         if queryset:
             return queryset
         else:
@@ -55,14 +90,22 @@ class SectionDelete(DestroyAPIView):
 
 
 class SectionUpdate(UpdateAPIView):
-    
-    serializer_class = SectionSerializer
+    serializer_class = SectionUpdateSerializer
+    lookup_url_kwarg = 'section_pk'
 
     def get_queryset(self):
+        user_id = self.request.user.id
 
-        pk = self.kwargs.get('pk', None)
+        #section_pk = self.kwargs.get('section_pk', None)
+        room_pk = self.kwargs.get('room_pk', None)
 
-        queryset = Section.objects.filter(id=pk)
+        is_teacher = Room.objects.filter(teachers=user_id, id=room_pk)
+
+        if not is_teacher:
+            raise PermissionDenied(
+                "You are not authorized to edit this section!")
+
+        queryset = Section.objects.filter(room_id=room_pk)#id=section_pk)
 
         if queryset:
             return queryset
@@ -74,15 +117,22 @@ class SectionDetails(ListAPIView):
     serializer_class = SectionSerializer
 
     def get_queryset(self):
-        
-        pk = self.kwargs.get('pk', None)
 
-        queryset = Section.objects.filter(id=pk)
+        user_id = self.request.user.id
+
+        section_pk = self.kwargs.get('section_pk', None)
+        room_pk = self.kwargs.get('room_pk', None)
+
+        is_teacher = Room.objects.filter(
+            (Q(teachers=user_id) | Q(students=user_id)), id=room_pk)
+
+        if not is_teacher:
+            raise PermissionDenied(
+                "You are not authorized to view this section!")
+
+        queryset = Section.objects.filter(id=section_pk, room_id=room_pk)
 
         if queryset:
             return queryset
         else:
             raise NotFound("Section not found")
-
-
-

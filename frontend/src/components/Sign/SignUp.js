@@ -31,6 +31,7 @@ export default class SignUp extends Component {
   };
 
   handle_signup = (e, data) => {
+
     console.log("gese");
     e.preventDefault();
     let endpoint = "http://127.0.0.1:8000/";
