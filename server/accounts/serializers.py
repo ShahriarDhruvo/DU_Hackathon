@@ -38,14 +38,16 @@ class CustomRegisterSerializer(RegisterSerializer):
     ]
 
     department = serializers.PrimaryKeyRelatedField(
-        queryset=Department.objects, required=True)
+        queryset=Department.objects, allow_null=True)
     university = serializers.PrimaryKeyRelatedField(
         queryset=University.objects, required=True)
+    reg_no = serializers.IntegerField(min_value=0, allow_null=True)
     status = serializers.ChoiceField(choices=STATUS_CHOICES)
 
     def get_cleaned_data(self):
         data_dict = super().get_cleaned_data()
         data_dict['status'] = self.validated_data.get('status', None)
+        data_dict['reg_no'] = self.validated_data.get('reg_no', None)
         data_dict['department'] = self.validated_data.get('department', None)
         data_dict['university'] = self.validated_data.get('university', None)
         return data_dict
@@ -55,5 +57,5 @@ class CustomUserDetailsSerializer(UserDetailsSerializer):
 
     class Meta(UserDetailsSerializer.Meta):
         fields = ('pk', 'username', 'status', 'email',
-                  'department', 'university', )
+                  'reg_no', 'department', 'university', )
         read_only_fields = ('email', )
