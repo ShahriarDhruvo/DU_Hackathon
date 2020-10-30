@@ -19,6 +19,7 @@ class Room(models.Model):
     # Subject names, ex: SWE-305W
     course = models.ForeignKey(
         'universities.Course', null=True, on_delete=models.SET_NULL)
+    group = models.CharField(max_length=20, null=True, blank=True)
     teachers = models.ManyToManyField(
         settings.AUTH_USER_MODEL, related_name='room_teachers')
     students = models.ManyToManyField(

@@ -1,4 +1,4 @@
-# from django.core.validators import MaxValueValidator
+from django.core.validators import MaxValueValidator
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
@@ -15,8 +15,8 @@ class CustomUser(AbstractUser):
         (Student, 'Student')
     ]
 
-    # reg_no = models.PositiveIntegerField(
-    #     validators=[MaxValueValidator(9999999999)], null=True, blank=True, unique=True)
+    reg_no = models.PositiveIntegerField(
+        validators=[MaxValueValidator(9999999999)], null=True, blank=True, unique=True)
     university = models.ForeignKey(
         'universities.University', null=True, blank=False, on_delete=models.CASCADE)
     department = models.ForeignKey(

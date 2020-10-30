@@ -32,6 +32,8 @@ class CourseList(ListAPIView):
     serializer_class = CourseSerializer
 
     def get_queryset(self):
+
+        user_university = self.request.user.university
         # user_id = self.request.user.id
 
         # queryset = Department.objects.filter(
@@ -39,12 +41,14 @@ class CourseList(ListAPIView):
 
         department_pk = self.kwargs.get('department_pk', None)
 
-        is_authenticated = self.request.user.status == 0
+        # is_authenticated = self.request.user.status == 0
 
-        if not is_authenticated:
-            raise PermissionDenied('You are not authorized to view course list!')
+        # if not is_authenticated:
+        #     raise PermissionDenied('You are not authorized to view course list!')
 
-        queryset = Course.objects.filter(department_id=department_pk).order_by('id')
+        #queryset = Course.objects.filter(department_id=department_pk).order_by('id')
+        queryset = Course.objects.filter(department_id=department_pk, department__university_id=user_university).order_by('id')
+
 
         if queryset:
             return queryset
