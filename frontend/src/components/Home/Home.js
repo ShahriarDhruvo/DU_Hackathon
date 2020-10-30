@@ -9,7 +9,7 @@ class Home extends Component {
     render() {
         return (
             <Container fluid>
-                <h1>All Available Courses</h1>
+                {/* <h1>All Available Courses</h1> */}
                 <div className="dept">
                     <h1 className="dept_name">SWE</h1>
                     <hr className="line"></hr>
