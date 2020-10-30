@@ -52,8 +52,8 @@ class RoomAddUser(UpdateAPIView):
             new_user_id = get_user_model().objects.filter(
                 username=username).values_list('id', flat=True).first()
 
-            is_teacher = get_user_model().objects.filter(
-                username=username).values_list('status', flat=True).first()
+            is_teacher = (get_user_model().objects.filter(
+                username=username).values_list('status', flat=True).first() == 1)
         except:
             raise NotFound('User does not exist!')
 

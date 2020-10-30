@@ -49,16 +49,25 @@ class RoomCreate(CreateAPIView):
 
     def create(self, request, *args, **kwargs):
         user_id = request.user.id
-        user_department = request.user.department
+        user_department = request.user.department.id
         selected_course_id = request.POST['course']
-        is_authenticated = request.user.status in (0, 1)
+        selected_year = request.POST['year']
+        selected_group = request.POST['group']
+        #is_authenticated = request.user.status in (0, 1)
+        is_authenticated = (request.user.status == 1)
 
         if not is_authenticated:
             raise PermissionDenied('You are not authorized to create a room')
 
-        if user_department != Course.objects.filter(department_id=selected_course_id):
+        selected_course = Course.objects.get(id=selected_course_id)
+
+        #if user_department != Course.objects.filter(department_id=selected_course_id):
+        if user_department != selected_course.department_id:
             raise PermissionDenied(
                 "This course doesn't belong to your department!")
+
+        if Room.objects.filter(course_id=selected_course_id, year=selected_year, group=selected_group):
+            raise Conflict("The selected group already exists for the same course and year!")
 
         request.data._mutable = True
         request.data['owner'] = user_id

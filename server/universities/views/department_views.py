@@ -32,17 +32,16 @@ class DepartmentList(ListAPIView):
     serializer_class = DepartmentSerializer
 
     def get_queryset(self):
-        # user_id = self.request.user.id
 
-        # queryset = Department.objects.filter(
-        #     Q(teachers=user_id) | Q(students=user_id)).order_by('id')
+        user_university = self.request.user.university
+        
+        #is_authenticated = self.request.user.status == 0
 
-        is_authenticated = self.request.user.status == 0
+        # if not is_authenticated:
+        #     raise PermissionDenied('You are not authorized to view department list!')
 
-        if not is_authenticated:
-            raise PermissionDenied('You are not authorized to view department list!')
-
-        queryset = Department.objects.all().order_by('id')
+        #queryset = Department.objects.all().order_by('id')
+        queryset = Department.objects.filter(university_id=user_university).order_by('id')
 
         if queryset:
             return queryset

@@ -16,8 +16,8 @@ urlpatterns = [
     path('delete/<str:room_pk>/', RoomDelete.as_view(), name="room-delete"),
     path('update/<str:room_pk>/', RoomUpdate.as_view(), name="room-update"),
     path('details/<str:room_pk>/', RoomDetails.as_view(), name="room-details"),
-    path('add/<str:user>/<str:room_pk>/<str:username>/', RoomAddUser.as_view(), name="room-add-user"),
-    path('remove/<str:user>/<str:room_pk>/<str:username>/', RoomRemoveUser.as_view(), name="room-remove-user"),
+    path('add/<str:room_pk>/<str:user>/<str:username>/', RoomAddUser.as_view(), name="room-add-user"),
+    path('remove/<str:room_pk>/<str:user>/<str:username>/', RoomRemoveUser.as_view(), name="room-remove-user"),
 
     path('sections/', include('sections.urls'))
 ]
