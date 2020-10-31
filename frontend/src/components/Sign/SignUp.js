@@ -13,42 +13,88 @@ export default class SignUp extends Component {
     super(props);
 
     this.state = {
-      occupation: "student",
+      dept : [],
+      varsity : [],
+      status: "student",
       email: "",
-      password: "",
-      password_confirm: "",
+      password1: "",
+      password2: "",
+      university: null,
+      department: null,
+      reg_no : null,
+      username : "",
+      name : "",
     };
   }
 
-  handle_change_signin = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    this.setState((prevstate) => {
-      const newState = { ...prevstate };
-      newState[name] = value;
-      return newState;
-    });
-  };
+  componentDidMount() {
+    let endpoint = "api/v1/university/departments/list/";
+    let endpoint1 = "api/v1/university/details/"
+    let config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    axios
+      .get(endpoint,config)
+      .then((response) => {
+        let tmparray = []
+        console.log(response.data)
+        for( var i=0; i< response.data.length; i++){
+          tmparray.push(response.data[i])
+        }
+        /*console.log(tmparray)*/
+        this.setState({
+          dept: tmparray,
+          department : tmparray[0].id
+        })
+        /*console.log(this.state)*/
+      })
+
+      axios
+      .get(endpoint1,config)
+      .then((response) => {
+        let tmparray = []
+        for( var i=0; i< response.data.length; i++){
+          tmparray.push(response.data[i])
+        }
+        /*console.log(tmparray)*/
+        this.setState({
+          varsity: tmparray,
+          university: tmparray[0].id
+        })
+        /*console.log(this.state)*/
+      })
+
+    
+  }
 
   handle_signup = (e, data) => {
 
-    console.log("gese");
+    console.log(this.state);
     e.preventDefault();
-    let endpoint = "http://127.0.0.1:8000/";
+    let endpoint = "api/v1/accounts/registration/";
     var obj;
-    if (this.state.occupation === "student")
+    if (this.state.status === "student")
       obj = {
-        occupation: data.occupation,
+        username: data.name + '_' + data.reg_no,
         email: data.email,
-        password: data.password,
-        confirm_password: data.password_confirm,
+        password1: data.password1,
+        password2: data.password2,
+        department: data.department,
+        university: data.university,
+        reg_no: data.reg_no,
+        status: data.status,
       };
     else
       obj = {
-        occupation: data.occupation,
+        username: data.username,
         email: data.email,
-        password: data.password,
-        confirm_password: data.password_confirm,
+        password1: data.password1,
+        password2: data.password2,
+        department: data.department,
+        university: data.university,
+        status: data.status,
       };
     let body = JSON.stringify(obj);
     console.log(body);
@@ -71,15 +117,56 @@ export default class SignUp extends Component {
       });
   };
 
+  
+  handle_change_signin = (e) => {
+    /*console.log(this.state)*/
+    const name = e.target.name;
+    const value = e.target.value;
+    this.setState((prevstate) => {
+      const newState = { ...prevstate };
+      newState[name] = value;
+      return newState;
+    });
+    console.log(this.state)
+  };
+
   toggleForm = (e) => {
     this.setState((prevstate) => {
       const newState = { ...prevstate };
-      newState["occupation"] = e.target.value;
+      newState["status"] = e.target.value;
       return newState;
     });
   };
 
+  handle_change_uni = (e) => {
+    this.setState((prevstate) => {
+      const newState = {...prevstate};
+      newState["university"] = e.target.value;
+      return newState;
+    });
+  };
+
+  handle_change_dept = (e) => {
+    this.setState((prevstate) => {
+      const newState = {...prevstate};
+      newState["department"] = e.target.value;
+      return newState;
+    });
+  };
+ 
   render() {
+    const {dept} = this.state;
+    const {varsity} = this.state;
+    let departmentlist = dept.length > 0 && dept.map((item,i) => {
+      return (
+        <option key={i} value={item.id}>{item.name}</option>
+      )
+    })
+    let varsitylist = varsity.length > 0 && varsity.map((item,i) => {
+      return (
+        <option key={i} value={item.id}>{item.name}</option>
+      )
+    })
     return (
       <Modal
         className="sign"
@@ -99,7 +186,7 @@ export default class SignUp extends Component {
               <Col sm={9}> */}
           <h2 className="text-center sign__heading">Sign Up</h2>
           {/* <Form onChange={this.toggleForm}> */}
-          <Form className="sign__form">
+          <Form className="sign__form" onSubmit={(e) => this.handle_signup(e, this.state)}>
             <Form.Group
               controlId="exampleForm.ControlSelect1"
               onChange={this.toggleForm}
@@ -113,7 +200,7 @@ export default class SignUp extends Component {
               </Form.Control>
             </Form.Group>
             <Form.Row>
-              {this.state.occupation === "student" ? (
+              {this.state.status === "student" ? (
                 /*                   <Form>
                   <label>Name</label>
                   <InputGroup controlId="signUp__userId">
@@ -127,37 +214,52 @@ export default class SignUp extends Component {
                   </Form> */
                 <Form.Group as={Col} controlId="signUp__userId">
                   {/* <Form.Label>Name</Form.Label> */}
-                  <Form.Control type="" placeholder="Name" />
+                  <Form.Control type="" 
+                  placeholder="Name" 
+                  name="name"
+                  onChange={this.handle_change_signin} 
+                  />
                 </Form.Group>
               ) : null}
-              {this.state.occupation === "student" ? (
+              {this.state.status === "student" ? (
                 <Form.Group as={Col} controlId="regNo">
                   {/* <Form.Label>Registration No</Form.Label> */}
-                  <Form.Control type="" placeholder="Registration No" />
+                  <Form.Control type="" 
+                  placeholder="Registration No" 
+                  name = "reg_no"
+                  onChange={this.handle_change_signin}
+                  />
                 </Form.Group>
               ) : (
                 <Form.Group as={Col} controlId="signUp__userId">
                   {/* <Form.Label>User Name</Form.Label> */}
-                  <Form.Control type="" placeholder="User Name" />
+                  <Form.Control type=""
+                  placeholder="User Name"
+                  name = "username"
+                  onChange={this.handle_change_signin}
+                  />
                 </Form.Group>
               )}
             </Form.Row>
-            <Form onSubmit={(e) => this.handle_signup(e, this.state)}>
+            {/*<Form>*/}
               <Form.Row>
                 <Form.Group as={Col} controlId="university">
                   {/* <Form.Label>University</Form.Label> */}
-                  <Form.Control as="select">
-                    <option value="null">Select University</option>
+                  <Form.Control as="select" onChange = {this.handle_change_uni}>
+                    {/*<option value="null">Select University</option>
                     <option value="sust">SUST</option>
                     <option value="du">DU</option>
+                    */}
+                    {varsitylist}
                   </Form.Control>
                 </Form.Group>
                 <Form.Group as={Col} controlId="department">
                   {/* <Form.Label>Department</Form.Label> */}
-                  <Form.Control as="select">
-                    <option value="null">Select Department</option>
+                  <Form.Control as="select"  onChange = {this.handle_change_dept}>
+                    {/*<option value="null">Select Department</option>
                     <option value="swe">SWE</option>
-                    <option value="cse">EEE</option>
+                    <option value="cse">EEE</option>*/}
+                    {departmentlist}
                   </Form.Control>
                 </Form.Group>
               </Form.Row>
@@ -176,7 +278,7 @@ export default class SignUp extends Component {
                   <Form.Control
                     type="password"
                     placeholder="Password"
-                    name="password"
+                    name="password1"
                     onChange={this.handle_change_signin}
                   />
                 </Form.Group>
@@ -185,7 +287,7 @@ export default class SignUp extends Component {
                   <Form.Control
                     type="password"
                     placeholder="Confirm Password"
-                    name="password_confirm"
+                    name="password2"
                     onChange={this.handle_change_signin}
                   />
                 </Form.Group>
@@ -199,7 +301,7 @@ export default class SignUp extends Component {
                   Submit
                 </Button>
               </div>
-            </Form>
+            {/*</Form>*/}
           </Form>
           {/* </Col>
             </Row>

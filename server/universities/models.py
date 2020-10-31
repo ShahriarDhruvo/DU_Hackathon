@@ -9,7 +9,7 @@ class University(models.Model):
 
 class Department(models.Model):
 
-    #university = models.ForeignKey(University, on_delete=models.CASCADE)
+    university = models.ForeignKey(University, null=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=50, null=True, blank=False, unique=True)
 
     def __str__(self):

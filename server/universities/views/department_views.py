@@ -1,5 +1,6 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework import permissions
 from rest_framework.exceptions import (
     NotFound,
     APIException,
@@ -30,19 +31,21 @@ class Conflict(APIException):
 
 class DepartmentList(ListAPIView):
     serializer_class = DepartmentSerializer
+    permission_classes = (permissions.AllowAny,)
 
     def get_queryset(self):
-        # user_id = self.request.user.id
 
+        # user_university = self.request.user.university
+
+        #is_authenticated = self.request.user.status == 0
+
+        # if not is_authenticated:
+        #     raise PermissionDenied('You are not authorized to view department list!')
+
+        #queryset = Department.objects.all().order_by('id')
         # queryset = Department.objects.filter(
-        #     Q(teachers=user_id) | Q(students=user_id)).order_by('id')
-
-        is_authenticated = self.request.user.status == 0
-
-        if not is_authenticated:
-            raise PermissionDenied('You are not authorized to view department list!')
-
-        queryset = Department.objects.all().order_by('id')
+        #     university_id=user_university).order_by('id')
+        queryset = Department.objects.all()
 
         if queryset:
             return queryset
@@ -58,7 +61,8 @@ class DepartmentCreate(CreateAPIView):
         is_authenticated = request.user.status == 0
 
         if not is_authenticated:
-            raise PermissionDenied('You are not authorized to create a department!')
+            raise PermissionDenied(
+                'You are not authorized to create a department!')
 
         return super(DepartmentCreate, self).create(request, *args, **kwargs)
 
