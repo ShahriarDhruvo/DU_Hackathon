@@ -15,7 +15,7 @@ export default class SignUp extends Component {
     this.state = {
       dept : [],
       varsity : [],
-      status: "student",
+      status: null,
       email: "",
       password1: "",
       password2: "",
@@ -75,7 +75,7 @@ export default class SignUp extends Component {
     e.preventDefault();
     let endpoint = "api/v1/accounts/registration/";
     var obj;
-    if (this.state.status === "student")
+    if (this.state.status === "2")
       obj = {
         username: data.name + '_' + data.reg_no,
         email: data.email,
@@ -85,6 +85,12 @@ export default class SignUp extends Component {
         university: data.university,
         reg_no: data.reg_no,
         status: data.status,
+       /* password1: "balchalabal",
+        password2: "balchalabal",
+        department: 1,
+        university: 1,
+        reg_no: 200,
+        status: 2,*/
       };
     else
       obj = {
@@ -105,7 +111,8 @@ export default class SignUp extends Component {
     };
     axios
       .post(endpoint, body, config)
-      .then((json) => {
+      .then((response) => {
+        console.log(response)
         /*console.log(json.data.token)
         localStorage.setItem('token', json.data.token);
         this.setState({
@@ -194,13 +201,13 @@ export default class SignUp extends Component {
               {/* <Form.Label>Select Occupation</Form.Label> */}
               <Form.Control as="select">
                 <option value="null">Select Role</option>
-                <option value="student">Student</option>
-                <option value="teacher">Teacher</option>
-                <option value="Admin">Admin</option>
+                <option value="2">Student</option>
+                <option value="1">Teacher</option>
+                <option value="0">Admin</option>
               </Form.Control>
             </Form.Group>
             <Form.Row>
-              {this.state.status === "student" ? (
+              {this.state.status === "2" ? (
                 /*                   <Form>
                   <label>Name</label>
                   <InputGroup controlId="signUp__userId">
@@ -214,17 +221,17 @@ export default class SignUp extends Component {
                   </Form> */
                 <Form.Group as={Col} controlId="signUp__userId">
                   {/* <Form.Label>Name</Form.Label> */}
-                  <Form.Control type="" 
+                  <Form.Control type="text" 
                   placeholder="Name" 
                   name="name"
                   onChange={this.handle_change_signin} 
                   />
                 </Form.Group>
               ) : null}
-              {this.state.status === "student" ? (
+              {this.state.status === "2" ? (
                 <Form.Group as={Col} controlId="regNo">
                   {/* <Form.Label>Registration No</Form.Label> */}
-                  <Form.Control type="" 
+                  <Form.Control type="number" 
                   placeholder="Registration No" 
                   name = "reg_no"
                   onChange={this.handle_change_signin}
@@ -233,7 +240,7 @@ export default class SignUp extends Component {
               ) : (
                 <Form.Group as={Col} controlId="signUp__userId">
                   {/* <Form.Label>User Name</Form.Label> */}
-                  <Form.Control type=""
+                  <Form.Control type="text"
                   placeholder="User Name"
                   name = "username"
                   onChange={this.handle_change_signin}
@@ -245,7 +252,7 @@ export default class SignUp extends Component {
               <Form.Row>
                 <Form.Group as={Col} controlId="university">
                   {/* <Form.Label>University</Form.Label> */}
-                  <Form.Control as="select" onChange = {this.handle_change_uni}>
+                  <Form.Control as="select" type="number" onChange = {this.handle_change_uni}>
                     {/*<option value="null">Select University</option>
                     <option value="sust">SUST</option>
                     <option value="du">DU</option>

@@ -16,7 +16,7 @@ function App() {
       <Header/>
       {/* <Navs/> */}
       {/* <Sign/> */}
-      <Home/>
+      {/*<Home/>*/}
       {/* <FooterPage/> */}
     </div>
   );
