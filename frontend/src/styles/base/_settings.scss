@@ -1,0 +1,53 @@
+@import url("https://fonts.googleapis.com/css2?family=MuseoModerno:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&display=swap");
+
+body {
+    margin: 0;
+    padding: 0;
+    word-wrap: break-word;
+    font-family: "Montserrat", "sans-serif";
+}
+
+// Colors
+// $bg: #e4e4e4c5;
+// $main: #00000081;
+// $main-bg: #ffffffb9;
+// $syntax: #000000cc;
+// $complete: #b5ead7;
+// $complete-bg: #b4ffb491;
+// $remove: #ff9aa2;
+// $c-secondary: #c7ceea;
+// $c-info: #ff8c6ce7;
+// $edit-tasks: #b4d5f9;
+
+// $theme-colors: ();
+// $theme-colors: map-merge(
+//     (
+//         "bg": $bg,
+//         "main": $main,
+//         "main-bg": $main-bg,
+//         "syntax": $syntax,
+//         "complete": $complete,
+//         "complete-bg": $complete-bg,
+//         "remove": $remove,
+//         "c-secondary": $c-secondary,
+//         "c-info": $c-info,
+//         "edit-tasks": $edit-tasks,
+//     ),
+//     $theme-colors
+// );
+
+// Spacing
+$spacer: 1rem;
+$spacers: ();
+$spacers: map-merge(
+    (
+        6: (
+            $spacer * 4,
+        ),
+        7: (
+            $spacer * 5,
+        ),
+    ),
+    $spacers
+);
