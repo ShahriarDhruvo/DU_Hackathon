@@ -1,30 +1,30 @@
-import React, { useRef, useState, useContext, useEffect } from "react";
+import React, { useRef, useState } from "react";
 import { Form, Container, Button } from "react-bootstrap";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CustomAlert from "./CustomAlert";
-import { AuthenticationContext } from "../contexts/AuthenticationContext";
+// import { AuthenticationContext } from "../contexts/AuthenticationContext";
 
 const PasswordChange = (props) => {
     const [status, setStatus] = useState(undefined);
     const [variant, setVariant] = useState("danger");
     const form = useRef(null);
 
-    const { handleLogOut } = useContext(AuthenticationContext);
+    // const { handleLogOut } = useContext(AuthenticationContext);
 
-    useEffect(() => {
-        let API_URL = "/api/v1/work/list/";
+    // useEffect(() => {
+    //     let API_URL = "/api/v1/work/list/";
 
-        const loadData = async () => {
-            let response = await fetch(API_URL, {
-                method: "GET",
-            });
+    //     const loadData = async () => {
+    //         let response = await fetch(API_URL, {
+    //             method: "GET",
+    //         });
 
-            if (response.status === 401) handleLogOut();
-        };
+    //         if (response.status === 401) handleLogOut();
+    //     };
 
-        loadData();
-    });
+    //     loadData();
+    // });
 
     const handleSubmit = (e) => {
         e.preventDefault();

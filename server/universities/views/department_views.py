@@ -96,14 +96,15 @@ class DepartmentUpdate(UpdateAPIView):
 
 class DepartmentDetails(ListAPIView):
     serializer_class = DepartmentSerializer
+    permission_classes = (permissions.AllowAny,)
 
     def get_queryset(self):
         department_pk = self.kwargs.get('department_pk', None)
 
-        is_authenticated = self.request.user.status == 0
+        # is_authenticated = self.request.user.status == 0
 
-        if not is_authenticated:
-            raise NotAcceptable('You are not authoraised to view this!')
+        # if not is_authenticated:
+        #     raise NotAcceptable('You are not authoraised to view this!')
 
         queryset = Department.objects.filter(id=department_pk)
 
