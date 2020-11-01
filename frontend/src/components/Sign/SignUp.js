@@ -4,7 +4,11 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import "./Sign.scss";
+import LoadingPage from './LoadingPage'
 import { Row, Col, Container, InputGroup, FormControl } from "react-bootstrap";
+import {createHashHistory} from 'history'
+
+export const history = createHashHistory()
 
 const axios = require("axios");
 
@@ -24,6 +28,7 @@ export default class SignUp extends Component {
       reg_no : null,
       username : "",
       name : "",
+      promise : false,
     };
   }
 
@@ -100,6 +105,7 @@ export default class SignUp extends Component {
         password2: data.password2,
         department: data.department,
         university: data.university,
+        reg_no: null,
         status: data.status,
       };
     let body = JSON.stringify(obj);
@@ -109,19 +115,32 @@ export default class SignUp extends Component {
         "Content-Type": "application/json",
       },
     };
-    axios
-      .post(endpoint, body, config)
-      .then((response) => {
-        console.log(response)
-        /*console.log(json.data.token)
-        localStorage.setItem('token', json.data.token);
-        this.setState({
-            username: json.data.user.username,
-        });*/
+      this.setState({
+        promise: true,
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      axios
+        .post(endpoint, body, config)
+        .then((response) => {
+          console.log(response)
+          this.setState({
+            promise: false,
+          })
+          /*const {history} = this.props;*/
+          /*history.push(`/email/confirmation/sent`)
+          this.props.history.push(`/email/contirmation/sent/${this.state.email}`);*/
+          window.location.replace(`/email/contirmation/sent/`);
+          /*console.log(json.data.token)
+          localStorage.setItem('token', json.data.token);
+          this.setState({
+              username: json.data.user.username,
+          });*/
+        })
+        .catch((err) => {
+          console.log(err);
+          this.setState({
+            promise: false,
+          })
+        });
   };
 
   
@@ -175,6 +194,10 @@ export default class SignUp extends Component {
       )
     })
     return (
+      <div>
+      {this.state.promise ? (
+        <LoadingPage />
+      ) : ( 
       <Modal
         className="sign"
         {...this.props}
@@ -317,6 +340,8 @@ export default class SignUp extends Component {
         <Modal.Footer className="sign__footer">
         </Modal.Footer>
       </Modal>
+      )}
+      </div>
     );
   }
 }
