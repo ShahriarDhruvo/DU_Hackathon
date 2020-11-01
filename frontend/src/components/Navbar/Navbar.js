@@ -1,4 +1,4 @@
-import React,{ Component } from 'react';
+import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Form from 'react-bootstrap/Form';
@@ -7,8 +7,8 @@ import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import logo from '../assets/logo.png';
-import SignIn from '../Sign/SignIn';
-import SignUp from '../Sign/SignUp';
+import SignIn from '../Authentication/SignIn';
+import SignUp from '../Authentication/SignUp';
 import './Navbar.scss';
 
 const Navs = () => {

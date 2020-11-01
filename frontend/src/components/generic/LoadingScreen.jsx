@@ -1,7 +1,7 @@
 import React from "react";
 import { Spinner } from "react-bootstrap";
 
-const LoadingPage = () => {
+const LoadingScreen = () => {
     return (
         <div className="d-flex">
             <Spinner animation="border" variant="syntax" />
@@ -10,4 +10,4 @@ const LoadingPage = () => {
     );
 };
 
-export default LoadingPage;
+export default LoadingScreen;

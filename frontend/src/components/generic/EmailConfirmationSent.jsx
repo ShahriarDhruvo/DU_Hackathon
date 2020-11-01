@@ -1,8 +1,8 @@
 import React from "react";
 import { Container } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import {Route, withRouter} from 'react-router-dom'
-                   
+import CustomAlert from "./CustomAlert";
+
 const EmailConfirmationSent = () => {
     const params = useParams();
 
@@ -20,11 +20,14 @@ const EmailConfirmationSent = () => {
                     us if you do not receive it within a few minutes.
                 </p>
 
-                
+                <CustomAlert
+                    variant="success"
+                    alertClass="text-break"
+                    status={`Confirmation e-mail sent to ${params.email}.`}
+                />
             </div>
         </Container>
     );
 };
 
-export default withRouter(EmailConfirmationSent);
-
+export default EmailConfirmationSent;
