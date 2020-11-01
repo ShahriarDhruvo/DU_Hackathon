@@ -7,6 +7,7 @@ import "./Home.scss";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import Header from "../Header/Header";
 
 export default class Home extends Component {
   render() {
@@ -57,87 +58,90 @@ export default class Home extends Component {
       ],
     };
     return (
-      <Container className="dept" fluid>
-        <h1 className="">SWE</h1>
-        <style>{cssstyle}</style>
-        <Slider {...settings}>
-          <div>
-            <Card className="course">
-              <Card.Body>
-                <Card.Title className="course__name">SWE121</Card.Title>
-                <Card.Subtitle className="mb-2 text-muted">
-                  Structured Programming Language
-                </Card.Subtitle>
-                <Card.Text className="course__info">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </Card.Text>
-                <Button variant="outline-primary">Enroll</Button>
-              </Card.Body>
-            </Card>
-          </div>
-          <div>
-            <Card className="course">
-              <Card.Body>
-                <Card.Title className="course__name">SWE121</Card.Title>
-                <Card.Subtitle className="mb-2 text-muted">
-                  Structured Programming Language
-                </Card.Subtitle>
-                <Card.Text className="course__info">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </Card.Text>
-                <Button variant="outline-primary">Enroll</Button>
-              </Card.Body>
-            </Card>
-          </div>
-          <div>
-            <Card className="course">
-              <Card.Body>
-                <Card.Title className="course__name">SWE121</Card.Title>
-                <Card.Subtitle className="mb-2 text-muted">
-                  Structured Programming Language
-                </Card.Subtitle>
-                <Card.Text className="course__info">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </Card.Text>
-                <Button variant="outline-primary">Enroll</Button>
-              </Card.Body>
-            </Card>
-          </div>
-          <div>
-            <Card className="course">
-              <Card.Body>
-                <Card.Title className="course__name">SWE121</Card.Title>
-                <Card.Subtitle className="mb-2 text-muted">
-                  Structured Programming Language
-                </Card.Subtitle>
-                <Card.Text className="course__info">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </Card.Text>
-                <Button variant="outline-primary">Enroll</Button>
-              </Card.Body>
-            </Card>
-          </div>
-          <div>
-            <Card className="course">
-              <Card.Body>
-                <Card.Title className="course__name">SWE121</Card.Title>
-                <Card.Subtitle className="mb-2 text-muted">
-                  Structured Programming Language
-                </Card.Subtitle>
-                <Card.Text className="course__info">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </Card.Text>
-                <Button variant="outline-primary">Enroll</Button>
-              </Card.Body>
-            </Card>
-          </div>
-        </Slider>
-      </Container>
+      <>
+        <Header />
+        <Container className="dept" fluid>
+          <h1 className="">SWE</h1>
+          <style>{cssstyle}</style>
+          <Slider {...settings}>
+            <div>
+              <Card className="course">
+                <Card.Body>
+                  <Card.Title className="course__name">SWE121</Card.Title>
+                  <Card.Subtitle className="mb-2 text-muted">
+                    Structured Programming Language
+                  </Card.Subtitle>
+                  <Card.Text className="course__info">
+                    Some quick example text to build on the card title and make
+                    up the bulk of the card's content.
+                  </Card.Text>
+                  <Button variant="outline-primary">Enroll</Button>
+                </Card.Body>
+              </Card>
+            </div>
+            <div>
+              <Card className="course">
+                <Card.Body>
+                  <Card.Title className="course__name">SWE121</Card.Title>
+                  <Card.Subtitle className="mb-2 text-muted">
+                    Structured Programming Language
+                  </Card.Subtitle>
+                  <Card.Text className="course__info">
+                    Some quick example text to build on the card title and make
+                    up the bulk of the card's content.
+                  </Card.Text>
+                  <Button variant="outline-primary">Enroll</Button>
+                </Card.Body>
+              </Card>
+            </div>
+            <div>
+              <Card className="course">
+                <Card.Body>
+                  <Card.Title className="course__name">SWE121</Card.Title>
+                  <Card.Subtitle className="mb-2 text-muted">
+                    Structured Programming Language
+                  </Card.Subtitle>
+                  <Card.Text className="course__info">
+                    Some quick example text to build on the card title and make
+                    up the bulk of the card's content.
+                  </Card.Text>
+                  <Button variant="outline-primary">Enroll</Button>
+                </Card.Body>
+              </Card>
+            </div>
+            <div>
+              <Card className="course">
+                <Card.Body>
+                  <Card.Title className="course__name">SWE121</Card.Title>
+                  <Card.Subtitle className="mb-2 text-muted">
+                    Structured Programming Language
+                  </Card.Subtitle>
+                  <Card.Text className="course__info">
+                    Some quick example text to build on the card title and make
+                    up the bulk of the card's content.
+                  </Card.Text>
+                  <Button variant="outline-primary">Enroll</Button>
+                </Card.Body>
+              </Card>
+            </div>
+            <div>
+              <Card className="course">
+                <Card.Body>
+                  <Card.Title className="course__name">SWE121</Card.Title>
+                  <Card.Subtitle className="mb-2 text-muted">
+                    Structured Programming Language
+                  </Card.Subtitle>
+                  <Card.Text className="course__info">
+                    Some quick example text to build on the card title and make
+                    up the bulk of the card's content.
+                  </Card.Text>
+                  <Button variant="outline-primary">Enroll</Button>
+                </Card.Body>
+              </Card>
+            </div>
+          </Slider>
+        </Container>
+      </>
       /*  <Container fluid>
                 <div className="dept">
                     <h1 className="dept_name">SWE</h1>

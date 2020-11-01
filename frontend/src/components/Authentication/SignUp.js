@@ -4,14 +4,16 @@ import Form from "react-bootstrap/Form";
 import React, { Component } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import CustomAlert from "../generic/CustomAlert";
 // import { createHashHistory } from "history";
 import LoadingScreen from "../generic/LoadingScreen";
+import { withRouter } from "react-router-dom";
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 // export const history = createHashHistory();
 const axios = require("axios");
 
-export default class SignUp extends Component {
+class SignUp extends Component {
   constructor(props) {
     super(props);
 
@@ -27,6 +29,7 @@ export default class SignUp extends Component {
       reg_no: null,
       username: "",
       name: "",
+      errors: {},
       promise: false,
     };
   }
@@ -41,7 +44,7 @@ export default class SignUp extends Component {
     };
     axios.get(endpoint, config).then((response) => {
       let tmparray = [];
-      console.log(response.data);
+      // console.log(response.data);
       for (var i = 0; i < response.data.length; i++) {
         tmparray.push(response.data[i]);
       }
@@ -68,8 +71,8 @@ export default class SignUp extends Component {
   }
 
   handle_signup = (e, data) => {
-    console.log(this.state);
     e.preventDefault();
+
     let endpoint = "api/v1/accounts/registration/";
     var obj;
     if (this.state.status === "2")
@@ -101,7 +104,7 @@ export default class SignUp extends Component {
         status: data.status,
       };
     let body = JSON.stringify(obj);
-    console.log(body);
+    // console.log(body);
     let config = {
       headers: {
         "Content-Type": "application/json",
@@ -113,14 +116,14 @@ export default class SignUp extends Component {
     axios
       .post(endpoint, body, config)
       .then((response) => {
-        console.log(response);
+        // console.log(response.data, "SED");
         this.setState({
           promise: false,
         });
         /*const {history} = this.props;*/
         /*history.push(`/email/confirmation/sent`)
           this.props.history.push(`/email/contirmation/sent/${this.state.email}`);*/
-        window.location.replace(`/email/contirmation/sent/`);
+        this.props.history.push("/email/confirmation/sent/");
         /*console.log(json.data.token)
           localStorage.setItem('token', json.data.token);
           this.setState({
@@ -128,8 +131,8 @@ export default class SignUp extends Component {
           });*/
       })
       .catch((err) => {
-        console.log(err);
         this.setState({
+          errors: err.response.data,
           promise: false,
         });
       });
@@ -174,6 +177,8 @@ export default class SignUp extends Component {
   render() {
     const { dept } = this.state;
     const { varsity } = this.state;
+    const { staticContext, ...rest } = this.props;
+
     let departmentlist =
       dept.length > 0 &&
       dept.map((item, i) => {
@@ -199,9 +204,9 @@ export default class SignUp extends Component {
         ) : (
           <Modal
             className="sign"
-            {...this.props}
+            {...rest}
             size="lg"
-            animation={false}
+            animation={true}
             aria-labelledby="contained-modal-title-vcenter"
             centered
           >
@@ -215,6 +220,11 @@ export default class SignUp extends Component {
               <Col sm={9}> */}
               <h2 className="text-center sign__heading">Sign Up</h2>
               {/* <Form onChange={this.toggleForm}> */}
+
+              {Object.keys(this.state.errors).length !== 0 && (
+                <CustomAlert status={JSON.stringify(this.state.errors)} />
+              )}
+
               <Form
                 className="sign__form"
                 onSubmit={(e) => this.handle_signup(e, this.state)}
@@ -356,3 +366,5 @@ export default class SignUp extends Component {
     );
   }
 }
+
+export default withRouter(SignUp);
