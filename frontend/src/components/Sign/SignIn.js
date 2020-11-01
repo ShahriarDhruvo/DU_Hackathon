@@ -2,7 +2,7 @@ import React,{ Component } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal'
 import Form from 'react-bootstrap/Form';
-import './Sign.css';
+import './Sign.scss';
 
 
 const axios = require('axios');
@@ -55,43 +55,55 @@ export default class SignIn extends Component {
 
     render () {
       return (
-      <Modal
-        {...this.props}
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-      >
-        {/* <Modal.Header closeButton >
-          <Modal.Title id="contained-modal-title-vcenter">
-            Welcome Back!
-          </Modal.Title>
-        </Modal.Header> */}
-        <Modal.Body>
-          <h2 className="text-center">Sign In</h2>
-          <Form  onSubmit={e=> this.handle_signin(e, this.state)}>
-            <Form.Group controlId="signIn__email">
-                <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" placeholder="Enter your email" name="email" onChange={this.handle_change_signin}/>
-            </Form.Group>
+        <Modal
+          className="sign"
+          {...this.props}
+          size="lg"
+          animation={false}
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
+          <Modal.Header closeButton className="sign__header"></Modal.Header>
+          <Modal.Body className="sign__body">
+            <h2 className="text-center sign__heading">Sign In</h2>
+            <Form onSubmit={(e) => this.handle_signin(e, this.state)}>
+              <Form.Group controlId="signIn__email">
+                {/* <Form.Label>Email address</Form.Label> */}
+                <Form.Control
+                  type="email"
+                  placeholder="Email Address"
+                  name="email"
+                  onChange={this.handle_change_signin}
+                />
+              </Form.Group>
 
-            <Form.Group controlId="password">
-                <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="********" name="password" onChange={this.handle_change_signin}/>
-            </Form.Group>
-            
-            <Button variant="outline-primary btn-block" type="submit">
-                Submit
-            </Button>
+              <Form.Group controlId="password">
+                {/* <Form.Label>Password</Form.Label> */}
+                <Form.Control
+                  type="password"
+                  placeholder="Password"
+                  name="password"
+                  onChange={this.handle_change_signin}
+                />
+              </Form.Group>
+              <div className="text-center">
+                <Button
+                  variant="btn-block"
+                  type="submit"
+                  className="sign__submit"
+                >
+                  Submit
+                </Button>
+              </div>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer className="sign__footer">
             <p className="forgot-password text-right">
-                <a href="#">Forgot password?</a>
+              <a href="#">Forgot password?</a>
             </p>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={this.props.onHide} variant="secondary">Close</Button>
-        </Modal.Footer>
-      </Modal>
-    );
+          </Modal.Footer>
+        </Modal>
+      );
   }
 }
 

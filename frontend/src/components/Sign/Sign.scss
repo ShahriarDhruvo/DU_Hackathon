@@ -1,0 +1,40 @@
+.sign {
+    background-color: rgba(0, 0, 0, 0.08);
+    font-family: 'Roboto', sans-serif;
+
+    &__submit{
+        background-image: linear-gradient(90deg, hsla(278, 100%, 68%, 1) 19%, hsla(254, 83%, 64%, 1) 100%);
+        border: solid 2px hsla(278, 100%, 68%, 1);
+        margin: auto;
+        align-self: center;
+        width: 70%;
+        transition: ease-out 0.3s;
+        color: white;
+
+        &:hover {
+            border: solid 2px hsla(278, 100%, 68%, 1);
+            scale: 0.985;
+            color: white;
+        }
+    }
+    &__heading {
+        color: #7400B8;
+        padding: 0;
+        padding-bottom: 15px;
+    }
+    &__header {
+        border: none;
+        padding: 0;
+        padding-right: 8px;
+    }
+    &__footer {
+        border: none;
+        padding: 0;
+        padding-bottom: 20px;
+        padding-right: 10px;
+    }
+    
+}
+.forgot-password {
+    color: #56CFE1;
+}
