@@ -59,7 +59,7 @@ export default class SignIn extends Component {
         className="sign"
         {...this.props}
         size="lg"
-        animation={false}
+        animation={true}
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
@@ -99,7 +99,7 @@ export default class SignIn extends Component {
         </Modal.Body>
         <Modal.Footer className="sign__footer">
           <p className="forgot-password text-right">
-            <Link to="#">Forgot password?</Link>
+            <Link to="/password/reset/">Forgot password?</Link>
           </p>
         </Modal.Footer>
       </Modal>
