@@ -10,7 +10,7 @@ body {
 
 // Colors
 // $bg: #e4e4e4c5;
-// $main: #00000081;
+$main: #00000081;
 // $main-bg: #ffffffb9;
 // $syntax: #000000cc;
 // $complete: #b5ead7;
@@ -20,22 +20,22 @@ body {
 // $c-info: #ff8c6ce7;
 // $edit-tasks: #b4d5f9;
 
-// $theme-colors: ();
-// $theme-colors: map-merge(
-//     (
-//         "bg": $bg,
-//         "main": $main,
-//         "main-bg": $main-bg,
-//         "syntax": $syntax,
-//         "complete": $complete,
-//         "complete-bg": $complete-bg,
-//         "remove": $remove,
-//         "c-secondary": $c-secondary,
-//         "c-info": $c-info,
-//         "edit-tasks": $edit-tasks,
-//     ),
-//     $theme-colors
-// );
+$theme-colors: ();
+$theme-colors: map-merge(
+    (
+        // "bg": $bg,
+        "main": $main,
+        // "main-bg": $main-bg,
+        // "syntax": $syntax,
+        // "complete": $complete,
+        // "complete-bg": $complete-bg,
+        // "remove": $remove,
+        // "c-secondary": $c-secondary,
+        // "c-info": $c-info,
+        // "edit-tasks": $edit-tasks,
+    ),
+    $theme-colors
+);
 
 // Spacing
 $spacer: 1rem;

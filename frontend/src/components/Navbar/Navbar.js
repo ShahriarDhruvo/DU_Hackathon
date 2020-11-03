@@ -10,7 +10,7 @@ import logo from "../assets/logo.png";
 import SignIn from "../Authentication/SignIn";
 import SignUp from "../Authentication/SignUp";
 import "./Navbar.scss";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Navs = () => {
   const [signInShow, setSignInShow] = React.useState(false);
@@ -59,10 +59,16 @@ const Navs = () => {
               Sign Up
             </Button>
           </Nav.Link>
-          <Nav.Link>
-            <Button className="btn__sign" as={Link} to="/profile/">
+          <Nav.Link as={NavLink} to="/profile/" className="btn__sign">
+            {/* Don't use button here, change the style of the btn__sign class according to your needs
+            It'll fix most of the issues you have with buttons */}
+            {/* <Button className="btn__sign" as={Link} to="/profile/"> */}
               Profile
-            </Button>
+            {/* </Button> */}
+          </Nav.Link>
+          <Nav.Link as={NavLink} to="/rooms/" className="btn__sign">
+              {/* This is here temporarirly we will move it to the correct position later */}
+              Rooms
           </Nav.Link>
         </Nav>
       </Navbar.Collapse>

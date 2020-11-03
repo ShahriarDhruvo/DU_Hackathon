@@ -12,6 +12,7 @@ import NotFound from "./components/generic/NotFound";
 import PasswordReset from "./components/generic/PasswordReset";
 import Profile from "./components/Authentication/Profile";
 import PasswordChange from "./components/generic/PasswordChange";
+import Rooms from "./components/Rooms/Rooms";
 // import FooterPage from "./components/Footer/Footer";
 
 
@@ -22,15 +23,16 @@ function App() {
     <Router>
       <Switch>
         <Route exact path="/" component={Home} />
+        <Route exact path="/rooms/" component={Rooms} />
         <Route exact path="/password/reset/" component={PasswordReset} />
         <Route exact path="/password/change/" component={PasswordChange} />
         <Route exact path="/profile/" component={Profile} />
         <Route
           exact
-          path="/email/confirmation/sent"
+          path="/email/confirmation/sent/:email/"
           component={EmailConfirmationSent}
         />
-        <Route exact path="/email/confirmation/:key" component={EmailConfirm} />
+        <Route exact path="/email/confirmation/:key/" component={EmailConfirm} />
         <Route component={NotFound} />
       </Switch>
       {/* <FooterPage /> */}
