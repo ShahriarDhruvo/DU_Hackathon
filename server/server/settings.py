@@ -101,6 +101,7 @@ DATABASES = {
          'ENGINE': 'django.db.backends.postgresql_psycopg2',
          'NAME': 'du_hackathon',
          'USER': 'postgres',
+         'PASSWORD': '2369',
          'HOST': 'localhost',
          'PORT': '',
 
@@ -193,7 +194,8 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 # EMAIL_HOST_USER = os.environ.get('APP_EMAIL_USER')
 # EMAIL_HOST_PASSWORD = os.environ.get('APP_EMAIL_PASS')
-
+EMAIL_HOST_USER = "proshirahman@gmail.com"
+EMAIL_HOST_PASSWORD = "#wh@teveriti$17"
 
 OLD_PASSWORD_FIELD_ENABLED = True
 
