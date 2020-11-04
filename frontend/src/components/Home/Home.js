@@ -77,36 +77,8 @@ export default class Home extends Component {
     
     await fetchcourse();
     console.log(this.state);
-    //await this.fetchcourses();
   }
 
-  /*async fetchcourses() {
-    let config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    for(let i=0;i < this.state.dept.length; i++){
-      
-      let endpoint = `api/v1/university/departments/courses/${this.state.dept[i].id}/list/`;
-      let current_dept_id = this.state.dept[i].id;
-        await axios.get(endpoint, config)
-        .then((response) => {
-          let tmparray = [];
-          
-          for (var j = 0; j < response.data.length; j++) {
-            tmparray.push(response.data[j]);
-          }
-
-          this.setState({
-            courses: {
-              ...this.state.courses,
-              [current_dept_id] : tmparray,
-            }
-          },() => {console.log(this.state)})
-        });
-      }
-  }*/
 
   render() {
     const settings = {
