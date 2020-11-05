@@ -64,7 +64,7 @@ export default class Home extends Component {
           <h1 className="">SWE</h1>
           <style>{cssstyle}</style>
           <Slider {...settings}>
-            <div>
+            {/* <div>
               <Card className="course">
                 <Card.Body>
                   <Card.Title className="course__name">SWE121</Card.Title>
@@ -108,7 +108,7 @@ export default class Home extends Component {
                   <Button variant="outline-primary">Enroll</Button>
                 </Card.Body>
               </Card>
-            </div>
+            </div> */}
             <div>
               <Card className="course">
                 <Card.Body>

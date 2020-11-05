@@ -11,6 +11,7 @@ import SignIn from "../Authentication/SignIn";
 import SignUp from "../Authentication/SignUp";
 import "./Navbar.scss";
 import { NavLink } from "react-router-dom";
+import Logout from "../Authentication/Logout";
 
 const Navs = () => {
   const [signInShow, setSignInShow] = React.useState(false);
@@ -50,15 +51,19 @@ const Navs = () => {
         </Nav>
         <Nav className="ml-auto">
           <Nav.Link>
-            <Button className="btn__sign" onClick={() => setSignInShow(true)}>
+            <button className="btn__sign" onClick={() => setSignInShow(true)}>
               Sign In
-            </Button>
+            </button>
           </Nav.Link>
+          
+          <Logout />
+
           <Nav.Link>
             <Button className="btn__sign" onClick={() => setSignUpShow(true)}>
               Sign Up
             </Button>
           </Nav.Link>
+
           <Nav.Link as={NavLink} to="/profile/" className="btn__sign">
             {/* Don't use button here, change the style of the btn__sign class according to your needs
             It'll fix most of the issues you have with buttons */}
@@ -66,6 +71,7 @@ const Navs = () => {
               Profile
             {/* </Button> */}
           </Nav.Link>
+
           <Nav.Link as={NavLink} to="/rooms/" className="btn__sign">
               {/* This is here temporarirly we will move it to the correct position later */}
               Rooms

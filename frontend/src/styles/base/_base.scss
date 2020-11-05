@@ -92,3 +92,14 @@ input[type="checkbox"]:checked {
     border-radius: 0.45rem;
     border: 2px solid $main;
 }
+
+.btn__none {
+    padding: 0;
+    border: none;
+    background: none;
+    text-decoration: none !important;
+
+    &:focus {
+        outline: none;
+    }
+}
