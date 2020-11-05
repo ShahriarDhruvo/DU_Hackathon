@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
+import { SettingsContext } from "../../contexts/SettingsContext";
 
 const CustomModal = (props) => {
     const [show, setShow] = useState(false);
+    const { isAnimated } = useContext(SettingsContext);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -26,7 +28,7 @@ const CustomModal = (props) => {
 
             <Modal
                 show={show}
-                animation={true}
+                animation={isAnimated}
                 onHide={handleClose}
                 className="text-center"
                 centered
