@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useContext,useEffect} from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Form from "react-bootstrap/Form";
@@ -10,11 +10,17 @@ import logo from "../assets/logo.png";
 import SignIn from "../Authentication/SignIn";
 import SignUp from "../Authentication/SignUp";
 import "./Navbar.scss";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import Logout from "../Authentication/Logout";
+import {AuthenticationContext} from "../../contexts/AuthenticationContext"
 
 const Navs = () => {
+
+  
+
   const [signInShow, setSignInShow] = React.useState(false);
   const [signUpShow, setSignUpShow] = React.useState(false);
+  const { handleLogOut } = useContext(AuthenticationContext);
   return (
     <Navbar bg="outline-primary" expand="lg" className="nav">
       <Navbar.Brand href="#home">
@@ -49,20 +55,40 @@ const Navs = () => {
           </Form>
         </Nav>
         <Nav className="ml-auto">
-          <Nav.Link>
-            <Button className="btn__sign" onClick={() => setSignInShow(true)}>
-              Sign In
-            </Button>
-          </Nav.Link>
-          <Nav.Link>
-            <Button className="btn__sign" onClick={() => setSignUpShow(true)}>
-              Sign Up
-            </Button>
-          </Nav.Link>
-          <Nav.Link>
-            <Button className="btn__sign" as={Link} to="/profile/">
+          {!localStorage.getItem('isAuthenticated') ? 
+          (
+            <div>
+              <Nav.Link>
+                <button className="btn__sign" onClick={() => setSignInShow(true)}>
+                  Sign In
+                </button>
+              </Nav.Link>
+
+              <Nav.Link>
+                <Button className="btn__sign" onClick={() => setSignUpShow(true)}>
+                  Sign Up
+                </Button>
+              </Nav.Link>
+            </div>
+          ):(
+            <Nav.Link>
+              <Button className="btn__sign" onClick={() => handleLogOut()}>
+                Logout
+              </Button>
+            </Nav.Link>
+          )}
+
+          <Nav.Link as={NavLink} to="/profile/" className="btn__sign">
+            {/* Don't use button here, change the style of the btn__sign class according to your needs
+            It'll fix most of the issues you have with buttons */}
+            {/* <Button className="btn__sign" as={Link} to="/profile/"> */}
               Profile
-            </Button>
+            {/* </Button> */}
+          </Nav.Link>
+
+          <Nav.Link as={NavLink} to="/rooms/" className="btn__sign">
+              {/* This is here temporarirly we will move it to the correct position later */}
+              Rooms
           </Nav.Link>
         </Nav>
       </Navbar.Collapse>

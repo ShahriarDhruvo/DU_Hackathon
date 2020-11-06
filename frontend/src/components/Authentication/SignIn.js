@@ -12,7 +12,7 @@ export default class SignIn extends Component {
     super(props);
     this.state = {
       errors: {},
-      email: "",
+      username: "",
       password: "",
     };
   }
@@ -29,8 +29,8 @@ export default class SignIn extends Component {
 
   handle_signin = (e, data) => {
     e.preventDefault();
-    let endpoint = "http://127.0.0.1:8000/";
-    var obj = { email: data.email, password: data.password };
+    let endpoint = "/api/v1/accounts/login/";
+    var obj = { username: data.username, password: data.password };
     let body = JSON.stringify(obj);
     console.log(body);
     let config = {
@@ -41,12 +41,13 @@ export default class SignIn extends Component {
     axios
       .post(endpoint, body, config)
       .then((json) => {
-        localStorage.setItem("token", json.data.token);
-        localStorage.setItem("username", json.data.user.username);
-        this.setState({
-          username: json.data.user.username,
-          logged_in: true,
-        });
+        console.log(json.data.user)
+        localStorage.setItem('username',json.data.user.username);
+        localStorage.setItem('status',json.data.user.status);
+        localStorage.setItem('reg_no',json.data.user.reg_no);
+        localStorage.setItem('email',json.data.user.email);
+        localStorage.setItem('isAuthenticated',"authenticated")
+        window.location.href = "/";
       })
       .catch((err) => {
         console.log(err);
@@ -70,9 +71,9 @@ export default class SignIn extends Component {
             <Form.Group controlId="signIn__email">
               {/* <Form.Label>Email address</Form.Label> */}
               <Form.Control
-                type="email"
-                placeholder="Email Address"
-                name="email"
+                type="text"
+                placeholder="Username"
+                name="username"
                 onChange={this.handle_change_signin}
               />
             </Form.Group>

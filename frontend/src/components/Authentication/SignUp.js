@@ -124,7 +124,7 @@ class SignUp extends Component {
         /*const {history} = this.props;*/
         /*history.push(`/email/confirmation/sent`)
           this.props.history.push(`/email/contirmation/sent/${this.state.email}`);*/
-        this.props.history.push("/email/confirmation/sent/");
+        this.props.history.push(`/email/confirmation/sent/${this.state.email}/`);
         /*console.log(json.data.token)
           localStorage.setItem('token', json.data.token);
           this.setState({
@@ -148,7 +148,7 @@ class SignUp extends Component {
       newState[name] = value;
       return newState;
     });
-    console.log(this.state);
+    // console.log(this.state);
   };
 
   toggleForm = (e) => {
