@@ -9,7 +9,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Header from "../Header/Header";
 import LoadingScreen from "../generic/LoadingScreen";
-
+import {Link} from 'react-router-dom'
 const axios = require("axios");
 
 export default class Home extends Component {
@@ -70,13 +70,12 @@ export default class Home extends Component {
                 ...this.state.courses,
                 [current_dept_id] : tmparray,
               }
-            },() => {console.log(this.state)})
+            })
           });
         }
     }
     
     await fetchcourse();
-    console.log(this.state);
   }
 
 
@@ -163,6 +162,7 @@ export default class Home extends Component {
             )
             }
             </Slider>
+            <Link to={{pathname: `/dept/${iitem.id}`, dept_id:iitem.id}} style={{float:'right'}}>See More...</Link>
           </div> 
         )
       })
