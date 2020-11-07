@@ -22,7 +22,7 @@ class Room(models.Model):
     teachers = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='room_teachers')
     students = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='room_students')
     class_representatives = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='room_class_representatives')
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, null=True,related_name='room_owner', on_delete=models.CASCADE)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, related_name='room_owner', on_delete=models.CASCADE)
 
     # Every year the students and teacher changes of a course so we have to keep track of which year this room belongs to.
     year = models.PositiveIntegerField(default=current_year(), validators=[MinValueValidator(2015), max_value_current_year])

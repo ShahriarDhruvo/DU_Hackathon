@@ -1,9 +1,8 @@
 import React, { useContext, useState } from "react";
-import { Button, Modal } from "react-bootstrap";
-import { SettingsContext } from "../../contexts/SettingsContext";
-import RoomMembers from "./RoomMembers";
+import { Modal } from "react-bootstrap";
+import { SettingsContext } from "../../../contexts/SettingsContext";
 
-const RoomMembersModal = (props) => {
+const CreateItemModal = (props) => {
     const [show, setShow] = useState(false);
     const { isAnimated } = useContext(SettingsContext);
 
@@ -12,16 +11,15 @@ const RoomMembersModal = (props) => {
 
     return (
         <>
-            <Button
+            <button
                 onClick={handleShow}
-                disabled={props.edit}
-                variant={props.variant}
+                // disabled={props.edit}
                 size={props.actionButtonSize}
                 className={props.actionButtonClass}
-                style={{ width: props.actionButtonWidth }}
+                // style={{ width: props.actionButtonWidth }}
             >
                 {props.children}
-            </Button>
+            </button>
 
             <Modal
                 centered
@@ -29,13 +27,11 @@ const RoomMembersModal = (props) => {
                 onHide={handleClose}
                 animation={isAnimated}
             >
-                <Modal.Header closeButton></Modal.Header>
-                <Modal.Body className="p-0">
-                    <RoomMembers room_pk={props.room_pk} />
-                </Modal.Body>
+                <Modal.Header closeButton>Create an Item</Modal.Header>
+                <Modal.Body>form of item developing</Modal.Body>
             </Modal>
         </>
     );
 };
 
-export default RoomMembersModal;
+export default CreateItemModal;

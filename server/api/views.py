@@ -41,6 +41,7 @@ def apiOverview(request):
         'Rooms Update'                      : 'api/v1/rooms/update/<str:room_pk>/',
         'Rooms Delete'                      : 'api/v1/rooms/delete/<str:room_pk>/',
         'Rooms Details'                     : 'api/v1/rooms/details/<str:room_pk>/',
+        'Rooms Members'                     : 'api/v1/rooms/members/<str:room_pk>/',
         'Rooms Add CR'                      : 'api/v1/rooms/add/<str:room_pk>/class_representative/<str:username>/',
         'Rooms Add Student'                 : 'api/v1/rooms/add/<str:room_pk>/student/<str:username>/',
         'Rooms Add Teacher'                 : 'api/v1/rooms/add/<str:room_pk>/teacher/<str:username>/',
