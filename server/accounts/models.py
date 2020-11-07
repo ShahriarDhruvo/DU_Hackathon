@@ -23,3 +23,6 @@ class CustomUser(AbstractUser):
         'universities.Department', null=True, blank=False, on_delete=models.CASCADE)
     status = models.PositiveSmallIntegerField(
         choices=STATUS_CHOICES, default=2)
+
+    def __str__(self):
+        return self.username

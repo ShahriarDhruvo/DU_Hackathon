@@ -6,6 +6,7 @@ from .views import (
     RoomUpdate,
     RoomDelete,
     RoomDetails,
+    RoomMemberList,
     RoomAddUser,
     RoomRemoveUser
 )
@@ -16,6 +17,7 @@ urlpatterns = [
     path('delete/<str:room_pk>/', RoomDelete.as_view(), name="room-delete"),
     path('update/<str:room_pk>/', RoomUpdate.as_view(), name="room-update"),
     path('details/<str:room_pk>/', RoomDetails.as_view(), name="room-details"),
+    path('members/<str:room_pk>/', RoomMemberList.as_view(), name="room-members-list"),
     path('add/<str:room_pk>/<str:user>/<str:username>/', RoomAddUser.as_view(), name="room-add-user"),
     path('remove/<str:room_pk>/<str:user>/<str:username>/', RoomRemoveUser.as_view(), name="room-remove-user"),
 

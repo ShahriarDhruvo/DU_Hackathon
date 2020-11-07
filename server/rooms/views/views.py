@@ -16,6 +16,7 @@ from ..serializers import (
     RoomListSerializer,
     RoomCreateSerializer,
     RoomUpdateSerializer,
+    RoomMemberListSerializer
 )
 from ..models import Room
 from universities.models import Course
@@ -122,3 +123,20 @@ class RoomDetails(ListAPIView):
         else:
             raise NotAcceptable(
                 'Room does not exist or you are not authorized!')
+
+class RoomMemberList(ListAPIView):
+    serializer_class = RoomMemberListSerializer
+
+    def get_queryset(self):
+        user_id = self.request.user.id
+        room_pk = self.kwargs.get('room_pk', None)
+
+        queryset = Room.objects.filter(
+            Q(teachers=user_id) | Q(students=user_id), id=room_pk)
+
+        if queryset:
+            return queryset
+        else:
+            raise NotAcceptable(
+                'Room does not exist or you are not authorized!')
+
