@@ -14,6 +14,7 @@ from rest_framework.generics import (
 
 from ..serializers import (
     CommentSerializer,
+    CommentCreateSerializer,
     CommentUpdateSerializer
 )
 from django.db.models import Q
@@ -56,7 +57,7 @@ class CommentList(ListAPIView):
 
 
 class CommentCreate(CreateAPIView):
-    serializer_class = CommentSerializer
+    serializer_class = CommentCreateSerializer
 
     def create(self, request, *args, **kwargs):
         user_id = request.user.id
