@@ -24,12 +24,24 @@ class ItemUpdateSerializer(serializers.ModelSerializer):
 
 # All comment serializers
 class CommentSerializer(serializers.ModelSerializer):
+
+    user = serializers.StringRelatedField()
+
+    class Meta:
+        model = Comment
+        fields = '__all__'
+
+class CommentCreateSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Comment
         fields = '__all__'
 
 
 class CommentUpdateSerializer(serializers.ModelSerializer):
+
+    #user = serializers.StringRelatedField()
+
     class Meta:
         model = Comment
-        fields = ['id', 'content']
+        fields = ['id', 'content', 'comment_datetime', 'vote']
