@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-// import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-// import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import Items from "./Items";
-// import { Container } from "react-bootstrap";
+import Items from "../Items/Items";
+import CreateSection from "./CreateSection";
+import CustomAlert from "../../generic/CustomAlert";
+import CreateItemModal from "../Items/CreateItemModal";
+import { Row } from "react-bootstrap";
 
 const TabPanel = (props) => {
     const { children, value, index, ...other } = props;
@@ -20,12 +21,7 @@ const TabPanel = (props) => {
             aria-labelledby={`scrollable-auto-tab-${index}`}
             {...other}
         >
-            {value === index && (
-                <Box p={3}>
-                    {/* <Typography>{children}</Typography> */}
-                    {children}
-                </Box>
-            )}
+            {value === index && <Box p={3}>{children}</Box>}
         </div>
     );
 };
@@ -43,17 +39,27 @@ const a11yProps = (index) => {
     };
 };
 
-const Sections = () => {
+const Sections = (props) => {
     const [value, setValue] = useState(0);
     const [sections, setSections] = useState([]);
+    const [status, setStatus] = useState(undefined);
 
     useEffect(() => {
-        let vars = [];
-        for (let i = 0; i < 20; i++) {
-            vars.push(i + 1);
-        }
-        setSections(vars);
-    }, []);
+        const API_URL = `/api/v1/rooms/sections/${props.room_pk}/list/`;
+
+        const loadData = async () => {
+            let response = await fetch(API_URL, {
+                method: "GET",
+            });
+
+            let data = await response.json();
+
+            if (!response.ok) setStatus(data.detail);
+            else setSections(data);
+        };
+
+        loadData();
+    }, [props.room_pk]);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -72,18 +78,31 @@ const Sections = () => {
                 >
                     {sections.map((section) => (
                         <Tab
-                            key={section}
-                            {...a11yProps(section)}
-                            label={`Section ${section}`}
+                            key={section.id}
+                            label={section.title}
+                            {...a11yProps(section.id)}
                             style={{ textTransform: "none" }}
                         />
                     ))}
+
+                    <CreateSection />
                 </Tabs>
             </AppBar>
 
+            {status && <CustomAlert variant="warning" status={status} />}
+
             {sections.map((section) => (
-                <TabPanel key={section} value={value} index={section - 1}>
-                    <Items section={section} />
+                <TabPanel key={section.id} value={value} index={section.id - 1}>
+                    <Items room_pk={props.room_pk} section_pk={section.id} />
+
+                    <Row>
+                        <CreateItemModal
+                            actionButtonSize="sm"
+                            actionButtonClass="mx-auto btn-link btn__none"
+                        >
+                            Create an Item
+                        </CreateItemModal>
+                    </Row>
                 </TabPanel>
             ))}
         </>
