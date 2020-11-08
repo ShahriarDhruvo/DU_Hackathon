@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import CustomAlert from "../generic/CustomAlert";
+import { AuthenticationContext } from "../../contexts/AuthenticationContext";
 
 const Profile = () => {
     const [user, setUser] = useState({});
     const [status, setStatus] = useState(undefined);
 
-    //   const { handleLogOut } = useContext(AuthenticationContext);
+    const { handleLogOut } = useContext(AuthenticationContext);
 
     useEffect(() => {
         const userStatus = {
@@ -24,7 +25,7 @@ const Profile = () => {
             let response = await fetch(API_URL, {
                 method: "GET",
             });
-            // if (response.status === 401) handleLogOut();
+            if (response.status === 401) handleLogOut();
 
             const userData = await response.json();
             if (!response.ok) setStatus(userData.detail);
