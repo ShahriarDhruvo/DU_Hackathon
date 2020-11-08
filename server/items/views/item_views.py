@@ -14,6 +14,7 @@ from rest_framework.generics import (
 
 from ..serializers import (
     ItemSerializer,
+    ItemCreateSerializer,
     ItemUpdateSerializer
 )
 from django.db.models import Q
@@ -54,7 +55,7 @@ class ItemList(ListAPIView):
 
 
 class ItemCreate(CreateAPIView):
-    serializer_class = ItemSerializer
+    serializer_class = ItemCreateSerializer
 
     def create(self, request, *args, **kwargs):
         user_id = request.user.id

@@ -1,9 +1,10 @@
+import React, { useContext, useRef, useState } from "react";
 import { Modal } from "react-bootstrap";
-import React, { useContext, useState, useRef } from "react";
-import CustomAlert from "../../generic/CustomAlert";
 import { SettingsContext } from "../../../contexts/SettingsContext";
+import CustomAlert from "../../generic/CustomAlert";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const CreateItemModal = (props) => {
+const UpdateItemModal = (props) => {
     const form = useRef(null);
     const [show, setShow] = useState(false);
     const [status, setStatus] = useState(undefined);
@@ -12,18 +13,19 @@ const CreateItemModal = (props) => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    const handleAddItem = (e) => {
+    const handleUpdateItem = (e) => {
         e.preventDefault();
 
-        const API_URL = `/api/v1/rooms/sections/items/${props.room_pk}/${props.section_pk}/create/`;
+        const API_URL = `/api/v1/rooms/sections/items/${props.room_pk}/update/${props.item_pk}/`;
 
         const loadData = async () => {
             const formData = new FormData(form.current);
 
             const response = await fetch(API_URL, {
-                method: "POST",
+                method: "PATCH",
                 body: formData,
             });
+
             const data = await response.json();
 
             if (!response.ok) {
@@ -41,6 +43,7 @@ const CreateItemModal = (props) => {
         <>
             <button
                 onClick={handleShow}
+                style={{ color: "#ef6c00" }}
                 size={props.actionButtonSize}
                 className={props.actionButtonClass}
             >
@@ -53,9 +56,9 @@ const CreateItemModal = (props) => {
                 onHide={handleClose}
                 animation={isAnimated}
             >
-                <Modal.Header closeButton>Create an Item</Modal.Header>
+                <Modal.Header closeButton>Update this Item</Modal.Header>
                 <Modal.Body>
-                    <form ref={form} onSubmit={handleAddItem}>
+                    <form ref={form} onSubmit={handleUpdateItem}>
                         {status && (
                             <CustomAlert variant="warning" status={status} />
                         )}
@@ -70,9 +73,7 @@ const CreateItemModal = (props) => {
                                     name="date"
                                     className="form-control"
                                     placeholder="12/21/2020"
-                                    defaultValue={new Date().toLocaleDateString(
-                                        "en-CA"
-                                    )}
+                                    defaultValue={props.date}
                                 />
                             </div>
 
@@ -85,13 +86,7 @@ const CreateItemModal = (props) => {
                                     name="time"
                                     placeholder="23:58"
                                     className="form-control"
-                                    defaultValue={new Date().toLocaleTimeString(
-                                        "en-GB",
-                                        {
-                                            hour: "2-digit",
-                                            minute: "2-digit",
-                                        }
-                                    )}
+                                    defaultValue={props.time}
                                 />
                             </div>
                         </div>
@@ -106,12 +101,17 @@ const CreateItemModal = (props) => {
                                 name="content"
                                 placeholder="Content"
                                 className="form-control"
+                                defaultValue={props.content}
                             />
                         </div>
 
                         <div className="text-center">
                             <button type="submit" className="btn btn-primary">
-                                Create
+                                <FontAwesomeIcon
+                                    className="mr-2"
+                                    icon={["fas", "wrench"]}
+                                />
+                                Update
                             </button>
                         </div>
                     </form>
@@ -121,4 +121,4 @@ const CreateItemModal = (props) => {
     );
 };
 
-export default CreateItemModal;
+export default UpdateItemModal;

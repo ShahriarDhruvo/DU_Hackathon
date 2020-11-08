@@ -5,10 +5,12 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Box from "@material-ui/core/Box";
 import Items from "../Items/Items";
-import CreateSection from "./CreateSection";
 import CustomAlert from "../../generic/CustomAlert";
 import CreateItemModal from "../Items/CreateItemModal";
 import { Row } from "react-bootstrap";
+import CreateSectionModal from "./CreateSectionModal";
+import DeleteSectionModal from "./DeleteSectionModal";
+import UpdateSectionModal from "./UpdateSectionModal";
 
 const TabPanel = (props) => {
     const { children, value, index, ...other } = props;
@@ -85,23 +87,49 @@ const Sections = (props) => {
                         />
                     ))}
 
-                    <CreateSection />
+                    <CreateSectionModal room_pk={props.room_pk} />
                 </Tabs>
             </AppBar>
 
             {status && <CustomAlert variant="warning" status={status} />}
 
-            {sections.map((section) => (
-                <TabPanel key={section.id} value={value} index={section.id - 1}>
+            {sections.map((section, index) => (
+                <TabPanel key={section.id} value={value} index={index}>
                     <Items room_pk={props.room_pk} section_pk={section.id} />
 
-                    <Row>
+                    <Row className="d-flex justify-content-around mt-4">
                         <CreateItemModal
                             actionButtonSize="sm"
-                            actionButtonClass="mx-auto btn-link btn__none"
+                            room_pk={props.room_pk}
+                            section_pk={section.id}
+                            actionButtonClass="btn btn-outline-primary"
                         >
                             Create an Item
                         </CreateItemModal>
+
+                        <UpdateSectionModal
+                            modalTitle="Update"
+                            actionButtonSize="sm"
+                            title={section.title}
+                            actionVariant="primary"
+                            room_pk={props.room_pk}
+                            section_pk={section.id}
+                            actionButtonClass="btn btn-outline-amber"
+                        >
+                            Update this Section
+                        </UpdateSectionModal>
+
+                        <DeleteSectionModal
+                            modalTitle="Delete"
+                            actionButtonSize="sm"
+                            actionVariant="danger"
+                            room_pk={props.room_pk}
+                            section_pk={section.id}
+                            actionButtonClass="btn btn-outline-danger"
+                            modalBody={`Do you really want to delete "${section.title}" section?`}
+                        >
+                            Delete this Section
+                        </DeleteSectionModal>
                     </Row>
                 </TabPanel>
             ))}

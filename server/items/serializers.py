@@ -16,6 +16,13 @@ class ItemSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class ItemCreateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Item
+        fields = '__all__'
+
+
 class ItemUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
@@ -30,6 +37,7 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = '__all__'
+
 
 class CommentCreateSerializer(serializers.ModelSerializer):
 

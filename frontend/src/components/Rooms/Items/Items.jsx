@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
 import CustomAlert from "../../generic/CustomAlert";
 import Comments from "./Comments/Comments";
+import Moment from "moment";
 
 const Items = (props) => {
     const [items, setItems] = useState([]);
@@ -34,7 +35,9 @@ const Items = (props) => {
                         className="mx-auto mb-3"
                     >
                         <Card.Header className="d-md-flex justify-content-between">
-                            <div>{item.post_datetime}</div>
+                            <div>
+                                {Moment(item.post_datetime).format("LLLL")}
+                            </div>
                             <div>{item.author}</div>
                         </Card.Header>
 
@@ -48,16 +51,26 @@ const Items = (props) => {
 
                             <div>
                                 {item.content}
-                                <div>Date: {item.date}</div>
-                                <div>Time: {item.time}</div>
+                                <div>
+                                    Submission Date:{" "}
+                                    {Moment(`${item.date} ${item.time}`).format(
+                                        "LLLL"
+                                    )}
+                                </div>
                             </div>
                         </Card.Body>
 
-                        <Comments />
+                        <Comments
+                            date={item.date}
+                            time={item.time}
+                            item_pk={item.id}
+                            content={item.content}
+                            room_pk={props.room_pk}
+                        />
                     </Card>
                 ))
             ) : (
-                <div className="h4 text-muted text-center">{status}</div>
+                <div className="h4 text-muted text-center py-5">{status}</div>
             )}
         </>
     );
