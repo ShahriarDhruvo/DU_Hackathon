@@ -9,7 +9,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Header from "../Header/Header";
 import LoadingScreen from "../generic/LoadingScreen";
-
+import {Link} from 'react-router-dom'
 const axios = require("axios");
 
 export default class Home extends Component {
@@ -27,6 +27,7 @@ export default class Home extends Component {
   }
 
   async componentDidMount() {
+    console.log(localStorage.getItem('isAuthenticated'));
     let endpoint = "api/v1/university/departments/list/";
     let config = {
       headers: {
@@ -53,6 +54,7 @@ export default class Home extends Component {
 
     const fetchcourse = async() => {
 
+      console.log('kire')
       for(let i=0;i < this.state.dept.length; i++){
       
         let endpoint1 = `api/v1/university/departments/courses/${this.state.dept[i].id}/list/`;
@@ -70,13 +72,14 @@ export default class Home extends Component {
                 ...this.state.courses,
                 [current_dept_id] : tmparray,
               }
-            },() => {console.log(this.state)})
+            })
           });
         }
     }
     
-    await fetchcourse();
-    console.log(this.state);
+    if(!localStorage.getItem('isAuthenticated')){
+      await fetchcourse();
+    }
   }
 
 
@@ -163,14 +166,81 @@ export default class Home extends Component {
             )
             }
             </Slider>
+            <Link to={{pathname: `/dept/${iitem.id}`, dept_id:iitem.id}} style={{float:'right'}}>See More...</Link>
           </div> 
         )
       })
     }
     return (
           <div>
-          {this.state.courses && Object.keys(this.state.courses).length > 0 ? 
+          {this.state.courses && Object.keys(this.state.courses).length > 0 && !localStorage.getItem('isAuthenticated') ? 
           (
+          /*<div>
+          <Header />
+          <Container className="dept" fluid>
+            <h1 className="">SWE</h1>
+            <style>{cssstyle}</style>
+            <Slider {...settings}>
+              {/* <div>
+                <Card className="course">s
+                  <Card.Body>
+                    <Card.Title className="course__name">SWE121</Card.Title>
+                    <Card.Subtitle className="mb-2 text-muted">
+                      Structured Programming Language
+                    </Card.Subtitle>
+                    <Card.Text className="course__info">
+                      Some quick example text to build on the card title and make
+                      up the bulk of the card's content.
+                    </Card.Text>
+                    <Button variant="outline-primary">Enroll</Button>
+                  </Card.Body>
+                </Card>
+              </div>
+              <div>
+                <Card className="course">
+                  <Card.Body>
+                    <Card.Title className="course__name">SWE121</Card.Title>
+                    <Card.Subtitle className="mb-2 text-muted">
+                      Structured Programming Language
+                    </Card.Subtitle>
+                    <Card.Text className="course__info">
+                      Some quick example text to build on the card title and make
+                      up the bulk of the card's content.
+                    </Card.Text>
+                    <Button variant="outline-primary">Enroll</Button>
+                  </Card.Body>
+                </Card>
+              </div>
+              <div>
+                <Card className="course">
+                  <Card.Body>
+                    <Card.Title className="course__name">SWE121</Card.Title>
+                    <Card.Subtitle className="mb-2 text-muted">
+                      Structured Programming Language
+                    </Card.Subtitle>
+                    <Card.Text className="course__info">
+                      Some quick example text to build on the card title and make
+                      up the bulk of the card's content.
+                    </Card.Text>
+                    <Button variant="outline-primary">Enroll</Button>
+                  </Card.Body>
+                </Card>
+              </div> 
+            <div>
+              <Card className="course">
+                <Card.Body>
+                  <Card.Title className="course__name">SWE121</Card.Title>
+                  <Card.Subtitle className="mb-2 text-muted">
+                    Structured Programming Language
+                  </Card.Subtitle>
+                  <Card.Text className="course__info">
+                    Some quick example text to build on the card title and make
+                    up the bulk of the card's content.
+                  </Card.Text>
+                  <Button variant="outline-primary">Enroll</Button>
+                </Card.Body>
+              </Card>
+            </div>*/
             <div>
               <Header />
               <Container className="dept" fluid>
@@ -178,7 +248,11 @@ export default class Home extends Component {
               </Container>
             </div>
           ) : (
-            <LoadingScreen />
+            // enrolled courses will be shown here:
+            <div>
+            <Header />
+              
+            </div>
           )}
           </div>
     );
