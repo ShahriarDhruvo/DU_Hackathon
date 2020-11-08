@@ -27,14 +27,14 @@ const Rooms = () => {
 
             let data = await response.json();
 
-            // let room_members = [];
-            // room_members.push(...data[0].students);
-            // room_members.push(...data[0].teachers);
-
-            // console.log(data[0]);
-
             if (!response.ok) setStatus(data.detail);
-            else setRoom(data[0]);
+            else {
+                setRoom({
+                    ...data[0],
+                    course_title: data[0].course.split(", ")[0],
+                    course_details: data[0].course.split(", ")[1],
+                });
+            }
         };
 
         loadData();
@@ -42,12 +42,14 @@ const Rooms = () => {
 
     return (
         <Container>
-            <div className="mb-3">
-                <h3>
-                    {room.course} ({room.year})
+            <div className="mb-3 text-center ">
+                <h4 className="my-4">
+                    {room.course_title} ({room.year})
+                    <br />
+                    {room.course_details}
                     <br />
                     {room.group && `Group: ${room.group}`}
-                </h3>
+                </h4>
 
                 <RoomMembersModal
                     actionButtonSize="sm"

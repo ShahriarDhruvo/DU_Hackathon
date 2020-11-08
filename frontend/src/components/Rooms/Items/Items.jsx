@@ -57,7 +57,7 @@ const Items = (props) => {
                     </Card>
                 ))
             ) : (
-                <div className="h4 text-muted text-center">{status}</div>
+                <div className="h4 text-muted text-center py-5">{status}</div>
             )}
         </>
     );

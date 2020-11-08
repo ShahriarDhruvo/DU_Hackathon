@@ -28,20 +28,22 @@ class Item(models.Model):
             https://stackoverflow.com/questions/18732111/django-bulk-create-for-models-with-multiple-required-fields
             """
             room = self.section.room
-            students = room.students.all()#values_list(flat=True)
-            #print(room.owner)
+            students = room.students.all()  # values_list(flat=True)
+            # print(room.owner)
             print(students)
-            #print(room.teachers.all())
+            # print(room.teachers.all())
 
             #Notification.objects.create(user=room.owner, content='Test', content_type='item_1')
 
-            content = "Someone has posted an item in room " + room.course.title + " section " + self.section.title + "."
+            content = "Someone has posted an item in room " + \
+                room.course.title + " section " + self.section.title + "."
             content_type = 'item'
 
             members = students
 
             Notification.objects.bulk_create(
-                [Notification(user=user, content=content, content_type=content_type) for user in members]
+                [Notification(user=user, content=content,
+                              content_type=content_type) for user in members]
             )
 
         super().save(*args, **kwargs)
