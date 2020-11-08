@@ -16,6 +16,13 @@ class ItemSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class ItemCreateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Item
+        fields = '__all__'
+
+
 class ItemUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item

@@ -1,18 +1,9 @@
 import React, { useContext, useRef, useState } from "react";
 import { Modal } from "react-bootstrap";
-import Tab from "@material-ui/core/Tab";
-import { withStyles } from "@material-ui/core/styles";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { SettingsContext } from "../../../contexts/SettingsContext";
-import CustomAlert from "../../generic/CustomAlert";
+import { SettingsContext } from "../../contexts/SettingsContext";
+import CustomAlert from "../generic/CustomAlert";
 
-const AntTab = withStyles(() => ({
-    root: {
-        minWidth: 50,
-    },
-}))((props) => <Tab disableRipple {...props} />);
-
-const CreateSectionModal = (props) => {
+const UpdateRoomModal = (props) => {
     const form = useRef(null);
     const [show, setShow] = useState(false);
     const [status, setStatus] = useState(undefined);
@@ -24,13 +15,13 @@ const CreateSectionModal = (props) => {
     const handleCreateSection = (e) => {
         e.preventDefault();
 
-        const API_URL = `/api/v1/rooms/sections/${props.room_pk}/create/`;
+        const API_URL = `/api/v1/rooms/update/${props.room_pk}/`;
 
         const loadData = async () => {
             const formData = new FormData(form.current);
 
             const response = await fetch(API_URL, {
-                method: "POST",
+                method: "PATCH",
                 body: formData,
             });
 
@@ -49,15 +40,9 @@ const CreateSectionModal = (props) => {
 
     return (
         <>
-            <AntTab
-                label={
-                    <FontAwesomeIcon
-                        className="fa-icon"
-                        icon={["fas", "plus"]}
-                    />
-                }
-                onClick={handleShow}
-            />
+            <button onClick={handleShow} className={props.actionButtonClass}>
+                {props.children}
+            </button>
 
             <Modal
                 centered
@@ -65,32 +50,43 @@ const CreateSectionModal = (props) => {
                 onHide={handleClose}
                 animation={isAnimated}
             >
-                <Modal.Header closeButton>Create a Section</Modal.Header>
+                <Modal.Header closeButton>Update this Room</Modal.Header>
                 <Modal.Body>
                     <form
                         ref={form}
-                        onSubmit={handleCreateSection}
                         className="text-center"
+                        onSubmit={handleCreateSection}
                     >
                         {status && (
                             <CustomAlert variant="warning" status={status} />
                         )}
 
                         <div className="form-group">
-                            <label>Section title</label>
+                            <label>Year</label>
 
                             <input
                                 required
                                 autoFocus
-                                type="text"
-                                name="title"
-                                placeholder="Title"
+                                name="year"
+                                type="number"
+                                placeholder="Year"
                                 className="form-control"
+                                defaultValue={props.year}
+                            />
+
+                            <label className="mt-3">Group</label>
+
+                            <input
+                                type="text"
+                                name="group"
+                                placeholder="Group"
+                                className="form-control"
+                                defaultValue={props.group}
                             />
                         </div>
 
                         <button type="submit" className="btn btn-primary">
-                            Create
+                            Update
                         </button>
                     </form>
                 </Modal.Body>
@@ -99,4 +95,4 @@ const CreateSectionModal = (props) => {
     );
 };
 
-export default CreateSectionModal;
+export default UpdateRoomModal;

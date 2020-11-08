@@ -1,18 +1,10 @@
 import React, { useContext, useRef, useState } from "react";
 import { Modal } from "react-bootstrap";
-import Tab from "@material-ui/core/Tab";
-import { withStyles } from "@material-ui/core/styles";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SettingsContext } from "../../../contexts/SettingsContext";
 import CustomAlert from "../../generic/CustomAlert";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const AntTab = withStyles(() => ({
-    root: {
-        minWidth: 50,
-    },
-}))((props) => <Tab disableRipple {...props} />);
-
-const CreateSectionModal = (props) => {
+const UpdateSectionModal = (props) => {
     const form = useRef(null);
     const [show, setShow] = useState(false);
     const [status, setStatus] = useState(undefined);
@@ -21,16 +13,16 @@ const CreateSectionModal = (props) => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    const handleCreateSection = (e) => {
+    const handleUpdateSection = (e) => {
         e.preventDefault();
 
-        const API_URL = `/api/v1/rooms/sections/${props.room_pk}/create/`;
+        const API_URL = `/api/v1/rooms/sections/${props.room_pk}/update/${props.section_pk}/`;
 
         const loadData = async () => {
             const formData = new FormData(form.current);
 
             const response = await fetch(API_URL, {
-                method: "POST",
+                method: "PATCH",
                 body: formData,
             });
 
@@ -49,15 +41,13 @@ const CreateSectionModal = (props) => {
 
     return (
         <>
-            <AntTab
-                label={
-                    <FontAwesomeIcon
-                        className="fa-icon"
-                        icon={["fas", "plus"]}
-                    />
-                }
+            <button
                 onClick={handleShow}
-            />
+                size={props.actionButtonSize}
+                className={props.actionButtonClass}
+            >
+                {props.children}
+            </button>
 
             <Modal
                 centered
@@ -65,11 +55,11 @@ const CreateSectionModal = (props) => {
                 onHide={handleClose}
                 animation={isAnimated}
             >
-                <Modal.Header closeButton>Create a Section</Modal.Header>
+                <Modal.Header closeButton>Update this Section</Modal.Header>
                 <Modal.Body>
                     <form
                         ref={form}
-                        onSubmit={handleCreateSection}
+                        onSubmit={handleUpdateSection}
                         className="text-center"
                     >
                         {status && (
@@ -86,11 +76,16 @@ const CreateSectionModal = (props) => {
                                 name="title"
                                 placeholder="Title"
                                 className="form-control"
+                                defaultValue={props.title}
                             />
                         </div>
 
                         <button type="submit" className="btn btn-primary">
-                            Create
+                            <FontAwesomeIcon
+                                className="mr-2"
+                                icon={["fas", "wrench"]}
+                            />
+                            Update
                         </button>
                     </form>
                 </Modal.Body>
@@ -99,4 +94,4 @@ const CreateSectionModal = (props) => {
     );
 };
 
-export default CreateSectionModal;
+export default UpdateSectionModal;

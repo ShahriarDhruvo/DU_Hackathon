@@ -13,8 +13,8 @@ class Item(models.Model):
     post_datetime = models.DateTimeField(auto_now=True)
     section = models.ForeignKey(
         'sections.section', null=True, on_delete=models.CASCADE)
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, null=True,
-                               related_name='item_author', on_delete=models.SET_NULL)
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
 
     def save(self, *args, **kwargs):
 

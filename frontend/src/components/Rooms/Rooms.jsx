@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AuthenticationContext } from "../../contexts/AuthenticationContext";
 import { useParams } from "react-router-dom";
 import CustomAlert from "../generic/CustomAlert";
+import UpdateRoomModal from "./UpdateRoomModal";
 
 const Rooms = () => {
     const [room, setRoom] = useState({});
@@ -42,7 +43,7 @@ const Rooms = () => {
 
     return (
         <Container>
-            <div className="mb-3 text-center ">
+            <div className="mb-2 text-center ">
                 <h4 className="my-4">
                     {room.course_title} ({room.year})
                     <br />
@@ -50,16 +51,34 @@ const Rooms = () => {
                     <br />
                     {room.group && `Group: ${room.group}`}
                 </h4>
+            </div>
 
+            <div className="mb-3 d-flex justify-content-around">
                 <RoomMembersModal
                     actionButtonSize="sm"
                     room_pk={params.room_pk}
                     variant="outline-primary"
-                    actionButtonClass="d-md-none ml-2"
+                    actionButtonClass="d-md-none"
                 >
                     <FontAwesomeIcon icon={["fas", "users"]} className="mr-2" />
                     Show Member's List
                 </RoomMembersModal>
+
+                <UpdateRoomModal
+                    year={room.year}
+                    group={room.group}
+                    modalTitle="Update"
+                    actionButtonSize="sm"
+                    actionVariant="primary"
+                    room_pk={params.room_pk}
+                    actionButtonClass="btn btn-outline-success"
+                >
+                    <FontAwesomeIcon
+                        icon={["fas", "wrench"]}
+                        className="mr-2"
+                    />
+                    Update this Room
+                </UpdateRoomModal>
             </div>
 
             {status && <CustomAlert variant="warning" status={status} />}

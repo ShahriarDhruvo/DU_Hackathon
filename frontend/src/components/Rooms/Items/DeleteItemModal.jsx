@@ -3,7 +3,7 @@ import { Button, Modal } from "react-bootstrap";
 import { SettingsContext } from "../../../contexts/SettingsContext";
 import CustomAlert from "../../generic/CustomAlert";
 
-const DeleteSectionModal = (props) => {
+const DeleteItemModal = (props) => {
     const [show, setShow] = useState(false);
     const [status, setStatus] = useState(undefined);
     const { isAnimated } = useContext(SettingsContext);
@@ -14,7 +14,7 @@ const DeleteSectionModal = (props) => {
     const handleAction = (e) => {
         e.preventDefault();
 
-        const API_URL = `/api/v1/rooms/sections/${props.room_pk}/delete/${props.section_pk}/`;
+        const API_URL = `/api/v1/rooms/sections/items/${props.room_pk}/delete/${props.item_pk}/`;
 
         const loadData = async () => {
             const response = await fetch(API_URL, {
@@ -34,6 +34,7 @@ const DeleteSectionModal = (props) => {
         <>
             <button
                 onClick={handleShow}
+                style={{ color: "#f44336" }}
                 size={props.actionButtonSize}
                 className={props.actionButtonClass}
             >
@@ -73,4 +74,4 @@ const DeleteSectionModal = (props) => {
     );
 };
 
-export default DeleteSectionModal;
+export default DeleteItemModal;

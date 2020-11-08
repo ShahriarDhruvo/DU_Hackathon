@@ -16,6 +16,7 @@
     "axios": "^0.20.0",
     "bootstrap": "^4.5.3",
     "mdbreact": "^4.27.0",
+    "moment": "^2.29.1",
     "node-sass": "^4.14.1",
     "react": "^17.0.0",
     "react-alert": "^7.0.2",

@@ -10,6 +10,7 @@ import CreateItemModal from "../Items/CreateItemModal";
 import { Row } from "react-bootstrap";
 import CreateSectionModal from "./CreateSectionModal";
 import DeleteSectionModal from "./DeleteSectionModal";
+import UpdateSectionModal from "./UpdateSectionModal";
 
 const TabPanel = (props) => {
     const { children, value, index, ...other } = props;
@@ -96,13 +97,27 @@ const Sections = (props) => {
                 <TabPanel key={section.id} value={value} index={index}>
                     <Items room_pk={props.room_pk} section_pk={section.id} />
 
-                    <Row className="d-flex justify-content-around">
+                    <Row className="d-flex justify-content-around mt-4">
                         <CreateItemModal
                             actionButtonSize="sm"
-                            actionButtonClass="btn-link btn__none"
+                            room_pk={props.room_pk}
+                            section_pk={section.id}
+                            actionButtonClass="btn btn-outline-primary"
                         >
                             Create an Item
                         </CreateItemModal>
+
+                        <UpdateSectionModal
+                            modalTitle="Update"
+                            actionButtonSize="sm"
+                            title={section.title}
+                            actionVariant="primary"
+                            room_pk={props.room_pk}
+                            section_pk={section.id}
+                            actionButtonClass="btn btn-outline-amber"
+                        >
+                            Update this Section
+                        </UpdateSectionModal>
 
                         <DeleteSectionModal
                             modalTitle="Delete"
@@ -110,7 +125,7 @@ const Sections = (props) => {
                             actionVariant="danger"
                             room_pk={props.room_pk}
                             section_pk={section.id}
-                            actionButtonClass="btn__none"
+                            actionButtonClass="btn btn-outline-danger"
                             modalBody={`Do you really want to delete "${section.title}" section?`}
                         >
                             Delete this Section
