@@ -77,7 +77,7 @@ class ItemCreate(CreateAPIView):
                 "The section you're trying to add item to doesn't exist!")
 
         request.data._mutable = True
-        request.data['author'] = user_id
+        request.data['user'] = user_id
         request.data['section'] = section_pk
         request.data._mutable = False
 

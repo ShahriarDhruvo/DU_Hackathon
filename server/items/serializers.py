@@ -9,7 +9,7 @@ from .models import (
 # All item serializers
 class ItemSerializer(serializers.ModelSerializer):
 
-    author = serializers.StringRelatedField()
+    user = serializers.StringRelatedField()
 
     class Meta:
         model = Item
