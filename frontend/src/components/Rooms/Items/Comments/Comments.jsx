@@ -6,7 +6,7 @@ import AddComment from "./AddComment";
 import Comment from "./Comment";
 
 const Comments = (props) => {
-    const [show, setShow] = useState(true);
+    const [show, setShow] = useState(false);
     const [comments, setComments] = useState([]);
     const [status, setStatus] = useState(undefined);
 
@@ -30,11 +30,13 @@ const Comments = (props) => {
     const handleShow = () => setShow(!show);
 
     return (
-        <div>
-            {status && <CustomAlert variant="warning" status={status} />}
-
-            <div className="p-2 d-flex justify-content-around">
-                <button onClick={handleShow} className="btn-link btn__none">
+        <>
+            <div className="p-2 d-flex flex-column flex-md-row justify-content-around">
+                <button
+                    onClick={handleShow}
+                    className="btn__none my-1"
+                    style={{ color: "#1e88e5" }}
+                >
                     {!show ? "Show" : "Hide"} comments
                 </button>
 
@@ -47,7 +49,7 @@ const Comments = (props) => {
                     actionVariant="primary"
                     room_pk={props.room_pk}
                     item_pk={props.item_pk}
-                    actionButtonClass="btn__none"
+                    actionButtonClass="btn__none my-1"
                 >
                     Update this Item
                 </UpdateItemModal>
@@ -58,7 +60,7 @@ const Comments = (props) => {
                     actionVariant="danger"
                     room_pk={props.room_pk}
                     item_pk={props.item_pk}
-                    actionButtonClass="btn__none"
+                    actionButtonClass="btn__none my-1"
                     modalBody={`Do you really want to delete this Item?`}
                 >
                     Delete this Item
@@ -78,6 +80,18 @@ const Comments = (props) => {
                             </div>
                         ))}
 
+                        {status &&
+                            (comments.length === 0 ? (
+                                <h5 className="text-center text-muted my-4">
+                                    {status}
+                                </h5>
+                            ) : (
+                                <CustomAlert
+                                    variant="warning"
+                                    status={status}
+                                />
+                            ))}
+
                         <AddComment
                             room_pk={props.room_pk}
                             item_pk={props.item_pk}
@@ -85,7 +99,7 @@ const Comments = (props) => {
                     </>
                 )}
             </div>
-        </div>
+        </>
     );
 };
 

@@ -48,12 +48,13 @@ class CommentList(ListAPIView):
 
         # queryset = Comment.objects.filter(item_id=item_pk, item__section_id=section_pk,
         #     item__section__room_id=room_pk).order_by('id')
-        queryset = Comment.objects.filter(item_id=item_pk, item__section__room_id=room_pk).order_by('id')
+        queryset = Comment.objects.filter(
+            item_id=item_pk, item__section__room_id=room_pk).order_by('id')
 
         if queryset:
             return queryset
         else:
-            raise NotFound("No comment has been created yet!")
+            raise NotFound("No comment has been posted yet")
 
 
 class CommentCreate(CreateAPIView):
@@ -66,7 +67,8 @@ class CommentCreate(CreateAPIView):
         #section_pk = self.kwargs.get('section_pk', None)
         item_pk = self.kwargs.get('item_pk', None)
 
-        is_authenticated = Room.objects.filter(Q(teachers=user_id) | Q(students=user_id), id=room_pk)
+        is_authenticated = Room.objects.filter(
+            Q(teachers=user_id) | Q(students=user_id), id=room_pk)
 
         if not is_authenticated:
             raise PermissionDenied("Only a user of this room can comment!")
@@ -74,9 +76,10 @@ class CommentCreate(CreateAPIView):
         # queryset = Item.objects.filter(id=item_pk, section_id=section_pk,
         #     section__room_id=room_pk)
         queryset = Item.objects.filter(id=item_pk, section__room_id=room_pk)
-        
+
         if not queryset:
-            raise NotFound("The item you're trying to add comment to doesn't exist!")
+            raise NotFound(
+                "The item you're trying to add comment to doesn't exist!")
 
         request.data._mutable = True
         request.data['item'] = item_pk
@@ -88,7 +91,7 @@ class CommentCreate(CreateAPIView):
 
 class CommentDelete(DestroyAPIView):
     lookup_url_kwarg = 'comment_pk'
-    
+
     def get_queryset(self):
         user_id = self.request.user.id
 
@@ -98,13 +101,14 @@ class CommentDelete(DestroyAPIView):
 
         # queryset = Comment.objects.filter(user_id=user_id,
         #     item_id=item_pk, item__section_id=section_pk,item__section__room_id=room_pk)
-        queryset = Comment.objects.filter(user_id=user_id, item__section__room_id=room_pk)
-
+        queryset = Comment.objects.filter(
+            user_id=user_id, item__section__room_id=room_pk)
 
         if queryset:
             return queryset
         else:
-            raise NotFound("Comment not found or this comment was made by someone else!")
+            raise NotFound(
+                "Comment not found or this comment was made by someone else!")
 
 
 class CommentUpdate(UpdateAPIView):
@@ -117,13 +121,14 @@ class CommentUpdate(UpdateAPIView):
         room_pk = self.kwargs.get('room_pk', None)
         #section_pk = self.kwargs.get('section_pk', None)
         #item_pk = self.kwargs.get('item_pk', None)
-    
-        # queryset = Comment.objects.filter(user_id=user_id, 
+
+        # queryset = Comment.objects.filter(user_id=user_id,
         #     item_id=item_pk, item__section_id=section_pk,item__section__room_id=room_pk)
-        queryset = Comment.objects.filter(user_id=user_id, item__section__room_id=room_pk)
+        queryset = Comment.objects.filter(
+            user_id=user_id, item__section__room_id=room_pk)
 
         if queryset:
             return queryset
         else:
-            raise NotFound("Comment not found or this comment was made by someone else!")
-
+            raise NotFound(
+                "Comment not found or this comment was made by someone else!")

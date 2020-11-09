@@ -11,7 +11,7 @@ const Counter = (props) => {
         const API_URL = `/api/v1/rooms/sections/items/comments/${props.room_pk}/update/${props.comment_pk}/`;
 
         const loadData = async () => {
-            const response = await fetch(API_URL, {
+            await fetch(API_URL, {
                 method: "PATCH",
                 headers: {
                     Accept: "application/json",
@@ -24,7 +24,7 @@ const Counter = (props) => {
         };
 
         loadData();
-    }, [count]);
+    }, [count, props]);
 
     return (
         <div
