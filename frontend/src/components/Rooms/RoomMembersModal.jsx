@@ -13,26 +13,25 @@ const RoomMembersModal = (props) => {
     return (
         <>
             <Button
-                variant={props.variant}
-                className={props.actionButtonClass}
-                size={props.actionButtonSize}
                 onClick={handleShow}
                 disabled={props.edit}
+                variant={props.variant}
+                size={props.actionButtonSize}
+                className={props.actionButtonClass}
                 style={{ width: props.actionButtonWidth }}
             >
                 {props.children}
             </Button>
 
             <Modal
-                show={show}
-                animation={isAnimated}
-                onHide={handleClose}
-                className="text-center"
                 centered
+                show={show}
+                onHide={handleClose}
+                animation={isAnimated}
             >
                 <Modal.Header closeButton></Modal.Header>
                 <Modal.Body className="p-0">
-                    <RoomMembers />
+                    <RoomMembers room_pk={props.room_pk} />
                 </Modal.Body>
             </Modal>
         </>

@@ -1,42 +1,61 @@
-import React, { useContext, useState } from "react";
+import React, { useState, useContext } from "react";
 import { Button, Modal } from "react-bootstrap";
-import { SettingsContext } from "../../contexts/SettingsContext";
+import { SettingsContext } from "../../../contexts/SettingsContext";
+import CustomAlert from "../../generic/CustomAlert";
 
-const CustomModal = (props) => {
+const DeleteSectionModal = (props) => {
     const [show, setShow] = useState(false);
+    const [status, setStatus] = useState(undefined);
     const { isAnimated } = useContext(SettingsContext);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    const handleAction = () => {
-        handleClose();
-        props.handleAction();
+
+    const handleAction = (e) => {
+        e.preventDefault();
+
+        const API_URL = `/api/v1/rooms/sections/${props.room_pk}/delete/${props.section_pk}/`;
+
+        const loadData = async () => {
+            const response = await fetch(API_URL, {
+                method: "DELETE",
+            });
+
+            if (!response.ok) {
+                const data = await response.json();
+                setStatus(data.detail);
+            } else handleClose();
+        };
+
+        loadData();
     };
 
     return (
         <>
             <button
-                className={props.actionButtonClass}
-                size={props.actionButtonSize}
                 onClick={handleShow}
-                disabled={props.edit}
-                style={props.actionButtonStyle}
+                size={props.actionButtonSize}
+                className={props.actionButtonClass}
             >
                 {props.children}
             </button>
 
             <Modal
-                show={show}
-                animation={isAnimated}
-                onHide={handleClose}
-                className="text-center"
                 centered
+                show={show}
+                onHide={handleClose}
+                animation={isAnimated}
+                className="text-center"
             >
                 <Modal.Header closeButton>
                     <Modal.Title>{props.modalTitle}</Modal.Title>
                 </Modal.Header>
 
-                <Modal.Body>{props.modalBody}</Modal.Body>
+                <Modal.Body>
+                    {status && <CustomAlert variant="danger" status={status} />}
+
+                    {props.modalBody}
+                </Modal.Body>
 
                 <Modal.Footer>
                     <Button
@@ -54,4 +73,4 @@ const CustomModal = (props) => {
     );
 };
 
-export default CustomModal;
+export default DeleteSectionModal;

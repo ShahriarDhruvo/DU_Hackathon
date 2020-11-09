@@ -1,0 +1,92 @@
+import React, { useEffect, useState } from "react";
+import CustomAlert from "../../../generic/CustomAlert";
+import DeleteItemModal from "../DeleteItemModal";
+import UpdateItemModal from "../UpdateItemModal";
+import AddComment from "./AddComment";
+import Comment from "./Comment";
+
+const Comments = (props) => {
+    const [show, setShow] = useState(true);
+    const [comments, setComments] = useState([]);
+    const [status, setStatus] = useState(undefined);
+
+    useEffect(() => {
+        const API_URL = `/api/v1/rooms/sections/items/comments/${props.room_pk}/${props.item_pk}/list/`;
+
+        const loadData = async () => {
+            let response = await fetch(API_URL, {
+                method: "GET",
+            });
+
+            let data = await response.json();
+
+            if (!response.ok) setStatus(data.detail);
+            else setComments(data);
+        };
+
+        loadData();
+    }, [props.room_pk, props.item_pk]);
+
+    const handleShow = () => setShow(!show);
+
+    return (
+        <div>
+            {status && <CustomAlert variant="warning" status={status} />}
+
+            <div className="p-2 d-flex justify-content-around">
+                <button onClick={handleShow} className="btn-link btn__none">
+                    {!show ? "Show" : "Hide"} comments
+                </button>
+
+                <UpdateItemModal
+                    date={props.date}
+                    time={props.time}
+                    modalTitle="Update"
+                    actionButtonSize="sm"
+                    content={props.content}
+                    actionVariant="primary"
+                    room_pk={props.room_pk}
+                    item_pk={props.item_pk}
+                    actionButtonClass="btn__none"
+                >
+                    Update this Item
+                </UpdateItemModal>
+
+                <DeleteItemModal
+                    modalTitle="Delete"
+                    actionButtonSize="sm"
+                    actionVariant="danger"
+                    room_pk={props.room_pk}
+                    item_pk={props.item_pk}
+                    actionButtonClass="btn__none"
+                    modalBody={`Do you really want to delete this Item?`}
+                >
+                    Delete this Item
+                </DeleteItemModal>
+            </div>
+
+            <div className="mx-3">
+                {show && (
+                    <>
+                        {comments.map((comment) => (
+                            <div key={comment.id} className="mb-2">
+                                <Comment
+                                    comment={comment}
+                                    room_pk={props.room_pk}
+                                    comment_pk={comment.id}
+                                />
+                            </div>
+                        ))}
+
+                        <AddComment
+                            room_pk={props.room_pk}
+                            item_pk={props.item_pk}
+                        />
+                    </>
+                )}
+            </div>
+        </div>
+    );
+};
+
+export default Comments;

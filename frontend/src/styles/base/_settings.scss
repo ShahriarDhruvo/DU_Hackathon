@@ -9,6 +9,7 @@ body {
 // Colors
 // $bg: #e4e4e4c5;
 $main: #00000081;
+$amber: #ef6c00;
 // $main-bg: #ffffffb9;
 // $syntax: #000000cc;
 // $complete: #b5ead7;
@@ -23,6 +24,7 @@ $theme-colors: map-merge(
     (
         // "bg": $bg,
         "main": $main,
+        "amber": $amber,
         // "main-bg": $main-bg,
         // "syntax": $syntax,
         // "complete": $complete,

@@ -1,16 +1,20 @@
 from django.db import models
 from rooms.models import Room
+from django.conf import settings
 from sections.models import Section
 from notifications.models import Notification
-from django.conf import settings
+
 
 class Item(models.Model):
 
-    section = models.ForeignKey('sections.section', null=True, on_delete=models.CASCADE)
-    content = models.TextField(null=True)
     date = models.DateField()
     time = models.TimeField()
+    content = models.TextField(null=True)
     post_datetime = models.DateTimeField(auto_now=True)
+    section = models.ForeignKey(
+        'sections.section', null=True, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
 
     def save(self, *args, **kwargs):
 
@@ -44,7 +48,8 @@ class Item(models.Model):
 class Comment(models.Model):
 
     item = models.ForeignKey(Item, null=True, on_delete=models.CASCADE)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             null=True, on_delete=models.CASCADE)
     content = models.TextField(null=True)
     comment_datetime = models.DateTimeField(auto_now=True)
     vote = models.IntegerField(default=0, blank=True)
