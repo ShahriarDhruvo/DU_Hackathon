@@ -36,7 +36,7 @@ def apiOverview(request):
         'Course Delete'                     : 'api/v1/university/departments/courses/<str:department_pk>/delete/<str:course_pk>/',
         'Course Details'                    : 'api/v1/university/departments/courses/<str:department_pk>/details/<str:course_pk>/',
 
-        'Room List'                         : 'api/v1/rooms/list/',
+        'Room List'                         : 'api/v1/rooms/<str:department_pk>/list/',
         'Room Create'                       : 'api/v1/rooms/create/',
         'Room Update'                       : 'api/v1/rooms/update/<str:room_pk>/',
         'Room Delete'                       : 'api/v1/rooms/delete/<str:room_pk>/',
@@ -47,6 +47,9 @@ def apiOverview(request):
         'Room Remove CR'                    : 'api/v1/rooms/remove/<str:room_pk>/class_representative/<str:username>/',
         'Room Remove Student'               : 'api/v1/rooms/remove/<str:room_pk>/student/<str:username>/',
         'Room Remove Teacher'               : 'api/v1/rooms/remove/<str:room_pk>/teacher/<str:username>/',
+        'Room Pending Request List'         : 'api/v1/rooms//pending_requests/<str:room_pk>/list/',
+        'Room Pending Request Create'       : 'api/v1/rooms//pending_requests/<str:room_pk>/create/',
+        'Room Pending Request Delete'       : 'api/v1/rooms//pending_requests/<str:room_pk>/delete/<str:pending_request_pk>/',
 
         'Section List'                      : 'api/v1/rooms/sections/<str:room_pk>/list/',
         'Section Create'                    : 'api/v1/rooms/sections/<str:room_pk>/create/',
