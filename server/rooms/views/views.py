@@ -35,11 +35,12 @@ class RoomList(ListAPIView):
     permission_classes = (permissions.AllowAny,)
 
     def get_queryset(self):
+        department_pk = self.kwargs.get('department_pk', None)
         # user_id = self.request.user.id
 
         # queryset = Room.objects.filter(
         #     Q(teachers=user_id) | Q(students=user_id)).order_by('id')
-        queryset = Room.objects.all()
+        queryset = Room.objects.filter(course__department_id=department_pk)
 
         if queryset:
             return queryset

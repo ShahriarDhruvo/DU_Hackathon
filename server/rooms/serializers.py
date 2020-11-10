@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Room
+from .models import Room, PendingRequests
 
 
 class RoomSerializer(serializers.ModelSerializer):
@@ -58,3 +58,8 @@ class RoomUpdateUserSerializer(serializers.ModelSerializer):
                 'allow_empty': True
             }
         }
+
+class PendingRequestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PendingRequests
+        fields = '__all__'

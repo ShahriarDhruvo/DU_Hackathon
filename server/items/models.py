@@ -7,14 +7,13 @@ from notifications.models import Notification
 
 class Item(models.Model):
 
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
     date = models.DateField()
     time = models.TimeField()
     content = models.TextField(null=True)
     post_datetime = models.DateTimeField(auto_now=True)
     section = models.ForeignKey(
         'sections.section', null=True, on_delete=models.CASCADE)
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
 
     def save(self, *args, **kwargs):
 

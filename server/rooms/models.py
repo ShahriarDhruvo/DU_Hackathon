@@ -29,3 +29,11 @@ class Room(models.Model):
 
     def __str__(self):
         return '%s (%s)' % (self.course, str(self.year))
+
+class PendingRequests(models.Model):
+
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.CASCADE)
+    room = models.ForeignKey(Room, null=True, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.user
