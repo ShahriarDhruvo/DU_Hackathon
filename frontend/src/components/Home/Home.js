@@ -48,7 +48,6 @@ export default class Home extends Component {
           dept_size : response.data.length
         });
       });
-    
     }
     await fetchdept();
 
@@ -166,12 +165,14 @@ export default class Home extends Component {
                 <LoadingScreen />
               )}
             </Slider>
-            <Link
-              to={{ pathname: `/dept/${iitem.id}`, dept_id: iitem.id }}
+            <div>
+              <Link 
+              to={`/homerooms/${iitem.id}`} 
               style={{ float: "right" }}
-            >
-              See More...
-            </Link>
+              >
+                <p>See More...</p>
+              </Link>
+            </div>
           </div>
         );
       })
@@ -257,7 +258,6 @@ export default class Home extends Component {
             // enrolled courses will be shown here:
             <div>
             <Header />
-              
             </div>
           )}
           </div>

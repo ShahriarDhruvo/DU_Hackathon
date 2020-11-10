@@ -15,6 +15,7 @@ import Rooms from "./components/Rooms/Rooms";
 import AuthenticationContextProvider from "./contexts/AuthenticationContext";
 import SettingsContextProvider from "./contexts/SettingsContext";
 import Navs from './components/Navbar/Navbar';
+import Dept from './components/Dept/Dept'
 // import FooterPage from "./components/Footer/Footer";
 // import Footer from "./components/generic/Footer";
 
@@ -29,6 +30,7 @@ function App() {
                     <Switch>
                         <Route exact path="/" component={Home} />
                         <Route exact path="/rooms/:room_pk/" component={Rooms} />
+                        <Route exact path="/homerooms/:id/" component={Dept} />
                         <Route
                             exact
                             path="/password/reset/"

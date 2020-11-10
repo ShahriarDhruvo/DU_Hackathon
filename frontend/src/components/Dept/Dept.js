@@ -23,8 +23,10 @@ export default class Dept extends Component {
   
 
   async componentDidMount() {
+    console.log("VAUI")
     const {match:{params}} = this.props;
     const id = params.id;
+    console.log(params)
     const fetchcourses = async() => {
         let config = {
           headers: {
@@ -39,12 +41,14 @@ export default class Dept extends Component {
           for (var j = 0; j < response.data.length; j++) {
             tmparray.push(response.data[j]);
           }
+          console.log("ASD")
+          console.log(tmparray)
 
           this.setState({
             courses: tmparray,
             courses_length: response.data.length,
           },() => {console.log(this.state)})
-        });
+        },()=>{console.log(this.state)});
       }
 
       if(id)
