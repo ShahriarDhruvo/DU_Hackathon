@@ -99,16 +99,16 @@ WSGI_APPLICATION = 'server.wsgi.application'
 
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        # 'NAME': 'du_hackathon',
-        # 'USER': 'postgres',
-        # 'PASSWORD': 'emonsust',
-        # 'HOST': 'localhost',
-        # 'PORT': '',
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+         'NAME': 'du_hackathon',
+         'USER': 'postgres',
+         'PASSWORD': 'emonsust',
+         'HOST': 'localhost',
+         'PORT': '',
+
     }
 }
+
 
 
 # Password validation
@@ -193,8 +193,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = os.environ.get('APP_EMAIL_USER')
-EMAIL_HOST_PASSWORD = os.environ.get('APP_EMAIL_PASS')
+# EMAIL_HOST_USER = os.environ.get('APP_EMAIL_USER')
+# EMAIL_HOST_PASSWORD = os.environ.get('APP_EMAIL_PASS')
 
 OLD_PASSWORD_FIELD_ENABLED = True
 

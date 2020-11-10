@@ -42,7 +42,8 @@ class SignUp extends Component {
         "Content-Type": "application/json",
       },
     };
-    axios.get(endpoint, config).then((response) => {
+    axios.get(endpoint, config)
+    .then((response) => {
       let tmparray = [];
       // console.log(response.data);
       for (var i = 0; i < response.data.length; i++) {

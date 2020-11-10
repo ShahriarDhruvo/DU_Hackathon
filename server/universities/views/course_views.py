@@ -1,5 +1,7 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework import permissions
+
 from rest_framework.exceptions import (
     NotFound,
     APIException,
@@ -30,10 +32,12 @@ class Conflict(APIException):
 
 class CourseList(ListAPIView):
     serializer_class = CourseSerializer
+    #change by emon
+    permission_classes = (permissions.AllowAny,)
 
     def get_queryset(self):
-
-        user_university = self.request.user.university
+        #Change by emon
+        #user_university = self.request.user.university
         # user_id = self.request.user.id
 
         # queryset = Department.objects.filter(
@@ -47,7 +51,9 @@ class CourseList(ListAPIView):
         #     raise PermissionDenied('You are not authorized to view course list!')
 
         #queryset = Course.objects.filter(department_id=department_pk).order_by('id')
-        queryset = Course.objects.filter(department_id=department_pk, department__university_id=user_university).order_by('id')
+        #Change by Emon
+        #queryset = Course.objects.filter(department_id=department_pk, department__university_id=user_university).order_by('id')
+        queryset = Course.objects.filter(department_id=department_pk).order_by('id')
 
 
         if queryset:
@@ -120,6 +126,8 @@ class CourseUpdate(UpdateAPIView):
 
 class CourseDetails(ListAPIView):
     serializer_class = CourseSerializer
+    #Change by emon
+    permission_classes = (permissions.AllowAny,)
 
     def get_queryset(self):
         

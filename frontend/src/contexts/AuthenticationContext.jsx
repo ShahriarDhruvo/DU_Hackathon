@@ -24,9 +24,8 @@ const AuthenticationContextProvider = (props) => {
         });
 
         if (response.ok) {
-            handleAuthentication("");
-            localStorage.setItem("userID", "");
-            window.location.replace("/login");
+            localStorage.clear();
+            window.location.replace("/");
         }
     };
 

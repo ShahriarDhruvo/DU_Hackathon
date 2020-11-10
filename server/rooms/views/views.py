@@ -4,6 +4,7 @@ from rest_framework.exceptions import (
     NotAcceptable,
     PermissionDenied,
 )
+from rest_framework import permissions
 from rest_framework.generics import (
     ListAPIView,
     CreateAPIView,
@@ -31,6 +32,7 @@ class Conflict(APIException):
 
 class RoomList(ListAPIView):
     serializer_class = RoomListSerializer
+    permission_classes = (permissions.AllowAny,)
 
     def get_queryset(self):
         # user_id = self.request.user.id

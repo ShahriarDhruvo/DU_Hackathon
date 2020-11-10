@@ -1,17 +1,17 @@
-.header {
+/* .header {
     width: 100%;
     height: 85vh;
     background: hsla(278, 100%, 68%, 1);
     background-image: url(../assets/3794012.png), linear-gradient(360deg, hsla(278, 100%, 68%, 1) 19%, hsla(254, 83%, 64%, 1) 100%);
     background-position: 99% 95%;
     background-repeat: no-repeat;
-    background-size: auto auto;
-    // box-shadow: -4px 4px 8px 1px rgb(165, 164, 164);
-    
-    // background: -moz-linear-gradient(360deg, hsla(278, 100%, 68%, 1) 19%, hsla(254, 83%, 64%, 1) 100%);
-    
-    // background: -webkit-linear-gradient(360deg, hsla(278, 100%, 68%, 1) 19%, hsla(254, 83%, 64%, 1) 100%);
-    &__text {
+    background-size: auto auto; */
+// box-shadow: -4px 4px 8px 1px rgb(165, 164, 164);
+
+// background: -moz-linear-gradient(360deg, hsla(278, 100%, 68%, 1) 19%, hsla(254, 83%, 64%, 1) 100%);
+
+// background: -webkit-linear-gradient(360deg, hsla(278, 100%, 68%, 1) 19%, hsla(254, 83%, 64%, 1) 100%);
+/*     &__text {
         margin-top: 9%;
         color: white;
         text-shadow: -4px 1px 5px rgba(0,0,0,0.6);
@@ -25,4 +25,44 @@
         text-align: left;
         font-family: 'Roboto', sans-serif;
     }
-}
+} */
+.header {
+    width: 100%;
+    height: 35vh;
+    background: hsla(278, 100%, 68%, 1);
+    background-image: url(../assets/3794012.png),
+      linear-gradient(
+        360deg,
+        hsla(278, 100%, 68%, 1) 19%,
+        hsla(254, 83%, 64%, 1) 100%
+      );
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    background-size: contain, 100%;
+    &__text {
+      display: none;
+    }
+  }
+  @media (min-width: 1025px) {
+    .header {
+      height: 70vh;
+      background-position: right bottom;
+      background-size: auto, auto;
+      color: #FFFCF7;
+      // text-shadow: -4px 1px 5px rgba(59, 55, 55, 0.6);
+      &__text {
+        display: inline-block;
+        margin-top: 11%;
+        margin-left: 5%;
+      }
+      &__heading {
+        font-size: 5vw;
+        font-family: 'Josefin Sans', sans-serif;
+    }
+    &__intro {
+      font-size: 1.3vw;
+      font-family: 'Open Sans', sans-serif;
+    }
+    }
+  }
+  
