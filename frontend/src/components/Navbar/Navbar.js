@@ -42,12 +42,12 @@ const Navs = () => {
           <Form inline>
             <InputGroup>
               <InputGroup.Prepend>
-                <InputGroup.Text className="src__form">
+              <InputGroup.Text className="nav__src__form">
                   <FontAwesomeIcon icon="search" />
                 </InputGroup.Text>
               </InputGroup.Prepend>
               <FormControl
-                className="src__form"
+                className="nav__src__form"
                 placeholder="Search Course"
                 aria-label="search"
                 aria-describedby="basic-addon1"
@@ -61,26 +61,26 @@ const Navs = () => {
           (
             <div>
               <Nav.Link>
-                <button className="btn__sign" onClick={() => setSignInShow(true)}>
+                <button className="nav__btn__sign" onClick={() => setSignInShow(true)}>
                   Sign In
                 </button>
               </Nav.Link>
 
               <Nav.Link>
-                <Button className="btn__sign" onClick={() => setSignUpShow(true)}>
+                <Button className="nav__btn__sign" onClick={() => setSignUpShow(true)}>
                   Sign Up
                 </Button>
               </Nav.Link>
             </div>
           ):(
             <Nav.Link>
-              <Button className="btn__sign" onClick={() => handleLogOut()}>
+              <Button className="nav__btn__sign" onClick={() => handleLogOut()}>
                 Logout
               </Button>
             </Nav.Link>
           )}
 
-          <Nav.Link as={NavLink} to="/profile/" className="btn__sign">
+          <Nav.Link as={NavLink} to="/profile/" className="nav__btn__sign">
             {/* Don't use button here, change the style of the btn__sign class according to your needs
             It'll fix most of the issues you have with buttons */}
             {/* <Button className="btn__sign" as={Link} to="/profile/"> */}
@@ -88,7 +88,7 @@ const Navs = () => {
             {/* </Button> */}
           </Nav.Link>
 
-          <Nav.Link as={NavLink} to="/rooms/" className="btn__sign">
+          <Nav.Link as={NavLink} to="/rooms/" className="nav__btn__sign">
               {/* This is here temporarirly we will move it to the correct position later */}
               Rooms
           </Nav.Link>
