@@ -88,7 +88,7 @@ const Navs = () => {
             {/* </Button> */}
           </Nav.Link>
 
-          <Nav.Link as={NavLink} to="/rooms/" className="btn__sign">
+          <Nav.Link as={NavLink} to="/rooms/1/" className="btn__sign">
               {/* This is here temporarirly we will move it to the correct position later */}
               Rooms
           </Nav.Link>

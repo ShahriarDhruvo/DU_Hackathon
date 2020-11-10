@@ -64,7 +64,7 @@ const Profile = () => {
         };
 
         loadData();
-    }, []);
+    }, [handleLogOut]);
 
     return (
         <Container className="vertical-center">

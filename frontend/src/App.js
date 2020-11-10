@@ -28,7 +28,7 @@ function App() {
                 <Navs />
                     <Switch>
                         <Route exact path="/" component={Home} />
-                        <Route exact path="/rooms/" component={Rooms} />
+                        <Route exact path="/rooms/:room_pk/" component={Rooms} />
                         <Route
                             exact
                             path="/password/reset/"

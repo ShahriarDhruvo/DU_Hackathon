@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'items',
     'accounts',
     'universities',
+    'notifications',
 
     'rest_framework',
     'rest_framework.authtoken',

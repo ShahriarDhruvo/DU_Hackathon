@@ -14,6 +14,7 @@ from rest_framework.generics import (
 
 from ..serializers import (
     ItemSerializer,
+    ItemCreateSerializer,
     ItemUpdateSerializer
 )
 from django.db.models import Q
@@ -44,7 +45,8 @@ class ItemList(ListAPIView):
         if not is_authenticated:
             raise PermissionDenied("You are not authorized to view this list!")
 
-        queryset = Item.objects.filter(section_id=section_pk, section__room_id=room_pk).order_by('id')
+        queryset = Item.objects.filter(
+            section_id=section_pk, section__room_id=room_pk).order_by('id')
 
         if queryset:
             return queryset
@@ -53,7 +55,7 @@ class ItemList(ListAPIView):
 
 
 class ItemCreate(CreateAPIView):
-    serializer_class = ItemSerializer
+    serializer_class = ItemCreateSerializer
 
     def create(self, request, *args, **kwargs):
         user_id = request.user.id
@@ -69,11 +71,13 @@ class ItemCreate(CreateAPIView):
             raise PermissionDenied("Only teacher can create item!")
 
         queryset = Section.objects.filter(id=section_pk, room_id=room_pk)
-        
+
         if not queryset:
-            raise NotFound("The section you're trying to add item to doesn't exist!")
+            raise NotFound(
+                "The section you're trying to add item to doesn't exist!")
 
         request.data._mutable = True
+        request.data['user'] = user_id
         request.data['section'] = section_pk
         request.data._mutable = False
 
@@ -82,13 +86,13 @@ class ItemCreate(CreateAPIView):
 
 class ItemDelete(DestroyAPIView):
     lookup_url_kwarg = 'item_pk'
-    
+
     def get_queryset(self):
         user_id = self.request.user.id
 
         room_pk = self.kwargs.get('room_pk', None)
         #section_pk = self.kwargs.get('section_pk', None)
-    
+
         is_teacher = Room.objects.filter(teachers=user_id, id=room_pk)
 
         if not is_teacher:
@@ -112,7 +116,7 @@ class ItemUpdate(UpdateAPIView):
 
         room_pk = self.kwargs.get('room_pk', None)
         #section_pk = self.kwargs.get('section_pk', None)
-        
+
         is_teacher = Room.objects.filter(teachers=user_id, id=room_pk)
 
         if not is_teacher:

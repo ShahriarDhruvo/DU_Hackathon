@@ -8,5 +8,7 @@ urlpatterns = [
 
     path('rooms/', include('rooms.urls')),
 
-    path('university/', include('universities.urls'))
+    path('university/', include('universities.urls')),
+
+    path('notifications/', include('notifications.urls'))
 ]

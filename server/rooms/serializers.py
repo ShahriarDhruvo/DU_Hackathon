@@ -4,12 +4,19 @@ from .models import Room
 
 
 class RoomSerializer(serializers.ModelSerializer):
+
+    course = serializers.StringRelatedField()
+
     class Meta:
         model = Room
+        #fields = ['id', 'course', 'group', 'teachers', 'students', 'class_representatives', 'owner', 'courses']
         fields = '__all__'
 
 
 class RoomListSerializer(serializers.ModelSerializer):
+
+    course = serializers.StringRelatedField()
+
     class Meta:
         model = Room
         fields = ['id', 'course', 'group', 'year']
@@ -26,6 +33,16 @@ class RoomUpdateSerializer(serializers.ModelSerializer):
         model = Room
         fields = ['id', 'group', 'year']
 
+class RoomMemberListSerializer(serializers.ModelSerializer):
+
+    owner = serializers.StringRelatedField()
+    students = serializers.StringRelatedField(many=True)
+    teachers = serializers.StringRelatedField(many=True)
+    class_representatives = serializers.StringRelatedField(many=True)
+
+    class Meta:
+        model = Room
+        fields = ['owner', 'students', 'teachers', 'class_representatives']
 
 class RoomUpdateUserSerializer(serializers.ModelSerializer):
     class Meta:
