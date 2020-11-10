@@ -25,6 +25,7 @@ function App() {
         <Router>
             <SettingsContextProvider>
                 <AuthenticationContextProvider>
+                <Navs />
                     <Switch>
                         <Route exact path="/" component={Home} />
                         <Route exact path="/rooms/" component={Rooms} />
