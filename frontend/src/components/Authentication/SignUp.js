@@ -55,6 +55,11 @@ class SignUp extends Component {
         department: tmparray[0].id,
       });
       /*console.log(this.state)*/
+    }).catch((err) => {
+      this.setState({
+        errors: err.response.data,
+        promise: false,
+      });
     });
 
     axios.get(endpoint1, config).then((response) => {
@@ -68,6 +73,11 @@ class SignUp extends Component {
         university: tmparray[0].id,
       });
       /*console.log(this.state)*/
+    }).catch((err) => {
+      this.setState({
+        errors: err.response.data,
+        promise: false,
+      });
     });
   }
 

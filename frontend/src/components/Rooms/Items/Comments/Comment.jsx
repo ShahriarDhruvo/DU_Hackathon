@@ -72,7 +72,7 @@ const Comment = (props) => {
                             )}
                         </small>
 
-                        <div>
+                        <div className="my-1">
                             <button
                                 onClick={handleEdit}
                                 className="btn-link btn__none"
