@@ -43,7 +43,7 @@ const AddComment = (props) => {
             ref={form}
             id="add-comment-form"
             onSubmit={handleSubmit}
-            className={classes.root + " mb-3"}
+            className={classes.root + " my-3"}
         >
             {status && <CustomAlert variant="warning" status={status} />}
 

@@ -58,7 +58,7 @@ const Rooms = () => {
                     actionButtonSize="sm"
                     room_pk={params.room_pk}
                     variant="outline-primary"
-                    actionButtonClass="d-md-none"
+                    actionButtonClass="d-md-none mr-2"
                 >
                     <FontAwesomeIcon icon={["fas", "users"]} className="mr-2" />
                     Show Member's List
@@ -68,10 +68,9 @@ const Rooms = () => {
                     year={room.year}
                     group={room.group}
                     modalTitle="Update"
-                    actionButtonSize="sm"
                     actionVariant="primary"
                     room_pk={params.room_pk}
-                    actionButtonClass="btn btn-outline-success"
+                    actionButtonClass="btn btn-outline-success btn-sm"
                 >
                     <FontAwesomeIcon
                         icon={["fas", "wrench"]}

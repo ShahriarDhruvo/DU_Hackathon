@@ -39,11 +39,7 @@ const CreateItemModal = (props) => {
 
     return (
         <>
-            <button
-                onClick={handleShow}
-                size={props.actionButtonSize}
-                className={props.actionButtonClass}
-            >
+            <button onClick={handleShow} className={props.actionButtonClass}>
                 {props.children}
             </button>
 

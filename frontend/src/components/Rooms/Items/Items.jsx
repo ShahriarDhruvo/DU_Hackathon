@@ -38,7 +38,7 @@ const Items = (props) => {
                             <div>
                                 {Moment(item.post_datetime).format("LLLL")}
                             </div>
-                            <div>{item.author}</div>
+                            <div>{item.user}</div>
                         </Card.Header>
 
                         <Card.Body className="border-bottom">

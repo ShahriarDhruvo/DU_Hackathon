@@ -99,33 +99,30 @@ const Sections = (props) => {
 
                     <Row className="d-flex justify-content-around mt-4">
                         <CreateItemModal
-                            actionButtonSize="sm"
                             room_pk={props.room_pk}
                             section_pk={section.id}
-                            actionButtonClass="btn btn-outline-primary"
+                            actionButtonClass="btn btn-outline-primary btn-sm my-1"
                         >
                             Create an Item
                         </CreateItemModal>
 
                         <UpdateSectionModal
                             modalTitle="Update"
-                            actionButtonSize="sm"
                             title={section.title}
                             actionVariant="primary"
                             room_pk={props.room_pk}
                             section_pk={section.id}
-                            actionButtonClass="btn btn-outline-amber"
+                            actionButtonClass="btn btn-outline-amber btn-sm my-1"
                         >
                             Update this Section
                         </UpdateSectionModal>
 
                         <DeleteSectionModal
                             modalTitle="Delete"
-                            actionButtonSize="sm"
                             actionVariant="danger"
                             room_pk={props.room_pk}
                             section_pk={section.id}
-                            actionButtonClass="btn btn-outline-danger"
+                            actionButtonClass="btn btn-outline-danger btn-sm my-1"
                             modalBody={`Do you really want to delete "${section.title}" section?`}
                         >
                             Delete this Section

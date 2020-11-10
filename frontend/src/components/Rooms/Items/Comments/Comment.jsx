@@ -108,8 +108,8 @@ const Comment = (props) => {
                         >
                             {status && (
                                 <CustomAlert
-                                    variant="warning"
                                     status={status}
+                                    variant="warning"
                                 />
                             )}
 

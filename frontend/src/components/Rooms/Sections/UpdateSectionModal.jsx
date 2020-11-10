@@ -43,7 +43,6 @@ const UpdateSectionModal = (props) => {
         <>
             <button
                 onClick={handleShow}
-                size={props.actionButtonSize}
                 className={props.actionButtonClass}
             >
                 {props.children}
