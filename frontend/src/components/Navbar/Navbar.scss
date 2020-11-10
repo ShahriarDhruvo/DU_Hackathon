@@ -1,4 +1,4 @@
-.nav {
+/* .nav {
   background-color: transparent;
 }
 
@@ -57,4 +57,69 @@ input:focus {
 }
 *:focus {
   outline-style: none;
+}
+ */
+
+ .nav {
+  background-color: #fffcf7;
+  font-family: 'Josefin Sans', sans-serif;
+  &__icon {
+    &__bell {
+      margin-right: 12px;
+      padding: 0;
+      border: none;
+      background: none;
+      text-decoration: none !important;
+    }
+  }
+  &__src__form {
+    width: 100%;
+    border-radius: 3px;
+    color: #f7ae50;
+    border: 0.125em solid #f7ae50;
+    border-width: 0 0 3px;
+    background-color: transparent;
+    padding: 0.1875em 0.375em;
+    &:focus,
+    &:active {
+      background-color: transparent;
+      color: #f7ae50;
+      text-decoration: none;
+    }
+    &::placeholder {
+      color: #f7ae50;
+    }
+  }
+  &__btn__sign {
+    padding: 0;
+    border: none;
+    background: none;
+    text-decoration: none !important;
+    color: #f7ae50;
+    // display: none;
+    &:hover{
+      background-color: rgba(0, 0, 0, 0.03);
+    }
+  }
+}
+.notification__icon {
+
+}
+
+@media screen and (min-width: 990px) {
+  .nav {
+    background: #fffcf7;
+    &__heading {
+      display: none;
+    }
+    &__btn__sign {
+      background-color: transparent;
+      border: solid 2.2px #f7ae50;
+      color: #f7ae50;
+      border-radius: 8px;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+    }
+  }
 }

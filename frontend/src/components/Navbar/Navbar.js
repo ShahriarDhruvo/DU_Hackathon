@@ -22,16 +22,18 @@ const Navs = () => {
   const [signUpShow, setSignUpShow] = React.useState(false);
   const { handleLogOut } = useContext(AuthenticationContext);
   return (
-    <Navbar bg="outline-primary" expand="lg" className="nav">
-      <Navbar.Brand href="#home">
-        <div>
+    <Navbar bg="" variant="light" expand="lg" className="nav">
+      <Navbar.Brand href="#home" className="nav__brand">
+      <div>
           <img
             src={logo}
             width={"40"}
             height={"40"}
             className={"d-inline-block align-top"}
+            className="nav__logo"
             alt={"logo"}
           />
+          <span className="nav__heading">ClassPortal</span>
         </div>
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />

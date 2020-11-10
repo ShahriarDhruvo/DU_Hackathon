@@ -2,6 +2,9 @@
     background-color: rgba(0, 0, 0, 0.08);
     font-family: 'Roboto', sans-serif;
 
+    &__body {
+        
+    }
     &__submit{
         background-image: linear-gradient(90deg, hsla(278, 100%, 68%, 1) 19%, hsla(254, 83%, 64%, 1) 100%);
         border: solid 2px hsla(278, 100%, 68%, 1);
@@ -37,4 +40,8 @@
 }
 .forgot-password {
     color: #56CFE1;
+}
+.loading {
+
+    background-color: transparent;
 }

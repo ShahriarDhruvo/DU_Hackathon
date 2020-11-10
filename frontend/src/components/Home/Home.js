@@ -90,6 +90,7 @@ export default class Home extends Component {
       speed: 500,
       slidesToShow: 3,
       slidesToScroll: 1,
+      dots: true,
       responsive: [
         {
           breakpoint: 1024,
@@ -134,41 +135,45 @@ export default class Home extends Component {
     if(Object.keys(this.state.dept).length > 0)
     {
       deptcoursel = this.state.dept.map((iitem,i) => {
-        return(
+        return (
           <div>
-            <h1 className="">{iitem.name}</h1>
+            <h3 className="dept__name">{iitem.name}</h3>
             <style>{cssstyle}</style>
             <Slider {...settings}>
-            {
-            this.state.courses[iitem.id] ?
-            (
-              this.state.courses[iitem.id].map((item) => {
-                return(
-                  <div>
-                    <Card className="course">
-                      <Card.Body>
-                        <Card.Title className="course__name">{item.title}</Card.Title>
-                        <Card.Subtitle className="mb-2 text-muted">
-                          {item.details}
-                        </Card.Subtitle>
-                        <Card.Text className="course__info">
-                          Some quick example text to build on the card title and make
-                          up the bulk of the card's content.
-                        </Card.Text>
-                        <Button variant="outline-primary">Enroll</Button>
-                      </Card.Body>
-                    </Card>
-                  </div>
-                );
-              })
-            ):(
-              <LoadingScreen />
-            )
-            }
+              {this.state.courses[iitem.id] ? (
+                this.state.courses[iitem.id].map((item) => {
+                  return (
+                    <div>
+                      <Card className="course">
+                        <Card.Body>
+                          <Card.Title className="course__name">
+                            {item.title}
+                          </Card.Title>
+                          <Card.Subtitle className="mb-2 text-muted">
+                            {item.details}
+                          </Card.Subtitle>
+                          <Card.Text className="course__info">
+                            Some quick example text to build on the card title
+                            and make up the bulk of the card's content.
+                          </Card.Text>
+                          <Button variant="outline-primary">Enroll</Button>
+                        </Card.Body>
+                      </Card>
+                    </div>
+                  );
+                })
+              ) : (
+                <LoadingScreen />
+              )}
             </Slider>
-            <Link to={{pathname: `/dept/${iitem.id}`, dept_id:iitem.id}} style={{float:'right'}}>See More...</Link>
-          </div> 
-        )
+            <Link
+              to={{ pathname: `/dept/${iitem.id}`, dept_id: iitem.id }}
+              style={{ float: "right" }}
+            >
+              See More...
+            </Link>
+          </div>
+        );
       })
     }
     return (
@@ -243,6 +248,7 @@ export default class Home extends Component {
             </div>*/
             <div>
               <Header />
+              <h2 className="pageIntro">All Availabe Rooms</h2>
               <Container className="dept" fluid>
                 {deptcoursel}
               </Container>
@@ -260,6 +266,6 @@ export default class Home extends Component {
 }
 const cssstyle = `
 .slick-next:before, .slick-prev:before {
-    color: #000;
+    color: #D6D6D6;
 }
 `;

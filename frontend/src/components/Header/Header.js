@@ -7,10 +7,10 @@ export default class Header extends Component {
     render() {
         return (
             <div className="header">
-                <Navs/>
+                {/* <Navs/> */}
                 <Container className="header__text">
-                    <h1 className="header__heading">Welcome</h1>
-                    <h2 className="header__intro">Some Introductory Line</h2>
+                    <h1 className="header__heading">ClassPortal</h1>
+                    <p className="header__intro">All Your Online Learning Essentials at One Place.</p>
                 </Container>
             </div>
         )

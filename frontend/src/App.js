@@ -14,6 +14,7 @@ import PasswordChange from "./components/generic/PasswordChange";
 import Rooms from "./components/Rooms/Rooms";
 import AuthenticationContextProvider from "./contexts/AuthenticationContext";
 import SettingsContextProvider from "./contexts/SettingsContext";
+import Navs from './components/Navbar/Navbar';
 // import FooterPage from "./components/Footer/Footer";
 // import Footer from "./components/generic/Footer";
 
