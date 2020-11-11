@@ -18,7 +18,7 @@ export default class Home extends Component {
 
         this.state = {
             dept: [],
-            courses: {},
+            rooms: {},
             promise: false,
             dept_id: null,
             dept_size: null,
@@ -35,7 +35,8 @@ export default class Home extends Component {
         };
 
         const fetchdept = async () => {
-            await axios.get(endpoint, config).then((response) => {
+            await axios.get(endpoint, config)
+            .then((response) => {
                 let tmparray = [];
 
                 for (var i = 0; i < response.data.length; i++) {
@@ -45,6 +46,9 @@ export default class Home extends Component {
                     dept: tmparray,
                     dept_size: response.data.length,
                 });
+            })
+            .catch((err) => {
+                console.log(err);
             });
         };
         await fetchdept();
@@ -52,21 +56,26 @@ export default class Home extends Component {
         const fetchcourse = async () => {
             console.log("kire");
             for (let i = 0; i < this.state.dept.length; i++) {
-                let endpoint1 = `api/v1/university/departments/courses/${this.state.dept[i].id}/list/`;
+                let endpoint1 = `api/v1/rooms/${this.state.dept[i].id}/list/`;
                 let current_dept_id = this.state.dept[i].id;
-                await axios.get(endpoint1, config).then((response) => {
+                await axios.get(endpoint1, config)
+                .then((response) => {
                     let tmparray = [];
-
+                    console.log("HERE")
+                    console.log(response.data[1].course)
                     for (var j = 0; j < response.data.length; j++) {
                         tmparray.push(response.data[j]);
                     }
 
                     this.setState({
-                        courses: {
-                            ...this.state.courses,
+                        rooms: {
+                            ...this.state.rooms,
                             [current_dept_id]: tmparray,
                         },
                     });
+                })
+                .catch((err) => {
+                    console.log(err);
                 });
             }
         };
@@ -130,22 +139,17 @@ export default class Home extends Component {
                     <h3 className="dept__name">{iitem.name}</h3>
                     <style>{cssstyle}</style>
                     <Slider {...settings}>
-                        {this.state.courses[iitem.id] ? (
-                            this.state.courses[iitem.id].map((item) => (
+                        {this.state.rooms[iitem.id] ? (
+                            this.state.rooms[iitem.id].map((item) => (
                                 <div key={item.id}>
                                     <Card className="course">
                                         <Card.Body>
                                             <Card.Title className="course__name">
-                                                {item.title}
+                                                {item.course.split(",")[0]}
                                             </Card.Title>
                                             <Card.Subtitle className="mb-2 text-muted">
-                                                {item.details}
+                                                {item.course.split(",")[1]}
                                             </Card.Subtitle>
-                                            <Card.Text className="course__info">
-                                                Some quick example text to build
-                                                on the card title and make up
-                                                the bulk of the card's content.
-                                            </Card.Text>
                                             <Button variant="outline-primary">
                                                 Enroll
                                             </Button>
@@ -170,8 +174,8 @@ export default class Home extends Component {
         }
         return (
             <div>
-                {this.state.courses &&
-                Object.keys(this.state.courses).length > 0 &&
+                {this.state.rooms &&
+                Object.keys(this.state.rooms).length > 0 &&
                 !localStorage.getItem("isAuthenticated") ? (
                     /*<div>
           <Header />

@@ -73,25 +73,29 @@ const Navs = () => {
               </Nav.Link>
             </div>
           ):(
-            <Nav.Link>
-              <Button className="nav__btn__sign" onClick={() => handleLogOut()}>
-                Logout
-              </Button>
+            <div>
+              <Nav.Link>
+                <Button className="nav__btn__sign" onClick={() => handleLogOut()}>
+                  Logout
+                </Button>
+              </Nav.Link>
+              <Nav.Link as={NavLink} to="/profile/" className="nav__btn__sign">
+              {/* Don't use button here, change the style of the btn__sign class according to your needs
+              It'll fix most of the issues you have with buttons */}
+              {/* <Button className="btn__sign" as={Link} to="/profile/"> */}
+                Profile
+              {/* </Button> */}
             </Nav.Link>
-          )}
-
-          <Nav.Link as={NavLink} to="/profile/" className="nav__btn__sign">
-            {/* Don't use button here, change the style of the btn__sign class according to your needs
-            It'll fix most of the issues you have with buttons */}
-            {/* <Button className="btn__sign" as={Link} to="/profile/"> */}
-              Profile
-            {/* </Button> */}
-          </Nav.Link>
-
-          <Nav.Link as={NavLink} to="/rooms/1/" className="nav__btn__sign">
+            <Nav.Link as={NavLink} to="/rooms/1/" className="nav__btn__sign">
               {/* This is here temporarirly we will move it to the correct position later */}
               Rooms
-          </Nav.Link>
+            </Nav.Link>
+          </div>
+          )}
+
+          
+
+          
         </Nav>
       </Navbar.Collapse>
       <SignIn show={signInShow} onHide={() => setSignInShow(false)} />
