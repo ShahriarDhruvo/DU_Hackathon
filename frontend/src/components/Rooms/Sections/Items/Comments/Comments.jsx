@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import CustomAlert from "../../../generic/CustomAlert";
+import CustomAlert from "../../../../generic/CustomAlert";
 import DeleteItemModal from "../DeleteItemModal";
 import UpdateItemModal from "../UpdateItemModal";
 import AddComment from "./AddComment";
