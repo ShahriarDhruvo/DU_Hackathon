@@ -10,7 +10,7 @@ import CustomAlert from "../generic/CustomAlert";
 import UpdateRoomModal from "./UpdateRoomModal";
 import CustomModal from "../generic/CustomModal";
 
-const Rooms = () => {
+const Rooms = (props) => {
     const [room, setRoom] = useState({});
     const [status, setStatus] = useState(undefined);
     const { handleLogOut } = useContext(AuthenticationContext);
@@ -26,6 +26,7 @@ const Rooms = () => {
             });
 
             if (response.status === 401) handleLogOut();
+            else if (response.status === 406) props.history.push("/");
 
             let data = await response.json();
 

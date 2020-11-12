@@ -159,5 +159,22 @@ class RoomMemberList(ListAPIView):
             raise NotAcceptable(
                 'Room does not exist or you are not authorized!')
 
+class RoomCheckCR(ListAPIView):
+    serializer_class = RoomUpdateSerializer
+
+    def get_queryset(self):
+
+        user_id = self.request.user.id
+        room_pk = self.kwargs.get('room_pk', None)
+
+        queryset = Room.objects.filter(id=room_pk, class_representatives=user_id)
+
+        if queryset:
+            return queryset
+        else:
+            raise PermissionDenied("You are not the cr of this room!")
+
+
+
 
 
