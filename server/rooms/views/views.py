@@ -47,6 +47,22 @@ class RoomList(ListAPIView):
         else:
             raise NotFound('No room has been created yet!')
 
+class UserRoomList(ListAPIView):
+    serializer_class = RoomListSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+
+        if (user.status == 1):
+            queryset = user.room_teachers.all()
+        else:
+            queryset = user.room_students.all()
+
+        if queryset:
+            return queryset
+        else:
+            raise NotFound("Your room list is empty!")
+
 
 class RoomCreate(CreateAPIView):
     serializer_class = RoomCreateSerializer
@@ -142,4 +158,6 @@ class RoomMemberList(ListAPIView):
         else:
             raise NotAcceptable(
                 'Room does not exist or you are not authorized!')
+
+
 

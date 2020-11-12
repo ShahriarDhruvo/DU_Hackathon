@@ -4,7 +4,8 @@ from .views import (
     RoomDelete,
     RoomUpdate,
     RoomDetails,
-    RoomMemberList
+    RoomMemberList,
+    UserRoomList
 )
 
 from .update_room_user_views import (

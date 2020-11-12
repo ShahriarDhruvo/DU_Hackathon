@@ -37,10 +37,12 @@ def apiOverview(request):
         'Course Details'                    : 'api/v1/university/departments/courses/<str:department_pk>/details/<str:course_pk>/',
 
         'Room List'                         : 'api/v1/rooms/<str:department_pk>/list/',
+        'User Room List'                    : 'api/v1/rooms/user_room_list/',
         'Room Create'                       : 'api/v1/rooms/create/',
         'Room Update'                       : 'api/v1/rooms/update/<str:room_pk>/',
         'Room Delete'                       : 'api/v1/rooms/delete/<str:room_pk>/',
         'Room Details'                      : 'api/v1/rooms/details/<str:room_pk>/',
+        'Room Members'                      : 'api/v1/rooms/members/<str:room_pk>/',
         'Room Add CR'                       : 'api/v1/rooms/add/<str:room_pk>/class_representative/<str:username>/',
         'Room Add Student'                  : 'api/v1/rooms/add/<str:room_pk>/student/<str:username>/',
         'Room Add Teacher'                  : 'api/v1/rooms/add/<str:room_pk>/teacher/<str:username>/',
