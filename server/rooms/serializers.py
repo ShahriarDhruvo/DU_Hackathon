@@ -59,7 +59,15 @@ class RoomUpdateUserSerializer(serializers.ModelSerializer):
             }
         }
 
-class PendingRequestSerializer(serializers.ModelSerializer):
+class PendingRequestListSerializer(serializers.ModelSerializer):
+
+    user = serializers.StringRelatedField()
+    class Meta:
+        model = PendingRequests
+        fields = '__all__'
+
+
+class PendingRequestCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = PendingRequests
         fields = '__all__'

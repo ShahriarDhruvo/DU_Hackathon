@@ -11,7 +11,8 @@ from rest_framework.generics import (
 )
 
 from ..serializers import (
-    PendingRequestSerializer
+    PendingRequestListSerializer,
+    PendingRequestCreateSerializer
 )
 from ..models import (
     Room,
@@ -27,7 +28,7 @@ class Conflict(APIException):
 
 
 class PendingRequestList(ListAPIView):
-    serializer_class = PendingRequestSerializer
+    serializer_class = PendingRequestListSerializer
 
     def get_queryset(self):
 
@@ -46,7 +47,7 @@ class PendingRequestList(ListAPIView):
 
 
 class PendingRequestCreate(CreateAPIView):
-    serializer_class = PendingRequestSerializer
+    serializer_class = PendingRequestCreateSerializer
 
     def create(self, request, *args, **kwargs):
         user_id = request.user.id
@@ -72,7 +73,7 @@ class PendingRequestDelete(DestroyAPIView):
         if not (Room.objects.filter(Q(teachers=user_id) | Q(class_representatives=user_id)).order_by('id')):
             raise PermissionDenied("You are not authorized to delete request!")
 
-        queryset = PendingRequests.objects.filter(user_id=user_id)
+        queryset = PendingRequests.objects.filter()
 
         if queryset:
             return queryset
