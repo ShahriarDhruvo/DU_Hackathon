@@ -27,21 +27,36 @@ const RoomMembers = (props) => {
             if (!response.ok) setStatus(data.detail);
             else setMembers(data[0]);
 
-            // Pending user's list
-            API_URL = `/api/v1/rooms/pending_requests/${props.room_pk}/list/`;
+            // Check isCR
+            API_URL = `/api/v1/rooms/check_CR/${props.room_pk}/`;
 
             response = await fetch(API_URL, {
                 method: "GET",
             });
 
-            data = await response.json();
+            response.ok && setIsCR(true);
+        };
+
+        loadData();
+    }, [props.room_pk]);
+
+    // Pending user's list
+    useEffect(() => {
+        const loadData = async () => {
+            const API_URL = `/api/v1/rooms/pending_requests/${props.room_pk}/list/`;
+
+            const response = await fetch(API_URL, {
+                method: "GET",
+            });
+
+            const data = await response.json();
 
             if (!response.ok && response.status !== 404) setStatus(data.detail);
             else if (response.status !== 404) setPendingUsers(data);
         };
 
-        loadData();
-    }, [props.room_pk]);
+        if (localStorage.getItem("status") !== "2" || isCR) loadData();
+    }, [isCR]);
 
     const handleAddPendingUser = (pending_request_pk, username, userstatus) => {
         let API_URL = `/api/v1/rooms/add/${props.room_pk}/${userstatus}/${username}/`;
@@ -202,7 +217,7 @@ const RoomMembers = (props) => {
                                 handleAction={() =>
                                     handleRemoveMember(
                                         class_representative,
-                                        "student"
+                                        "class_representative"
                                     )
                                 }
                                 actionButtonClass="btn btn-outline-danger btn-sm mx-1"
@@ -258,49 +273,64 @@ const RoomMembers = (props) => {
                 ))}
             </div>
 
-            <div className="card-header my-3 border-top members__header">
-                Pending Requests
-            </div>
-
-            <div className="mx-3">
-                {pendingUsers.map((pendingUser) => (
-                    <div key={pendingUser.id} className="border p-2 my-2">
-                        <div className="mb-2">{pendingUser.user}</div>
-
-                        {(localStorage.getItem("status") !== "2" || isCR) && (
-                            <CustomModal
-                                modalTitle="Accept Request"
-                                actionVariant="success"
-                                handleAction={() =>
-                                    handleAddPendingUser(
-                                        pendingUser.id,
-                                        pendingUser.user,
-                                        pendingUser.user_status
-                                    )
-                                }
-                                actionButtonClass="btn btn-outline-success btn-sm mx-1"
-                                modalBody={`Do you want to accept ${pendingUser.user}'s request?`}
-                            >
-                                <FontAwesomeIcon icon={["fas", "user-plus"]} />
-                            </CustomModal>
-                        )}
-
-                        {(localStorage.getItem("status") !== "2" || isCR) && (
-                            <CustomModal
-                                modalTitle="Reject Request"
-                                actionVariant="danger"
-                                handleAction={() =>
-                                    handleRemovePendingUser(pendingUser.id)
-                                }
-                                actionButtonClass="btn btn-outline-danger btn-sm mx-1"
-                                modalBody={`Do you really want to reject ${pendingUser.user}'s request?`}
-                            >
-                                <FontAwesomeIcon icon={["fas", "user-times"]} />
-                            </CustomModal>
-                        )}
+            {(localStorage.getItem("status") !== "2" || isCR) && (
+                <>
+                    <div className="card-header my-3 border-top members__header">
+                        Pending Requests
                     </div>
-                ))}
-            </div>
+
+                    <div className="mx-3">
+                        {pendingUsers.map((pendingUser) => (
+                            <div
+                                key={pendingUser.id}
+                                className="border p-2 my-2"
+                            >
+                                <div className="mb-2">{pendingUser.user}</div>
+
+                                {(localStorage.getItem("status") !== "2" ||
+                                    isCR) && (
+                                    <CustomModal
+                                        modalTitle="Accept Request"
+                                        actionVariant="success"
+                                        handleAction={() =>
+                                            handleAddPendingUser(
+                                                pendingUser.id,
+                                                pendingUser.user,
+                                                pendingUser.user_status
+                                            )
+                                        }
+                                        actionButtonClass="btn btn-outline-success btn-sm mx-1"
+                                        modalBody={`Do you want to accept ${pendingUser.user}'s request?`}
+                                    >
+                                        <FontAwesomeIcon
+                                            icon={["fas", "user-plus"]}
+                                        />
+                                    </CustomModal>
+                                )}
+
+                                {(localStorage.getItem("status") !== "2" ||
+                                    isCR) && (
+                                    <CustomModal
+                                        modalTitle="Reject Request"
+                                        actionVariant="danger"
+                                        handleAction={() =>
+                                            handleRemovePendingUser(
+                                                pendingUser.id
+                                            )
+                                        }
+                                        actionButtonClass="btn btn-outline-danger btn-sm mx-1"
+                                        modalBody={`Do you really want to reject ${pendingUser.user}'s request?`}
+                                    >
+                                        <FontAwesomeIcon
+                                            icon={["fas", "user-times"]}
+                                        />
+                                    </CustomModal>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                </>
+            )}
         </div>
     );
 };
