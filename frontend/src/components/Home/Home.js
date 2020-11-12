@@ -221,35 +221,35 @@ export default class Home extends Component {
                         </Link>
                     </div>
                 </div>
-              </div>
             ));
         }
 
         let deptcoursel_authenticate;
         if(localStorage.getItem('dept_id')){
             let dept_id = localStorage.getItem('dept_id');
-            if(this.state.rooms[dept_id]) deptcoursel_authenticate = (
-              <div>
+            if(this.state.rooms[dept_id]) (
+                deptcoursel_authenticate = 
+                <div>
                 <style>{cssstyle}</style>
-                <h3 className="dept__name">
-                  {localStorage.getItem("dept_name")}
-                </h3>
+                <h3 className="dept__name">{localStorage.getItem('dept_name')}</h3>
                 <Slider {...settings}>
-                  {this.state.rooms[dept_id].map((item) => (
+                {this.state.rooms[dept_id].map((item) => (
                     <div key={item}>
-                      <Card className="course">
-                        <Card.Body>
-                          <Card.Title className="course__name">
-                            {item.course.split(",")[0]}
-                          </Card.Title>
-                          <Card.Subtitle className="mb-2 text-muted">
-                            {item.course.split(",")[1]}
-                          </Card.Subtitle>
-                          <Button variant="outline-primary">Enroll</Button>
-                        </Card.Body>
-                      </Card>
+                            <Card className="course">
+                                <Card.Body>
+                                    <Card.Title className="course__name">
+                                        {item.course.split(",")[0]}
+                                    </Card.Title>
+                                    <Card.Subtitle className="mb-2 text-muted">
+                                        {item.course.split(",")[1]}
+                                    </Card.Subtitle>
+                                    <Button variant="outline-primary">
+                                        Enroll
+                                    </Button>
+                                </Card.Body>
+                            </Card>
                     </div>
-                  ))}
+                ))}
                 </Slider>
                 <div>
                         <Link
