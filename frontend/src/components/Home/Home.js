@@ -183,37 +183,43 @@ export default class Home extends Component {
         let deptcoursel_unauthenticate;
         if (Object.keys(this.state.dept).length > 0) {
             deptcoursel_unauthenticate = this.state.dept.map((iitem, i) => (
-              <div key={iitem.id}>
-                <h3 className="dept__name">{iitem.name}</h3>
-                <style>{cssstyle}</style>
-                <Slider {...settings}>
-                  {this.state.rooms[iitem.id] ? (
-                    this.state.rooms[iitem.id].map((item) => (
-                      <div key={item.id}>
-                        <Card className="course">
-                          <Card.Body>
-                            <Card.Title className="course__name">
-                              {item.course.split(",")[0]}
-                            </Card.Title>
-                            <Card.Subtitle className="mb-2 text-muted">
-                              {item.course.split(",")[1]}
-                            </Card.Subtitle>
-                            <Button variant="outline-primary">Enroll</Button>
-                          </Card.Body>
-                        </Card>
-                      </div>
-                    ))
-                  ) : (
-                    <LoadingScreen />
-                  )}
-                </Slider>
-                <div>
-                  <Link
-                    to={`/homerooms/${iitem.id}`}
-                    style={{ float: "right" }}
-                  >
-                    <p>See More...</p>
-                  </Link>
+                <div key={iitem.id}>
+                    <h3 className="dept__name">{iitem.name}</h3>
+                    <style>{cssstyle}</style>
+                    <Slider {...settings}>
+                        {this.state.rooms[iitem.id] ? 
+                        (
+                            this.state.rooms[iitem.id].map((item) => (
+                                <div key={item.id}>
+                                    <Card className="course">
+                                        <Card.Body>
+                                            <Card.Title className="course__name">
+                                                {item.course.split(",")[0]}
+                                            </Card.Title>
+                                            <Card.Subtitle className="mb-2 text-muted">
+                                                {item.course.split(",")[1]}
+                                            </Card.Subtitle>
+                                            <Button variant="outline-primary">
+                                                Enroll
+                                            </Button>
+                                        </Card.Body>
+                                    </Card>
+                                </div>
+                            ))
+                        ) : (
+                            <div>
+                               
+                            </div>
+                        )}
+                    </Slider>
+                    <div>
+                        <Link
+                            to={`/homerooms/${iitem.id}`}
+                            style={{ float: "right" }}
+                        >
+                            <p>See More...</p>
+                        </Link>
+                    </div>
                 </div>
               </div>
             ));
@@ -245,8 +251,16 @@ export default class Home extends Component {
                     </div>
                   ))}
                 </Slider>
-              </div>
-            );
+                <div>
+                        <Link
+                            to={`/homerooms/${localStorage.getItem('dept_id')}`}
+                            style={{ float: "right" }}
+                        >
+                            <p>See More...</p>
+                        </Link>
+                    </div>
+                </div>
+            )
         }
         
 
