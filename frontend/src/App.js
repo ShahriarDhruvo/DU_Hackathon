@@ -16,6 +16,7 @@ import AuthenticationContextProvider from "./contexts/AuthenticationContext";
 import SettingsContextProvider from "./contexts/SettingsContext";
 import Navs from './components/Navbar/Navbar';
 import Dept from './components/Dept/Dept'
+import CreateCourse from "./components/CreateCourse/CreateCourse";
 // import FooterPage from "./components/Footer/Footer";
 // import Footer from "./components/generic/Footer";
 
@@ -54,6 +55,7 @@ function App() {
                         />
                         <Route component={NotFound} />
                     </Switch>
+                    <CreateCourse />
                 </AuthenticationContextProvider>
             </SettingsContextProvider>
             {/* <FooterPage /> */}

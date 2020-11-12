@@ -26,7 +26,7 @@ export default class Home extends Component {
     }
 
     async componentDidMount() {
-        console.log(localStorage.getItem("isAuthenticated"));
+        console.log(localStorage.getItem("status"));
         let endpoint = "api/v1/university/departments/list/";
         let config = {
             headers: {
@@ -35,34 +35,57 @@ export default class Home extends Component {
         };
 
         const fetchdept = async () => {
-            await axios.get(endpoint, config)
-            .then((response) => {
-                let tmparray = [];
+            await axios
+                .get(endpoint, config)
+                .then((response) => {
+                    let tmparray = [];
 
-                for (var i = 0; i < response.data.length; i++) {
-                    tmparray.push(response.data[i]);
-                }
-                this.setState({
-                    dept: tmparray,
-                    dept_size: response.data.length,
+                    for (var i = 0; i < response.data.length; i++) {
+                        tmparray.push(response.data[i]);
+                    }
+                    this.setState({
+                        dept: tmparray,
+                        dept_size: response.data.length,
+                    },()=>{console.log(this.state.dept, "here")});
+                })
+                .catch((err) => {
+                    console.log(err);
                 });
-            })
-            .catch((err) => {
-                console.log(err);
-            });
         };
         await fetchdept();
 
-        const fetchcourse = async () => {
-            console.log("kire");
+        const fetchcourse_unauthenticated = async () => {
             for (let i = 0; i < this.state.dept.length; i++) {
                 let endpoint1 = `api/v1/rooms/${this.state.dept[i].id}/list/`;
                 let current_dept_id = this.state.dept[i].id;
-                await axios.get(endpoint1, config)
+                await axios
+                    .get(endpoint1, config)
+                    .then((response) => {
+                        let tmparray = [];
+                        for (var j = 0; j < response.data.length; j++) {
+                            tmparray.push(response.data[j]);
+                        }
+
+                        this.setState({
+                            rooms: {
+                                ...this.state.rooms,
+                                [current_dept_id]: tmparray,
+                            },
+                        });
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+            }
+        };
+
+        const fetchcourse_authenticated = async () => {
+            let endpoint2 = `api/v1/rooms/${localStorage.getItem('dept_id')}/list/`;
+            let current_dept_id = localStorage.getItem('dept_id');
+            await axios
+                .get(endpoint2, config)
                 .then((response) => {
                     let tmparray = [];
-                    console.log("HERE")
-                    console.log(response.data[1].course)
                     for (var j = 0; j < response.data.length; j++) {
                         tmparray.push(response.data[j]);
                     }
@@ -77,11 +100,36 @@ export default class Home extends Component {
                 .catch((err) => {
                     console.log(err);
                 });
-            }
         };
 
         if (!localStorage.getItem("isAuthenticated")) {
-            await fetchcourse();
+            await fetchcourse_unauthenticated();
+        } else {
+            await fetchcourse_authenticated();
+            
+        }
+    }
+
+    async componentDidUpdate() {
+        let config = {
+            headers: {
+                "Content-Type": "application/json",
+            },
+        };
+        const fetch_dept_name = async() => {
+            let endpoint3 = `api/v1/university/departments/details/${localStorage.getItem('dept_id')}/`
+            await axios
+            .get(endpoint3, config)
+            .then((response) => {
+                localStorage.setItem('dept_name',response.data[0].name)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+        }
+
+        if(localStorage.getItem("isAuthenticated")){
+            await fetch_dept_name();
         }
     }
 
@@ -132,9 +180,9 @@ export default class Home extends Component {
                 },
             ],
         };
-        let deptcoursel;
+        let deptcoursel_unauthenticate;
         if (Object.keys(this.state.dept).length > 0) {
-            deptcoursel = this.state.dept.map((iitem, i) => (
+            deptcoursel_unauthenticate = this.state.dept.map((iitem, i) => (
                 <div key={iitem.id}>
                     <h3 className="dept__name">{iitem.name}</h3>
                     <style>{cssstyle}</style>
@@ -172,88 +220,59 @@ export default class Home extends Component {
                 </div>
             ));
         }
+
+        let deptcoursel_authenticate;
+        if(localStorage.getItem('dept_id')){
+            let dept_id = localStorage.getItem('dept_id');
+            if(this.state.rooms[dept_id]) (
+                deptcoursel_authenticate = 
+                <div>
+                <style>{cssstyle}</style>
+                <h3 className="dept__name">{localStorage.getItem('dept_name')}</h3>
+                <Slider {...settings}>
+                {this.state.rooms[dept_id].map((item) => (
+                    <div key={item}>
+                            <Card className="course">
+                                <Card.Body>
+                                    <Card.Title className="course__name">
+                                        {item.course.split(",")[0]}
+                                    </Card.Title>
+                                    <Card.Subtitle className="mb-2 text-muted">
+                                        {item.course.split(",")[1]}
+                                    </Card.Subtitle>
+                                    <Button variant="outline-primary">
+                                        Enroll
+                                    </Button>
+                                </Card.Body>
+                            </Card>
+                    </div>
+                ))}
+                </Slider>
+                </div>
+            )
+        }
+        
+
         return (
             <div>
                 {this.state.rooms &&
                 Object.keys(this.state.rooms).length > 0 &&
                 !localStorage.getItem("isAuthenticated") ? (
-                    /*<div>
-          <Header />
-          <Container className="dept" fluid>
-            <h1 className="">SWE</h1>
-            <style>{cssstyle}</style>
-            <Slider {...settings}>
-              {/* <div>
-                <Card className="course">s
-                  <Card.Body>
-                    <Card.Title className="course__name">SWE121</Card.Title>
-                    <Card.Subtitle className="mb-2 text-muted">
-                      Structured Programming Language
-                    </Card.Subtitle>
-                    <Card.Text className="course__info">
-                      Some quick example text to build on the card title and make
-                      up the bulk of the card's content.
-                    </Card.Text>
-                    <Button variant="outline-primary">Enroll</Button>
-                  </Card.Body>
-                </Card>
-              </div>
-              <div>
-                <Card className="course">
-                  <Card.Body>
-                    <Card.Title className="course__name">SWE121</Card.Title>
-                    <Card.Subtitle className="mb-2 text-muted">
-                      Structured Programming Language
-                    </Card.Subtitle>
-                    <Card.Text className="course__info">
-                      Some quick example text to build on the card title and make
-                      up the bulk of the card's content.
-                    </Card.Text>
-                    <Button variant="outline-primary">Enroll</Button>
-                  </Card.Body>
-                </Card>
-              </div>
-              <div>
-                <Card className="course">
-                  <Card.Body>
-                    <Card.Title className="course__name">SWE121</Card.Title>
-                    <Card.Subtitle className="mb-2 text-muted">
-                      Structured Programming Language
-                    </Card.Subtitle>
-                    <Card.Text className="course__info">
-                      Some quick example text to build on the card title and make
-                      up the bulk of the card's content.
-                    </Card.Text>
-                    <Button variant="outline-primary">Enroll</Button>
-                  </Card.Body>
-                </Card>
-              </div> 
-            <div>
-              <Card className="course">
-                <Card.Body>
-                  <Card.Title className="course__name">SWE121</Card.Title>
-                  <Card.Subtitle className="mb-2 text-muted">
-                    Structured Programming Language
-                  </Card.Subtitle>
-                  <Card.Text className="course__info">
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
-                  </Card.Text>
-                  <Button variant="outline-primary">Enroll</Button>
-                </Card.Body>
-              </Card>
-            </div>*/
                     <div>
                         <Header />
                         <h2 className="pageIntro">All Availabe Rooms</h2>
                         <Container className="dept" fluid>
-                            {deptcoursel}
+                            {deptcoursel_unauthenticate}
                         </Container>
                     </div>
                 ) : (
                     // enrolled courses will be shown here:
                     <div>
                         <Header />
+                        <h2 className="pageIntro">All Availabe Rooms</h2>
+                        <Container className="dept" fluid>
+                            {deptcoursel_authenticate}
+                        </Container>
                     </div>
                 )}
             </div>
