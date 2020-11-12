@@ -5,7 +5,8 @@ from .views import (
     RoomUpdate,
     RoomDetails,
     RoomMemberList,
-    UserRoomList
+    UserRoomList,
+    RoomCheckCR
 )
 
 from .update_room_user_views import (
