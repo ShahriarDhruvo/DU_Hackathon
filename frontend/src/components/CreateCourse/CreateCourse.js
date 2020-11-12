@@ -147,8 +147,7 @@ function CreateCourse() {
             </span>
             </button> */}
                 <Fab
-                    color=""
-                    style={{ backgroundColor: "#c35cff" }}
+                    style={{ backgroundColor: "#c35cff", color: "#FFFCF7" }}
                     className={classes.fab}
                     onClick={handleShow}
                 >

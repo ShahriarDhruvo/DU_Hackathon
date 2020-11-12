@@ -3,8 +3,6 @@ import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
 import { CardColumns } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import { CardGroup } from "react-bootstrap";
-import {Link,useLocation, useParams} from "react-router-dom";
 const axios = require("axios");
 
 export default class Dept extends Component {
@@ -87,31 +85,25 @@ export default class Dept extends Component {
       if(this.state.rooms){
         courselists = this.state.rooms.map((item) => (
           <div key={item.id}>
-            
-              <CardColumns>
-                <Card className="course">
-                  <Card.Body>
-                    <Card.Title className="course__name">
-                      {item.course.split(",")[0]}
-                    </Card.Title>
-                    <Card.Subtitle className="mb-2 text-muted">
-                      {item.course.split(",")[1]}
-                    </Card.Subtitle>
-                    <Button variant="outline-primary">Enroll</Button>
-                  </Card.Body>
-                </Card>
-              </CardColumns>
+            <Card className="course">
+              <Card.Body>
+                <Card.Title className="course__name">
+                  {item.course.split(",")[0]}
+                </Card.Title>
+                <Card.Subtitle className="mb-2 text-muted">
+                  {item.course.split(",")[1]}
+                </Card.Subtitle>
+                <Button variant="outline-primary">Enroll</Button>
+              </Card.Body>
+            </Card>
           </div>
-      ));
-  }
-
+        ));
+      }
       return (
-        <div>
-          <Container className="dept" fluid>
-              <h1 className="dept__name">{this.state.dept_name}</h1>
-          {courselists}
-          </Container>
-        </div>
+        <Container className="dept" fluid>
+          <h1 className="dept__name">{this.state.dept_name}</h1>
+          <CardColumns>{courselists}</CardColumns>
+        </Container>
       );
     }
 }
