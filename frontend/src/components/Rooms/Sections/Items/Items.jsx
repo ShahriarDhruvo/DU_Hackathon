@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
-import CustomAlert from "../../generic/CustomAlert";
+import CustomAlert from "../../../generic/CustomAlert";
 import Comments from "./Comments/Comments";
 import Moment from "moment";
 

@@ -17,6 +17,7 @@ import SettingsContextProvider from "./contexts/SettingsContext";
 import Navs from './components/Navbar/Navbar';
 import Dept from './components/Dept/Dept'
 import CreateCourse from "./components/CreateCourse/CreateCourse";
+import Notifications from "./components/Notifications/Notifications";
 // import FooterPage from "./components/Footer/Footer";
 // import Footer from "./components/generic/Footer";
 
@@ -27,10 +28,14 @@ function App() {
         <Router>
             <SettingsContextProvider>
                 <AuthenticationContextProvider>
-                <Navs />
+                    <Navs />
                     <Switch>
                         <Route exact path="/" component={Home} />
-                        <Route exact path="/rooms/:room_pk/" component={Rooms} />
+                        <Route
+                            exact
+                            path="/rooms/:room_pk/"
+                            component={Rooms}
+                        />
                         <Route exact path="/homerooms/:id/" component={Dept} />
                         <Route
                             exact
@@ -53,6 +58,13 @@ function App() {
                             path="/email/confirmation/:key/"
                             component={EmailConfirm}
                         />
+
+                        <Route
+                            exact
+                            path="/notifications"
+                            component={Notifications}
+                        />
+
                         <Route component={NotFound} />
                     </Switch>
                     <CreateCourse />

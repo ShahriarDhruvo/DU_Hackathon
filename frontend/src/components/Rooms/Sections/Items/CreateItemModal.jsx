@@ -1,7 +1,7 @@
 import { Modal } from "react-bootstrap";
 import React, { useContext, useState, useRef } from "react";
-import CustomAlert from "../../generic/CustomAlert";
-import { SettingsContext } from "../../../contexts/SettingsContext";
+import CustomAlert from "../../../generic/CustomAlert";
+import { SettingsContext } from "../../../../contexts/SettingsContext";
 
 const CreateItemModal = (props) => {
     const form = useRef(null);
