@@ -127,19 +127,10 @@ class SignUp extends Component {
     axios
       .post(endpoint, body, config)
       .then((response) => {
-        // console.log(response.data, "SED");
         this.setState({
           promise: false,
         });
-        /*const {history} = this.props;*/
-        /*history.push(`/email/confirmation/sent`)
-          this.props.history.push(`/email/contirmation/sent/${this.state.email}`);*/
         this.props.history.push(`/email/confirmation/sent/${this.state.email}/`);
-        /*console.log(json.data.token)
-          localStorage.setItem('token', json.data.token);
-          this.setState({
-              username: json.data.user.username,
-          });*/
       })
       .catch((err) => {
         this.setState({
@@ -209,7 +200,7 @@ class SignUp extends Component {
         );
       });
     return (
-      <div>
+      <>
         {this.state.promise ? (
           <LoadingScreen />
         ) : (
@@ -373,7 +364,7 @@ class SignUp extends Component {
             <Modal.Footer className="sign__footer"></Modal.Footer>
           </Modal>
         )}
-      </div>
+      </>
     );
   }
 }
