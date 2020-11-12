@@ -209,7 +209,7 @@ class SignUp extends Component {
         );
       });
     return (
-      <div>
+      <>
         {this.state.promise ? (
           <LoadingScreen />
         ) : (
@@ -373,7 +373,7 @@ class SignUp extends Component {
             <Modal.Footer className="sign__footer"></Modal.Footer>
           </Modal>
         )}
-      </div>
+      </>
     );
   }
 }
