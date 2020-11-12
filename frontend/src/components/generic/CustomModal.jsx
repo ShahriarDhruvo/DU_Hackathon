@@ -16,11 +16,10 @@ const CustomModal = (props) => {
     return (
         <>
             <button
-                className={props.actionButtonClass}
-                size={props.actionButtonSize}
                 onClick={handleShow}
                 disabled={props.edit}
                 style={props.actionButtonStyle}
+                className={props.actionButtonClass}
             >
                 {props.children}
             </button>

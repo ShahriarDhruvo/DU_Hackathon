@@ -1,7 +1,7 @@
 import React, { useContext, useRef, useState } from "react";
 import { Modal } from "react-bootstrap";
-import { SettingsContext } from "../../../contexts/SettingsContext";
-import CustomAlert from "../../generic/CustomAlert";
+import { SettingsContext } from "../../../../contexts/SettingsContext";
+import CustomAlert from "../../../generic/CustomAlert";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const UpdateItemModal = (props) => {

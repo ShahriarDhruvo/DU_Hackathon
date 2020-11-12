@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Button, Modal } from "react-bootstrap";
-import { SettingsContext } from "../../../contexts/SettingsContext";
-import CustomAlert from "../../generic/CustomAlert";
+import { SettingsContext } from "../../../../contexts/SettingsContext";
+import CustomAlert from "../../../generic/CustomAlert";
 
 const DeleteItemModal = (props) => {
     const [show, setShow] = useState(false);
