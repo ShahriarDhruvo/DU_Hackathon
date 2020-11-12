@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
-import CustomAlert from "../../../generic/CustomAlert";
+import CustomAlert from "../../../../generic/CustomAlert";
 
 const useStyles = makeStyles((theme) => ({
     root: {

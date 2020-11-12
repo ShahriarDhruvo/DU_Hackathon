@@ -41,12 +41,14 @@ export default class SignIn extends Component {
     axios
       .post(endpoint, body, config)
       .then((json) => {
-        console.log(json.data.user)
+        console.log(json.data)
         localStorage.setItem('username',json.data.user.username);
         localStorage.setItem('status',json.data.user.status);
         localStorage.setItem('reg_no',json.data.user.reg_no);
         localStorage.setItem('email',json.data.user.email);
-        localStorage.setItem('isAuthenticated',"authenticated")
+        localStorage.setItem('isAuthenticated',"authenticated");
+        localStorage.setItem('user_id',json.data.user.pk);
+        localStorage.setItem('dept_id',json.data.user.department);
         window.location.href = "/";
       })
       .catch((err) => {

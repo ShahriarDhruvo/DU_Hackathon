@@ -1,9 +1,9 @@
 import Moment from "moment";
 import React, { useState, useRef } from "react";
-import CustomAlert from "../../../generic/CustomAlert";
-import CustomModal from "../../../generic/CustomModal";
+import CustomAlert from "../../../../generic/CustomAlert";
+import CustomModal from "../../../../generic/CustomModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Counter from "../../../generic/Counter";
+import Counter from "../../../../generic/Counter";
 
 const Comment = (props) => {
     const form = useRef(null);
@@ -85,7 +85,6 @@ const Comment = (props) => {
 
                             <CustomModal
                                 modalTitle="Delete"
-                                actionButtonSize="sm"
                                 actionVariant="danger"
                                 handleAction={handleDelete}
                                 actionButtonClass="btn__none"
