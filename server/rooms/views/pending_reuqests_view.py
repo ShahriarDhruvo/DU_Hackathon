@@ -35,7 +35,7 @@ class PendingRequestList(ListAPIView):
         user_id = self.request.user.id
         room_pk = self.kwargs.get('room_pk', None)
 
-        if not (Room.objects.filter(Q(teachers=user_id) | Q(class_representatives=user_id)).order_by('id')):
+        if not (Room.objects.filter(Q(teachers=user_id) | Q(class_representatives=user_id))):
             raise PermissionDenied("You are not authorized to view this list!")
 
         queryset = PendingRequests.objects.filter(room_id=room_pk)
@@ -55,6 +55,9 @@ class PendingRequestCreate(CreateAPIView):
 
         if PendingRequests.objects.filter(user_id=user_id, room_id=room_pk):
             raise Conflict("The user already has a pending request in this room!")
+        if Room.objects.filter(Q(teachers=user_id) | Q(students=user_id)):
+            raise Conflict("The user is already a member of this room!")
+            
 
         request.data._mutable = True
         request.data['user'] = user_id
@@ -74,7 +77,7 @@ class PendingRequestDelete(DestroyAPIView):
     def get_queryset(self):
         user_id = self.request.user.id
 
-        if not (Room.objects.filter(Q(teachers=user_id) | Q(class_representatives=user_id)).order_by('id')):
+        if not (Room.objects.filter(Q(teachers=user_id) | Q(class_representatives=user_id))):
             raise PermissionDenied("You are not authorized to delete request!")
 
         queryset = PendingRequests.objects.filter()
@@ -83,4 +86,3 @@ class PendingRequestDelete(DestroyAPIView):
             return queryset
         else:
             raise NotAcceptable("Request does not exist!")
-
