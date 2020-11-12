@@ -59,6 +59,10 @@ class PendingRequestCreate(CreateAPIView):
         request.data._mutable = True
         request.data['user'] = user_id
         request.data['room'] = room_pk
+        if(request.user.status == 1):
+            request.data['user_status'] = 'teacher'
+        else:
+            request.data['user_status'] = 'student'
         request.data._mutable = False
 
         return super(PendingRequestCreate, self).create(request, *args, **kwargs)

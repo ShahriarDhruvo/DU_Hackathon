@@ -33,6 +33,7 @@ class Room(models.Model):
 class PendingRequests(models.Model):
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.CASCADE)
+    user_status = models.CharField(max_length=13, null=True)
     room = models.ForeignKey(Room, null=True, on_delete=models.CASCADE)
 
     def __str__(self):
