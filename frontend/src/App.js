@@ -1,6 +1,6 @@
 import React from "react";
 import "./styles/styles.scss";
-import "./components/assets/fonts.css";
+import "./styles/base/_settings.scss";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import Home from "./components/Home/Home";
@@ -14,8 +14,9 @@ import PasswordChange from "./components/generic/PasswordChange";
 import Rooms from "./components/Rooms/Rooms";
 import AuthenticationContextProvider from "./contexts/AuthenticationContext";
 import SettingsContextProvider from "./contexts/SettingsContext";
-import Navs from "./components/Navbar/Navbar";
-import Dept from "./components/Dept/Dept";
+import Navs from './components/Navbar/Navbar';
+import Dept from './components/Dept/Dept'
+import CreateCourse from "./components/CreateCourse/CreateCourse";
 import Notifications from "./components/Notifications/Notifications";
 // import FooterPage from "./components/Footer/Footer";
 // import Footer from "./components/generic/Footer";
@@ -66,6 +67,7 @@ function App() {
 
                         <Route component={NotFound} />
                     </Switch>
+                    <CreateCourse />
                 </AuthenticationContextProvider>
             </SettingsContextProvider>
             {/* <FooterPage /> */}
