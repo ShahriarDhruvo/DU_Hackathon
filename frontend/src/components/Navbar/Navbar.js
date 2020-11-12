@@ -124,7 +124,7 @@ const Navs = () => {
         </Nav>
       )}
       <SignIn show={signInShow} onHide={() => setSignInShow(false)} />
-      <SignUp show={signUpShow} onHide={() => setSignUpShow(false)} />
+      <SignUp show={signUpShow} onHide={() => setSignUpShow(false)} /> 
     </Navbar>
   );
 };

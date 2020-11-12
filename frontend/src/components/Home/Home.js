@@ -187,7 +187,8 @@ export default class Home extends Component {
                     <h3 className="dept__name">{iitem.name}</h3>
                     <style>{cssstyle}</style>
                     <Slider {...settings}>
-                        {this.state.rooms[iitem.id] ? (
+                        {this.state.rooms[iitem.id] ? 
+                        (
                             this.state.rooms[iitem.id].map((item) => (
                                 <div key={item.id}>
                                     <Card className="course">
@@ -206,7 +207,9 @@ export default class Home extends Component {
                                 </div>
                             ))
                         ) : (
-                            <LoadingScreen />
+                            <div>
+                               
+                            </div>
                         )}
                     </Slider>
                     <div>
@@ -248,6 +251,14 @@ export default class Home extends Component {
                     </div>
                 ))}
                 </Slider>
+                <div>
+                        <Link
+                            to={`/homerooms/${localStorage.getItem('dept_id')}`}
+                            style={{ float: "right" }}
+                        >
+                            <p>See More...</p>
+                        </Link>
+                    </div>
                 </div>
             )
         }
