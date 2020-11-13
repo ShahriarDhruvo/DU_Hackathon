@@ -22,12 +22,12 @@ export default class Home extends Component {
             promise: false,
             dept_id: null,
             dept_size: null,
+            enrolled_rooms_id: [],
         };
     }
 
     async componentDidMount() {
-        console.log(localStorage.getItem("status"));
-        let endpoint = "api/v1/university/departments/list/";
+        let endpoint = "/api/v1/university/departments/list/";
         let config = {
             headers: {
                 "Content-Type": "application/json",
@@ -46,7 +46,7 @@ export default class Home extends Component {
                     this.setState({
                         dept: tmparray,
                         dept_size: response.data.length,
-                    },()=>{console.log(this.state.dept, "here")});
+                    });
                 })
                 .catch((err) => {
                     console.log(err);
@@ -54,18 +54,17 @@ export default class Home extends Component {
         };
         await fetchdept();
 
-        const fetchcourse_unauthenticated = async () => {
+        const fetchrooms = async () => {
             for (let i = 0; i < this.state.dept.length; i++) {
-                let endpoint1 = `api/v1/rooms/${this.state.dept[i].id}/list/`;
+                let endpoint1 = `/api/v1/rooms/${this.state.dept[i].id}/list/`;
                 let current_dept_id = this.state.dept[i].id;
                 await axios
                     .get(endpoint1, config)
                     .then((response) => {
                         let tmparray = [];
-                        for (var j = 0; j < response.data.length; j++) {
+                        for (let j = 0; j < response.data.length; j++) {
                             tmparray.push(response.data[j]);
                         }
-
                         this.setState({
                             rooms: {
                                 ...this.state.rooms,
@@ -79,34 +78,30 @@ export default class Home extends Component {
             }
         };
 
-        const fetchcourse_authenticated = async () => {
-            let endpoint2 = `api/v1/rooms/${localStorage.getItem('dept_id')}/list/`;
-            let current_dept_id = localStorage.getItem('dept_id');
+        const fetchuserrooms = async () => {
+            let endpoint2 = `/api/v1/rooms/user_room_list/`;
             await axios
                 .get(endpoint2, config)
                 .then((response) => {
-                    let tmparray = [];
-                    for (var j = 0; j < response.data.length; j++) {
-                        tmparray.push(response.data[j]);
+                    let tmprooms = [];
+                    
+                    for(let k=0; k<response.data.length; k++) {
+                        tmprooms.push(response.data[k].id)
                     }
-
                     this.setState({
-                        rooms: {
-                            ...this.state.rooms,
-                            [current_dept_id]: tmparray,
-                        },
+                        enrolled_rooms_id: [
+                            ...this.state.enrolled_rooms_id,
+                            ...tmprooms
+                        ]
                     });
                 })
                 .catch((err) => {
                     console.log(err);
                 });
         };
-
-        if (!localStorage.getItem("isAuthenticated")) {
-            await fetchcourse_unauthenticated();
-        } else {
-            await fetchcourse_authenticated();
-            
+        await fetchrooms();
+        if (localStorage.getItem("isAuthenticated")) {
+            await fetchuserrooms();
         }
     }
 
@@ -117,7 +112,7 @@ export default class Home extends Component {
             },
         };
         const fetch_dept_name = async() => {
-            let endpoint3 = `api/v1/university/departments/details/${localStorage.getItem('dept_id')}/`
+            let endpoint3 = `/api/v1/university/departments/details/${localStorage.getItem('dept_id')}/`
             await axios
             .get(endpoint3, config)
             .then((response) => {
@@ -130,6 +125,26 @@ export default class Home extends Component {
 
         if(localStorage.getItem("isAuthenticated")){
             await fetch_dept_name();
+        }
+    }
+
+    room_enroll(room_id) {
+            if(localStorage.getItem('status') == 2){
+                let config = {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                };
+                let body = new FormData()
+                let endpoint = `/api/v1/rooms/pending_requests/${room_id}/create/`
+                axios
+                .post(endpoint, body)
+                .then((response) => {
+                    
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
         }
     }
 
@@ -180,9 +195,9 @@ export default class Home extends Component {
                 },
             ],
         };
-        let deptcoursel_unauthenticate;
+        let deptcoursel;
         if (Object.keys(this.state.dept).length > 0) {
-            deptcoursel_unauthenticate = this.state.dept.map((iitem, i) => (
+            deptcoursel = this.state.dept.map((iitem, i) => (
                 <div key={iitem.id}>
                     <h3 className="dept__name">{iitem.name}</h3>
                     <style>{cssstyle}</style>
@@ -199,9 +214,28 @@ export default class Home extends Component {
                                             <Card.Subtitle className="mb-2 text-muted">
                                                 {item.course.split(",")[1]}
                                             </Card.Subtitle>
-                                            <Button variant="outline-primary">
-                                                Enroll
-                                            </Button>
+                                            {this.state.enrolled_rooms_id.includes(item.id) && localStorage.getItem('isAuthenticated') ? 
+                                            (
+                                                <div>
+                                                    <Link to={`rooms/${item.id}`}>
+                                                        <Button variant="outline-primary">
+                                                            Enter
+                                                        </Button>
+                                                    </Link>
+                                                </div>
+                                            ) : 
+                                            localStorage.getItem('isAuthenticated') ? 
+                                            (
+                                               <Button variant="outline-primary" onClick={() => this.room_enroll(item.id)}>
+                                                    Enroll
+                                                </Button>
+                                            ): 
+                                            (
+                                                <Button variant="outline-primary">
+                                                    Enroll
+                                                </Button>
+                                            )
+                                            }                                   
                                         </Card.Body>
                                     </Card>
                                 </div>
@@ -243,7 +277,7 @@ export default class Home extends Component {
                                     <Card.Subtitle className="mb-2 text-muted">
                                         {item.course.split(",")[1]}
                                     </Card.Subtitle>
-                                    <Button variant="outline-primary">
+                                    <Button variant="outline-primary"  >
                                         Enroll
                                     </Button>
                                 </Card.Body>
@@ -267,23 +301,18 @@ export default class Home extends Component {
         return (
             <div>
                 {this.state.rooms &&
-                Object.keys(this.state.rooms).length > 0 &&
-                !localStorage.getItem("isAuthenticated") ? (
+                Object.keys(this.state.rooms).length > 0 ? (
                     <div>
                         <Header />
                         <h2 className="pageIntro">All Availabe Rooms</h2>
                         <Container className="dept" fluid>
-                            {deptcoursel_unauthenticate}
+                            {deptcoursel}
                         </Container>
                     </div>
                 ) : (
                     // enrolled courses will be shown here:
                     <div>
-                        <Header />
-                        <h2 className="pageIntro">All Availabe Rooms</h2>
-                        <Container className="dept" fluid>
-                            {deptcoursel_authenticate}
-                        </Container>
+                       
                     </div>
                 )}
             </div>
