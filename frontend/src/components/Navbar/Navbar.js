@@ -36,7 +36,7 @@ const Navs = () => {
         <Nav className="ml-auto">
           <Nav.Link>
             <button
-              className="nav__btn__sign"
+              className="nav__btn__sign btn__none"
               onClick={() => setSignInShow(true)}
             >
               Sign In
@@ -45,7 +45,7 @@ const Navs = () => {
 
           <Nav.Link>
             <button
-              className="nav__btn__sign"
+              className="nav__btn__sign btn__none"
               onClick={() => setSignUpShow(true)}
             >
               Sign Up
