@@ -17,7 +17,8 @@ from ..serializers import (
     RoomListSerializer,
     RoomCreateSerializer,
     RoomUpdateSerializer,
-    RoomMemberListSerializer
+    RoomMemberListSerializer,
+    UserPendingRequestRoomListSerializer
 )
 from ..models import Room
 from universities.models import Course
@@ -62,6 +63,19 @@ class UserRoomList(ListAPIView):
             return queryset
         else:
             raise NotFound("Your room list is empty!")
+
+class UserPendingRequestRoomList(ListAPIView):
+    serializer_class = UserPendingRequestRoomListSerializer
+
+    def get_queryset(self):
+        user_id = self.request.user.id
+
+        queryset = Room.objects.filter(pendingrequests__user_id=user_id)
+
+        if queryset:
+            return queryset
+        else:
+            raise NotFound("The user has not pending requests!")
 
 
 class RoomCreate(CreateAPIView):

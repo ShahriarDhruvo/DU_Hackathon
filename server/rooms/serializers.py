@@ -21,6 +21,12 @@ class RoomListSerializer(serializers.ModelSerializer):
         model = Room
         fields = ['id', 'course', 'group', 'year']
 
+class UserPendingRequestRoomListSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Room
+        fields = ['id']
+
 
 class RoomCreateSerializer(serializers.ModelSerializer):
     class Meta:
