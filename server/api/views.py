@@ -38,6 +38,7 @@ def apiOverview(request):
 
         'Room List'                         : 'api/v1/rooms/<str:department_pk>/list/',
         'User Room List'                    : 'api/v1/rooms/user_room_list/',
+        'User Pending Request Room List'    : 'api/v1/rooms/user_pending_request_room_list/',
         'Room Create'                       : 'api/v1/rooms/create/',
         'Room Update'                       : 'api/v1/rooms/update/<str:room_pk>/',
         'Room Delete'                       : 'api/v1/rooms/delete/<str:room_pk>/',

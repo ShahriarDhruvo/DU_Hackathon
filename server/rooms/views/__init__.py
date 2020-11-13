@@ -6,6 +6,7 @@ from .views import (
     RoomDetails,
     RoomMemberList,
     UserRoomList,
+    UserPendingRequestRoomList,
     RoomCheckCR
 )
 
