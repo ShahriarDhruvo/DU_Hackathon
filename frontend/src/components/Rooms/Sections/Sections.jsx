@@ -91,45 +91,54 @@ const Sections = (props) => {
                 </Tabs>
             </AppBar>
 
-            {status && <CustomAlert variant="warning" status={status} />}
-
-            {sections.map((section, index) => (
-                <TabPanel key={section.id} value={value} index={index}>
-                    <Items room_pk={props.room_pk} section_pk={section.id} />
-
-                    <Row className="d-flex justify-content-around mt-4">
-                        <CreateItemModal
+            {sections.length ? (
+                sections.map((section, index) => (
+                    <TabPanel key={section.id} value={value} index={index}>
+                        <Items
                             room_pk={props.room_pk}
                             section_pk={section.id}
-                            actionButtonClass="btn btn-outline-primary btn-sm my-1"
-                        >
-                            Create an Item
-                        </CreateItemModal>
+                        />
 
-                        <UpdateSectionModal
-                            modalTitle="Update"
-                            title={section.title}
-                            actionVariant="primary"
-                            room_pk={props.room_pk}
-                            section_pk={section.id}
-                            actionButtonClass="btn btn-outline-amber btn-sm my-1"
-                        >
-                            Update this Section
-                        </UpdateSectionModal>
+                        {status && (
+                            <CustomAlert variant="warning" status={status} />
+                        )}
 
-                        <DeleteSectionModal
-                            modalTitle="Delete"
-                            actionVariant="danger"
-                            room_pk={props.room_pk}
-                            section_pk={section.id}
-                            actionButtonClass="btn btn-outline-danger btn-sm my-1"
-                            modalBody={`Do you really want to delete "${section.title}" section?`}
-                        >
-                            Delete this Section
-                        </DeleteSectionModal>
-                    </Row>
-                </TabPanel>
-            ))}
+                        <Row className="d-flex justify-content-around mt-4">
+                            <CreateItemModal
+                                room_pk={props.room_pk}
+                                section_pk={section.id}
+                                actionButtonClass="btn btn-outline-primary btn-sm my-1"
+                            >
+                                Create an Item
+                            </CreateItemModal>
+
+                            <UpdateSectionModal
+                                modalTitle="Update"
+                                title={section.title}
+                                actionVariant="primary"
+                                room_pk={props.room_pk}
+                                section_pk={section.id}
+                                actionButtonClass="btn btn-outline-amber btn-sm my-1"
+                            >
+                                Update this Section
+                            </UpdateSectionModal>
+
+                            <DeleteSectionModal
+                                modalTitle="Delete"
+                                actionVariant="danger"
+                                room_pk={props.room_pk}
+                                section_pk={section.id}
+                                actionButtonClass="btn btn-outline-danger btn-sm my-1"
+                                modalBody={`Do you really want to delete "${section.title}" section?`}
+                            >
+                                Delete this Section
+                            </DeleteSectionModal>
+                        </Row>
+                    </TabPanel>
+                ))
+            ) : (
+                <div className="h4 text-muted text-center py-5">{status}</div>
+            )}
         </>
     );
 };

@@ -123,11 +123,24 @@ class RoomRemoveUser(UpdateAPIView):
         except:
             raise NotFound('User does not exist!')
 
+        if user in ('teacher', 'class_representative') and self.request.user.status == 2:
+            raise PermissionDenied(
+                'Only a Teacher can remove other Teachers or Class Representatives')
+
         is_owner = Room.objects.filter(owner=user_id, id=room_pk)
 
         if is_owner:
             raise PermissionDenied(
                 "The owner cannot be removed from the member's list of a room")
+
+        # Check if this is user is a CR or not (Because you have to remove him from CR's List first then remove him from student's list)
+        if user == 'student':
+            existing_cr_ids = list(
+                Room.objects.filter(id=room_pk).values("class_representatives"))
+
+            for i in range(len(existing_cr_ids)):
+                if user_id == existing_cr_ids[i]["class_representatives"]:
+                    raise NotAcceptable("First remove him from CR's list")
 
         existing_users_ids = list(
             Room.objects.filter(id=room_pk).values(user + 's'))

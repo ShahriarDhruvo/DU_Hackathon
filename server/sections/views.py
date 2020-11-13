@@ -39,7 +39,7 @@ class SectionList(ListAPIView):
         if queryset:
             return queryset
         else:
-            raise NotFound("No section has been created yet!")
+            raise NotFound("No section has been created yet")
 
 
 class SectionCreate(CreateAPIView):
