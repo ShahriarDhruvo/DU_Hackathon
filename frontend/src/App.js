@@ -1,6 +1,6 @@
 import React from "react";
+import 'normalize.css';
 import "./styles/styles.scss";
-import "./styles/base/_settings.scss";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import Home from "./components/Home/Home";
