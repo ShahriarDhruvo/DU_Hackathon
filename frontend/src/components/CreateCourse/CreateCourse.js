@@ -54,7 +54,6 @@ function CreateCourse() {
     const [valid, setValid] = React.useState([]);
 
     useEffect(() => {
-        console.log("HHHIIIII");
         let config = {
             headers: {
                 "Content-Type": "application/json",
@@ -128,7 +127,6 @@ function CreateCourse() {
         create_room();
     };
 
-    console.log(courses);
     if (localStorage.getItem("status") == 1 && courses) {
         let courselist =
             courses.length > 0 &&
