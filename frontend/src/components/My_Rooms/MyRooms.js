@@ -3,9 +3,11 @@ import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
 import { CardColumns } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
+import { CardGroup } from "react-bootstrap";
+import {Link,useLocation, useParams} from "react-router-dom";
 const axios = require("axios");
 
-export default class Dept extends Component {
+export default class MyRooms extends Component {
 
   constructor(props) {
     super(props)
@@ -14,23 +16,18 @@ export default class Dept extends Component {
        invalid: false,
        rooms: [],
        rooms_length: null,
-       dept_name:'',
-       dept_id:null,
        enrolled_rooms_id : []
     }
   }
-  
 
   async componentDidMount() {
-    const {match:{params}} = this.props;
-    const id = params.id;
     let config = {
       headers: {
           "Content-Type": "application/json",
       },
   };
     const fetchcourses = async() => {
-        let endpoint = `/api/v1/rooms/${id}/list/`;
+        let endpoint = `/api/v1/rooms/user_room_list/`;
         await axios.get(endpoint, config)
         .then((response) => {
           let tmparray = [];
@@ -48,48 +45,7 @@ export default class Dept extends Component {
           console.log(err)
         });
       }
-
-      const fetch_dept_details = async() => {
-        let endpoint = `/api/v1/university/departments/details/${id}/`;
-        await axios.get(endpoint, config)
-        .then((response) => {
-          this.setState({
-            dept_id: response.data.id,
-            dept_name: response.data[0].name
-          })
-        })
-        .catch((err) => {
-          console.log(err)
-        });
-      }
-
-      const fetchuserrooms = async () => {
-        let endpoint2 = '/api/v1/rooms/user_room_list/';
-        await axios
-            .get(endpoint2, config)
-            .then((response) => {
-                let tmprooms = [];
-                
-                for(let k=0; k<response.data.length; k++) {
-                    tmprooms.push(response.data[k].id)
-                }
-                this.setState({
-                    enrolled_rooms_id: [
-                        ...this.state.enrolled_rooms_id,
-                        ...tmprooms
-                    ]
-                });
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    };
-
-      if(id){
         await fetchcourses();
-        await fetchuserrooms();
-      }
-      await fetch_dept_details();
   }
 
     render() {
@@ -97,7 +53,6 @@ export default class Dept extends Component {
       if(this.state.rooms){
         courselists = this.state.rooms.map((item) => (
           <div key={item.id}>
-            
               <CardColumns>
                 <Card className="course">
                   <Card.Body>
@@ -107,8 +62,6 @@ export default class Dept extends Component {
                     <Card.Subtitle className="mb-2 text-muted">
                       {item.course.split(",")[1]}
                     </Card.Subtitle>
-                    {localStorage.getItem('isAuthenticated') && this.state.enrolled_rooms_id.includes(item.id) ? 
-                    (
                       <div>
                         <Link to={`/rooms/${item.id}`}>
                           <Button variant="outline-primary">
@@ -116,24 +69,20 @@ export default class Dept extends Component {
                           </Button>
                         </Link>
                       </div>
-                    ) : 
-                    (
-                      <Button variant="outline-primary">
-                        Enroll
-                      </Button>
-                      )
-                    }
                   </Card.Body>
                 </Card>
               </CardColumns>
           </div>
-        ));
-      }
+      ));
+  }
+
       return (
-        <Container className="dept" fluid>
-          <h1 className="dept__name">{this.state.dept_name}</h1>
-          <CardColumns>{courselists}</CardColumns>
-        </Container>
+        <div>
+          <Container className="dept" fluid>
+                <h1 className="dept__name">Your Rooms</h1>
+                {courselists}
+          </Container>
+        </div>
       );
     }
 }

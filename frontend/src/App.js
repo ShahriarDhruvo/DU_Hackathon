@@ -1,6 +1,6 @@
 import React from "react";
+import 'normalize.css';
 import "./styles/styles.scss";
-import "./styles/base/_settings.scss";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import Home from "./components/Home/Home";
@@ -18,6 +18,7 @@ import Navs from './components/Navbar/Navbar';
 import Dept from './components/Dept/Dept'
 import CreateCourse from "./components/CreateCourse/CreateCourse";
 import Notifications from "./components/Notifications/Notifications";
+import MyRooms from "./components/My_Rooms/MyRooms";
 // import FooterPage from "./components/Footer/Footer";
 // import Footer from "./components/generic/Footer";
 
@@ -36,7 +37,15 @@ function App() {
                             path="/rooms/:room_pk/"
                             component={Rooms}
                         />
-                        <Route exact path="/homerooms/:id/" component={Dept} />
+                        <Route
+                            exact
+                            path="/myrooms/"
+                            component={MyRooms}
+                        />
+                        <Route
+                            exact
+                            path="/homerooms/:id/"
+                            component={Dept} />
                         <Route
                             exact
                             path="/password/reset/"

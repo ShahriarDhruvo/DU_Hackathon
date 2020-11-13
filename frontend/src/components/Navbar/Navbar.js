@@ -12,6 +12,7 @@ import { NavLink } from "react-router-dom";
 import "../Authentication/Logout";
 import {AuthenticationContext} from "../../contexts/AuthenticationContext";
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import { Link } from "react-router-dom";
 
 const Navs = () => {
   const [signInShow, setSignInShow] = React.useState(false);
@@ -21,15 +22,17 @@ const Navs = () => {
     <Navbar bg="" variant="light" className="nav">
       <Navbar.Brand href="#home" className="nav__brand">
         <div>
-          <img
-            src={"/static/img/logo.png"}
-            width={"40"}
-            height={"40"}
-            className={"d-inline-block align-top"}
-            className="nav__logo"
-            alt={"logo"}
-          />
+          <Link to={`/`}>
+            <img
+              src={"/static/img/logo.png"}
+              width={"40"}
+              height={"40"}
+              className={"d-inline-block align-top"}
+              className="nav__logo"
+              alt={"logo"}
+            />
           <span className="nav__heading">ClassPortal</span>
+          </Link>
         </div>
       </Navbar.Brand>
       {!localStorage.getItem("isAuthenticated") ? (
@@ -114,7 +117,7 @@ const Navs = () => {
             <NavDropdown.Item eventKey="1" as={NavLink} to="/profile/">
               Profile
             </NavDropdown.Item>
-            <NavDropdown.Item eventKey="2" as={NavLink} to="/rooms/1/">
+            <NavDropdown.Item eventKey="2" as={NavLink} to="/myrooms/">
               My Rooms
             </NavDropdown.Item>
             <NavDropdown.Item eventKey="3" onClick={() => handleLogOut()}>
@@ -124,7 +127,7 @@ const Navs = () => {
         </Nav>
       )}
       <SignIn show={signInShow} onHide={() => setSignInShow(false)} />
-      <SignUp show={signUpShow} onHide={() => setSignUpShow(false)} />
+      <SignUp show={signUpShow} onHide={() => setSignUpShow(false)} /> 
     </Navbar>
   );
 };

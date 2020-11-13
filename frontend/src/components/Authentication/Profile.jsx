@@ -1,8 +1,11 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Container } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
+import Col from "react-bootstrap/Col";
 import { Link } from "react-router-dom";
 import CustomAlert from "../generic/CustomAlert";
 import { AuthenticationContext } from "../../contexts/AuthenticationContext";
+import Form from "react-bootstrap/Form";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Profile = () => {
     const [user, setUser] = useState({});
@@ -67,53 +70,100 @@ const Profile = () => {
     }, [handleLogOut]);
 
     return (
-        <Container className="vertical-center">
-            {status ? (
-                <CustomAlert status={status} />
-            ) : (
-                <div
-                    className="ccard p-3 p-sm-4 text-center w-100 bg-main-bg"
-                    style={{ maxWidth: "28rem" }}
-                >
-                    <img
-                        src="/static/img/profile_pic.png"
-                        // onError={(e) => {
-                        //     e.target.onerror = null;
-                        //     e.target.src = "/img/Default.png";
-                        // }}
-                        alt="profile"
-                        style={{ maxWidth: "10rem" }}
-                    />
+      <Container fluid>
+        {status ? (
+          <CustomAlert status={status} />
+        ) : (
+          <div>
+            <div className="mb-3 container profile">
+              <h2>
+                <FontAwesomeIcon className="fa-icon" icon={["fas", "user"]} />{" "}
+                {user.username} {"  "}
+                <small className="profile_status">
+                  ({user.status})
+                </small>
+              </h2>
+              <br />
+              <h3>Account</h3>
+              <hr></hr>
 
-                    <div className="mb-3">
-                        <b>Username: </b>
-                        {user.username}
-                        <br />
-
-                        <b>Department: </b>
-                        {user.department}
-                        <br />
-
-                        <b>Reg. No: </b>
-                        {user.reg_no}
-                        <br />
-
-                        <b>Status: </b>
-                        {user.status}
-                        <br />
-
-                        <b>University: </b>
-                        {user.university}
-                        <br />
-
-                        <b>Email: </b>
-                        {user.email}
-                    </div>
-
-                    <Link to="/password/change/">Change Password</Link>
-                </div>
-            )}
-        </Container>
+              <Row>
+                <Col>
+                  <h6>
+                    <FontAwesomeIcon
+                      className="fa-icon"
+                      icon={["fas", "university"]}
+                    />{" "}
+                    University:{" "}
+                  </h6>
+                </Col>
+                <Col>
+                  <Form.Control
+                    type="text"
+                    placeholder={user.university}
+                    readOnly
+                  />
+                </Col>
+              </Row>
+              <br />
+              <Row>
+                <Col>
+                  <h6>
+                    <FontAwesomeIcon
+                      className="fa-icon"
+                      icon={["fas", "building"]}
+                    />{" "}
+                    Department:{" "}
+                  </h6>
+                </Col>
+                <Col>
+                  <Form.Control
+                    type="text"
+                    placeholder={user.department}
+                    readOnly
+                  />
+                </Col>
+              </Row>
+              <br />
+              <Row>
+                <Col>
+                  <h6>
+                    <FontAwesomeIcon
+                      className="fa-icon"
+                      icon={["fas", "id-card"]}
+                    />{" "}
+                    Reg. No:{" "}
+                  </h6>
+                </Col>
+                <Col>
+                  <Form.Control
+                    type="text"
+                    placeholder={user.reg_no}
+                    readOnly
+                  />
+                </Col>
+              </Row>
+              <br />
+              <Row>
+                <Col>
+                  <h6>
+                    <FontAwesomeIcon
+                      className="fa-icon"
+                      icon={["fas", "envelope"]}
+                    />{" "}
+                    Email:{" "}
+                  </h6>
+                </Col>
+                <Col>
+                  <Form.Control type="text" placeholder={user.email} readOnly />
+                </Col>
+              </Row>
+              <br />
+              <Link to="/password/change/">Change Password</Link>
+            </div>
+          </div>
+        )}
+      </Container>
     );
 };
 
