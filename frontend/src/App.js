@@ -1,5 +1,4 @@
 import React from "react";
-import 'normalize.css';
 import "./styles/styles.scss";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
