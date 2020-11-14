@@ -77,12 +77,10 @@ export default class MyRooms extends Component {
   }
 
       return (
-        <div>
-          <Container className="dept" fluid>
-                <h1 className="dept__name">Your Rooms</h1>
-                {courselists}
-          </Container>
-        </div>
+        <Container className="dept" fluid>
+          <h1 className="dept__name">Your Rooms</h1>
+          <CardColumns>{courselists}</CardColumns>
+        </Container>
       );
     }
 }
