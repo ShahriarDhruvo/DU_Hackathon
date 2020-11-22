@@ -37,6 +37,7 @@ const UpdateItemModal = (props) => {
         };
 
         loadData();
+        props.updateItemFlag();
     };
 
     return (

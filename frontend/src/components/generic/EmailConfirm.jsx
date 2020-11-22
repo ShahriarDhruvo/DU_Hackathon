@@ -46,12 +46,12 @@ const EmailConfirm = () => {
                 />
 
                 {status === "ok" ? (
-                    <Button variant="main" as={Link} to="/login">
-                        Login
+                    <Button variant="main" as={Link} to="/">
+                        HomePage
                     </Button>
                 ) : (
-                    <Button variant="main" as={Link} to="/register">
-                        Register
+                    <Button variant="main" as={Link} to="/">
+                        HomePAge
                     </Button>
                 )}
             </div>

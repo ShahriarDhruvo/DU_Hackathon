@@ -37,14 +37,12 @@ const UpdateSectionModal = (props) => {
         };
 
         loadData();
+        props.updateFlag();
     };
 
     return (
         <>
-            <button
-                onClick={handleShow}
-                className={props.actionButtonClass}
-            >
+            <button onClick={handleShow} className={props.actionButtonClass}>
                 {props.children}
             </button>
 

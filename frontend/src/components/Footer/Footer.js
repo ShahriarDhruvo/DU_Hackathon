@@ -1,45 +1,65 @@
 import React from "react";
-import { MDBCol, MDBContainer, MDBRow, MDBFooter } from "mdbreact";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {Link} from "react-router-dom";
+import "./Footer.css";
 
-
-const FooterPage = () => {
+function Footer() {
   return (
-    <MDBFooter color="blue" className="font-small pt-4 mt-4">
-      <MDBContainer fluid className="text-center text-md-left">
-        <MDBRow>
-          <MDBCol md="6">
-            <h5 className="title">Footer Content</h5>
+    <div className="main-footer">
+      <div className="container inner">
+        <div className="row  justify-content-center">
+          <div className="col-auto">
+            <Link to={`/`}>
+              <FontAwesomeIcon
+                style={{ fontSize: "40px", color: "#FFFCF7" }}
+                icon={["fab", "github"]}
+              />
+            </Link>
+          </div>
+          <div className="col-auto">
+            <Link to={`/`}>
+            <FontAwesomeIcon
+                style={{ fontSize: "40px", color: "#FFFCF7" }}
+                icon={["fab", "linkedin"]}
+              />
+            </Link>
+          </div>
+          <div className="col-auto">
+            <Link to={`/`}>
+            <FontAwesomeIcon
+                style={{ fontSize: "40px", color: "#FFFCF7" }}
+                icon={["fab", "stack-overflow"]}
+              />
+            </Link>
+          </div>
+          <div className="col-auto">
+            <Link to={`/`}>
+            <FontAwesomeIcon
+                style={{ fontSize: "40px", color: "#FFFCF7" }}
+                icon={["fab", "facebook-square"]}
+              />
+            </Link>
+          </div>
+          <div className="col-auto">
+            <Link to={`/`}>
+            <FontAwesomeIcon
+                style={{ fontSize: "40px", color: "#FFFCF7" }}
+                icon={["fab", "twitter"]}
+              />
+            </Link>
+          </div>
+        </div>
+        <hr style={{backgroundColor:"#FFFCF7"}} />
+        <div className="row justify-content-center">
+          <div>
             <p>
-              Here you can use rows and columns here to organize your footer
-              content.
+              Copyright &copy;{new Date().getFullYear()} | All rights reserved
             </p>
-          </MDBCol>
-          <MDBCol md="6">
-            <h5 className="title">Links</h5>
-            <ul>
-              <li className="list-unstyled">
-                <a href="#!">Link 1</a>
-              </li>
-              <li className="list-unstyled">
-                <a href="#!">Link 2</a>
-              </li>
-              <li className="list-unstyled">
-                <a href="#!">Link 3</a>
-              </li>
-              <li className="list-unstyled">
-                <a href="#!">Link 4</a>
-              </li>
-            </ul>
-          </MDBCol>
-        </MDBRow>
-      </MDBContainer>
-      <div className="footer-copyright text-center py-3">
-        <MDBContainer fluid>
-          &copy; {new Date().getFullYear()} Copyright: <a href="https://www.mdbootstrap.com"> MDBootstrap.com </a>
-        </MDBContainer>
+          </div>
+        </div>
       </div>
-    </MDBFooter>
+    </div>
   );
 }
 
-export default FooterPage;
+export default Footer;

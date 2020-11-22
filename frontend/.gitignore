@@ -21,3 +21,7 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+
+# Big files
+/public/static/Simulators/CellSimulation/Build/CellSimulation.data.unityweb

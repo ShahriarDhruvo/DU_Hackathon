@@ -1,11 +1,12 @@
-footer {
-    position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-      background-color: rgb(75, 191, 226);
-      color: rgb(12, 0, 0);
-      text-align: center;
-      font-size: larger;
-      height: 40px;
-    }
+.main-footer {
+  color: #fff;
+  background-color: #6930C3;
+  padding-top: 3em;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  margin-top: 20%;
+}
+.inner {
+  padding: 0;
+}

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
 import { CardColumns } from "react-bootstrap";
-import Button from "react-bootstrap/Button";
+import Button from '@material-ui/core/Button';
 import { Link } from "react-router-dom";
 const axios = require("axios");
 
@@ -98,42 +98,45 @@ export default class Dept extends Component {
       if(this.state.rooms){
         courselists = this.state.rooms.map((item) => (
           <div key={item.id}>
-            
-              <CardColumns>
-                <Card className="course">
-                  <Card.Body>
-                    <Card.Title className="course__name">
-                      {item.course.split(",")[0]}
-                    </Card.Title>
-                    <Card.Subtitle className="mb-2 text-muted">
-                      {item.course.split(",")[1]}
-                    </Card.Subtitle>
-                    {localStorage.getItem('isAuthenticated') && this.state.enrolled_rooms_id.includes(item.id) ? 
-                    (
-                      <div>
-                        <Link to={`/rooms/${item.id}`}>
-                          <Button variant="outline-primary">
-                            Enter
-                          </Button>
-                        </Link>
-                      </div>
-                    ) : 
-                    (
-                      <Button variant="outline-primary">
-                        Enroll
+            <Card border="primary" className="course">
+              <Card.Body>
+                <Card.Title className="course__name">
+                  {item.course.split(",")[0]}
+                </Card.Title>
+                <Card.Subtitle className="mb-2 text-muted">
+                  {item.course.split(",")[1]}
+                </Card.Subtitle>
+                {localStorage.getItem("isAuthenticated") &&
+                this.state.enrolled_rooms_id.includes(item.id) ? (
+                  <div>
+                    <Link to={`/rooms/${item.id}`}>
+                      <Button
+                        variant="outlined"
+                        color="primary"
+                        style={{ float: "right", marginBottom:"10px" }}
+                      >
+                        Enter
                       </Button>
-                      )
-                    }
-                  </Card.Body>
-                </Card>
-              </CardColumns>
+                    </Link>
+                  </div>
+                ) : (
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    style={{ float: "right", marginBottom:"10px" }}
+                  >
+                    Enroll
+                  </Button>
+                )}
+              </Card.Body>
+            </Card>
           </div>
         ));
       }
       return (
         <Container className="dept" fluid>
           <h1 className="dept__name">{this.state.dept_name}</h1>
-          <CardColumns>{courselists}</CardColumns>
+          <CardColumns className="container">{courselists}</CardColumns>
         </Container>
       );
     }

@@ -44,6 +44,7 @@ const a11yProps = (index) => {
 const Sections = (props) => {
     const [value, setValue] = useState(0);
     const [sections, setSections] = useState([]);
+    const [flag, setFlag] = useState(Math.random());
     const [status, setStatus] = useState(undefined);
 
     useEffect(() => {
@@ -61,7 +62,9 @@ const Sections = (props) => {
         };
 
         loadData();
-    }, [props.room_pk]);
+    }, [props.room_pk, flag]);
+
+    const updateFlag = () => setFlag(Math.random());
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -87,7 +90,10 @@ const Sections = (props) => {
                         />
                     ))}
 
-                    <CreateSectionModal room_pk={props.room_pk} />
+                    <CreateSectionModal
+                        room_pk={props.room_pk}
+                        updateFlag={updateFlag}
+                    />
                 </Tabs>
             </AppBar>
 
@@ -103,14 +109,15 @@ const Sections = (props) => {
                             <CustomAlert variant="warning" status={status} />
                         )}
 
-                        <Row className="d-flex justify-content-around mt-4">
-                            <CreateItemModal
+                        <Row className="d-flex justify-content-around">
+                            {/* <CreateItemModal
                                 room_pk={props.room_pk}
                                 section_pk={section.id}
+                                updateFlag={updateFlag}
                                 actionButtonClass="btn btn-outline-primary btn-sm my-1"
                             >
                                 Create an Item
-                            </CreateItemModal>
+                            </CreateItemModal> */}
 
                             <UpdateSectionModal
                                 modalTitle="Update"
@@ -118,6 +125,7 @@ const Sections = (props) => {
                                 actionVariant="primary"
                                 room_pk={props.room_pk}
                                 section_pk={section.id}
+                                updateFlag={updateFlag}
                                 actionButtonClass="btn btn-outline-amber btn-sm my-1"
                             >
                                 Update this Section
@@ -128,6 +136,7 @@ const Sections = (props) => {
                                 actionVariant="danger"
                                 room_pk={props.room_pk}
                                 section_pk={section.id}
+                                updateFlag={updateFlag}
                                 actionButtonClass="btn btn-outline-danger btn-sm my-1"
                                 modalBody={`Do you really want to delete "${section.title}" section?`}
                             >

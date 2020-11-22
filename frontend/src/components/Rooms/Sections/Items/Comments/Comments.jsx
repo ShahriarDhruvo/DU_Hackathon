@@ -8,6 +8,7 @@ import Comment from "./Comment";
 const Comments = (props) => {
     const [show, setShow] = useState(false);
     const [comments, setComments] = useState([]);
+    const [flag, setFlag] = useState(Math.random());
     const [status, setStatus] = useState(undefined);
 
     useEffect(() => {
@@ -25,7 +26,9 @@ const Comments = (props) => {
         };
 
         loadData();
-    }, [props.room_pk, props.item_pk]);
+    }, [props.room_pk, props.item_pk, flag]);
+
+    const updateFlag = () => setFlag(Math.random());
 
     const handleShow = () => setShow(!show);
 
@@ -50,6 +53,7 @@ const Comments = (props) => {
                     room_pk={props.room_pk}
                     item_pk={props.item_pk}
                     actionButtonClass="btn__none my-1"
+                    updateItemFlag={props.updateItemFlag}
                 >
                     Update this Item
                 </UpdateItemModal>
@@ -61,6 +65,7 @@ const Comments = (props) => {
                     room_pk={props.room_pk}
                     item_pk={props.item_pk}
                     actionButtonClass="btn__none my-1"
+                    updateItemFlag={props.updateItemFlag}
                     modalBody={`Do you really want to delete this Item?`}
                 >
                     Delete this Item
@@ -76,6 +81,7 @@ const Comments = (props) => {
                                     comment={comment}
                                     room_pk={props.room_pk}
                                     comment_pk={comment.id}
+                                    updateFlag={updateFlag}
                                 />
                             </div>
                         ))}
@@ -95,6 +101,7 @@ const Comments = (props) => {
                         <AddComment
                             room_pk={props.room_pk}
                             item_pk={props.item_pk}
+                            updateFlag={updateFlag}
                         />
                     </>
                 )}

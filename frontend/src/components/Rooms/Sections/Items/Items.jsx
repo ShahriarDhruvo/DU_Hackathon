@@ -3,9 +3,11 @@ import { Card } from "react-bootstrap";
 import CustomAlert from "../../../generic/CustomAlert";
 import Comments from "./Comments/Comments";
 import Moment from "moment";
+import CreateItemModal from "./CreateItemModal";
 
 const Items = (props) => {
     const [items, setItems] = useState([]);
+    const [flag, setFlag] = useState(Math.random());
     const [status, setStatus] = useState(undefined);
 
     useEffect(() => {
@@ -23,10 +25,23 @@ const Items = (props) => {
         };
 
         loadData();
-    }, [props.room_pk, props.section_pk]);
+    }, [props.room_pk, props.section_pk, flag]);
+
+    const updateItemFlag = () => setFlag(Math.random());
 
     return (
         <>
+            <div className="text-center">
+                <CreateItemModal
+                    room_pk={props.room_pk}
+                    section_pk={props.section_pk}
+                    updateItemFlag={updateItemFlag}
+                    actionButtonClass="btn btn-outline-primary btn-sm mt-1 mb-4"
+                >
+                    Create an Item
+                </CreateItemModal>
+            </div>
+
             {items.length ? (
                 items.map((item) => (
                     <Card
@@ -66,6 +81,7 @@ const Items = (props) => {
                             item_pk={item.id}
                             content={item.content}
                             room_pk={props.room_pk}
+                            updateItemFlag={updateItemFlag}
                         />
                     </Card>
                 ))

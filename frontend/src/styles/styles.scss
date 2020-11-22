@@ -1,6 +1,6 @@
 // All custom css
-@import "./base/settings";
-@import "./base/base";
+@import "./base/_settings.scss";
+@import "./base/_base.scss";
 
 // Import Bootstrap and its default variables
 @import "~bootstrap/scss/bootstrap.scss";

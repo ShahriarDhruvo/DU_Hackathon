@@ -36,6 +36,7 @@ const UpdateRoomModal = (props) => {
         };
 
         loadData();
+        props.updateFlag();
     };
 
     return (

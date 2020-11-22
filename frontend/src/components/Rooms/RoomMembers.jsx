@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const RoomMembers = (props) => {
     const [status, setStatus] = useState(undefined);
+    const [flag, setFlag] = useState(Math.random());
     const [members, setMembers] = useState({
         owner: "",
         class_representatives: [],
@@ -38,7 +39,110 @@ const RoomMembers = (props) => {
         };
 
         loadData();
-    }, [props.room_pk]);
+    }, [props.room_pk, flag]);
+
+    // Pending user's list
+    useEffect(() => {
+        const loadData = async () => {
+            const API_URL = `/api/v1/rooms/pending_requests/${props.room_pk}/list/`;
+
+            const response = await fetch(API_URL, {
+                method: "GET",
+            });
+
+            const data = await response.json();
+
+            if (!response.ok && response.status !== 404) setStatus(data.detail);
+            else if (response.status !== 404) setPendingUsers(data);
+        };
+
+        if (localStorage.getItem("status") !== "2" || isCR) loadData();
+    }, [isCR]);
+
+    const updateFlag = () => setFlag(Math.random());
+
+    const handleAddPendingUser = (pending_request_pk, username, userstatus) => {
+        let API_URL = `/api/v1/rooms/add/${props.room_pk}/${userstatus}/${username}/`;
+
+        const loadData = async () => {
+            let response = await fetch(API_URL, {
+                method: "PATCH",
+            });
+
+            let data = await response.json();
+
+            if (!response.ok) setStatus(data.detail);
+
+            // Deleting from pending users list
+            API_URL = `/api/v1/rooms/pending_requests/${props.room_pk}/delete/${pending_request_pk}/`;
+
+            response = await fetch(API_URL, {
+                method: "DELETE",
+            });
+
+            if (!response.ok) {
+                data = await response.json();
+                setStatus(data.detail);
+            }
+        };
+
+        loadData();
+        updateFlag();
+    };
+
+    const handleRemovePendingUser = (pending_request_pk) => {
+        const API_URL = `/api/v1/rooms/pending_requests/${props.room_pk}/delete/${pending_request_pk}/`;
+
+        const loadData = async () => {
+            const response = await fetch(API_URL, {
+                method: "DELETE",
+            });
+
+            if (!response.ok) {
+                const data = await response.json();
+                setStatus(data.detail);
+            }
+        };
+
+        loadData();
+        updateFlag();
+    };
+
+    const handleAddMember = (username, userstatus) => {
+        let API_URL = `/api/v1/rooms/add/${props.room_pk}/${userstatus}/${username}/`;
+
+        const loadData = async () => {
+            let response = await fetch(API_URL, {
+                method: "PATCH",
+            });
+
+            if (!response.ok) {
+                const data = await response.json();
+                setStatus(data.detail);
+            }
+        };
+
+        loadData();
+        updateFlag();
+    };
+
+    const handleRemoveMember = (username, userstatus) => {
+        const API_URL = `/api/v1/rooms/remove/${props.room_pk}/${userstatus}/${username}/`;
+
+        const loadData = async () => {
+            const response = await fetch(API_URL, {
+                method: "PATCH",
+            });
+
+            if (!response.ok) {
+                const data = await response.json();
+                setStatus(data.detail);
+            }
+        };
+
+        loadData();
+        updateFlag();
+    };
 
     // Pending user's list
     useEffect(() => {

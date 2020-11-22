@@ -6,7 +6,7 @@ import CustomAlert from "../generic/CustomAlert";
 import { AuthenticationContext } from "../../contexts/AuthenticationContext";
 import Form from "react-bootstrap/Form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import "./Profile.scss";
 const Profile = () => {
     const [user, setUser] = useState({});
     const [status, setStatus] = useState(undefined);
@@ -79,9 +79,7 @@ const Profile = () => {
               <h2>
                 <FontAwesomeIcon className="fa-icon" icon={["fas", "user"]} />{" "}
                 {user.username} {"  "}
-                <small className="profile_status">
-                  ({user.status})
-                </small>
+                <small className="profile__status">({user.status})</small>
               </h2>
               <br />
               <h3>Account</h3>
@@ -125,25 +123,29 @@ const Profile = () => {
                 </Col>
               </Row>
               <br />
-              <Row>
-                <Col>
-                  <h6>
-                    <FontAwesomeIcon
-                      className="fa-icon"
-                      icon={["fas", "id-card"]}
-                    />{" "}
-                    Reg. No:{" "}
-                  </h6>
-                </Col>
-                <Col>
-                  <Form.Control
-                    type="text"
-                    placeholder={user.reg_no}
-                    readOnly
-                  />
-                </Col>
-              </Row>
-              <br />
+              {user.status !== "Teacher" ? (
+                <>
+                <Row>
+                  <Col>
+                    <h6>
+                      <FontAwesomeIcon
+                        className="fa-icon"
+                        icon={["fas", "id-card"]}
+                      />{" "}
+                      Reg. No:{" "}
+                    </h6>
+                  </Col>
+                  <Col>
+                    <Form.Control
+                      type="text"
+                      placeholder={user.reg_no}
+                      readOnly
+                    />
+                  </Col>
+                </Row>
+                <br/>
+                </>
+              ) : null}
               <Row>
                 <Col>
                   <h6>

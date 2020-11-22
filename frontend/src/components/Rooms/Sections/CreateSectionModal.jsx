@@ -45,6 +45,7 @@ const CreateSectionModal = (props) => {
         };
 
         loadData();
+        props.updateFlag();
     };
 
     return (

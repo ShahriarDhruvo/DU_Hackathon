@@ -2,6 +2,7 @@
   background-color: #fffcf7;
   &__heading {
     display: none;
+    font-family: 'Josefin Sans', sans-serif;
   }
   &__icon {
     &__bell {
@@ -33,6 +34,7 @@
     padding: 4px 4px;
     text-align: center;
     text-decoration: none;
+    font-family: 'Josefin Sans', sans-serif;
     &:hover {
       background-color: rgba(0, 0, 0, 0.03);
     }
@@ -43,6 +45,7 @@
   .nav {
     &__heading {
       display: inline-block;
+      color: #5e60ce;
       font-size: 27px;
       margin-left: 3px;
     }

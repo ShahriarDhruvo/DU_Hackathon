@@ -35,6 +35,7 @@ const AddComment = (props) => {
         };
 
         loadData();
+        props.updateFlag();
         document.getElementById("add-comment-form").reset();
     };
 
