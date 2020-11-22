@@ -10,8 +10,9 @@ import CustomAlert from "../generic/CustomAlert";
 import UpdateRoomModal from "./UpdateRoomModal";
 import CustomModal from "../generic/CustomModal";
 
-const Rooms = () => {
+const Rooms = (props) => {
     const [room, setRoom] = useState({});
+    const [flag, setFlag] = useState(Math.random());
     const [status, setStatus] = useState(undefined);
     const { handleLogOut } = useContext(AuthenticationContext);
 
@@ -26,6 +27,7 @@ const Rooms = () => {
             });
 
             if (response.status === 401) handleLogOut();
+            else if (response.status === 406) props.history.push("/");
 
             let data = await response.json();
 
@@ -40,7 +42,9 @@ const Rooms = () => {
         };
 
         loadData();
-    }, [params.room_pk, handleLogOut]);
+    }, [params.room_pk, handleLogOut, props, flag]);
+
+    const updateFlag = () => setFlag(Math.random());
 
     const handleDelete = () => {
         const API_URL = `/api/v1/rooms/delete/${params.room_pk}/`;
@@ -88,6 +92,7 @@ const Rooms = () => {
                     modalTitle="Update"
                     actionVariant="primary"
                     room_pk={params.room_pk}
+                    updateFlag={updateFlag}
                     actionButtonClass="btn btn-outline-success btn-sm mb-2"
                 >
                     <FontAwesomeIcon

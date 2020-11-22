@@ -32,6 +32,7 @@ const Comment = (props) => {
 
         loadData();
         handleEdit();
+        props.updateFlag();
     };
 
     const handleDelete = () => {
@@ -49,6 +50,7 @@ const Comment = (props) => {
         };
 
         loadData();
+        props.updateFlag();
     };
 
     return (

@@ -6,7 +6,7 @@ const CustomAlert = (props) => {
         <div className="text-center">
             <Alert
                 variant={props.variant ? props.variant : "danger"}
-                className={props.alertClass ? `ccard ${props.alertClass}` : "ccard"}
+                className={props.alertClass ? `${props.alertClass}` : ""}
             >
                 {props.status}
             </Alert>

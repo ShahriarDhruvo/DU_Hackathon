@@ -1,13 +1,8 @@
 import React from "react";
-import { Spinner } from "react-bootstrap";
+import '../../styles/componentStyles/LoadingScreen.scss';
 
 const LoadingScreen = () => {
-    return (
-        <div className="d-flex">
-            <Spinner animation="border" variant="syntax" />
-            <span className="ml-3 my-auto">Loading...</span>
-        </div>
-    );
+    return <div className="spin"></div>;
 };
 
 export default LoadingScreen;

@@ -28,6 +28,7 @@ const DeleteSectionModal = (props) => {
         };
 
         loadData();
+        props.updateFlag();
     };
 
     return (

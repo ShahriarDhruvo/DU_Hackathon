@@ -1,8 +1,9 @@
 import React from "react";
 import "./styles/styles.scss";
-import "./styles/base/_settings.scss";
 import { library } from "@fortawesome/fontawesome-svg-core";
+import { far } from "@fortawesome/free-regular-svg-icons";
 import { fas } from "@fortawesome/free-solid-svg-icons";
+import { fab } from "@fortawesome/free-brands-svg-icons";
 import Home from "./components/Home/Home";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import EmailConfirmationSent from "./components/generic/EmailConfirmationSent";
@@ -14,14 +15,23 @@ import PasswordChange from "./components/generic/PasswordChange";
 import Rooms from "./components/Rooms/Rooms";
 import AuthenticationContextProvider from "./contexts/AuthenticationContext";
 import SettingsContextProvider from "./contexts/SettingsContext";
-import Navs from './components/Navbar/Navbar';
-import Dept from './components/Dept/Dept'
+import Navs from "./components/Navbar/Navbar";
+import Dept from "./components/Dept/Dept";
 import CreateCourse from "./components/CreateCourse/CreateCourse";
-import Notifications from "./components/Notifications/Notifications";
+// import Notifications from "./components/Notifications/Notifications";
+import MyRooms from "./components/My_Rooms/MyRooms";
+
+import CellSimulation from "./Simulations/CellSimulation";
 // import FooterPage from "./components/Footer/Footer";
 // import Footer from "./components/generic/Footer";
 
-library.add(fas);
+import Footer from "./components/Footer/Footer";
+import Simulations from "./Simulations/Simulations";
+import BiologySimulations from "./Simulations/BiologySimulations";
+import PhysicsSimulations from "./Simulations/PhysicsSimulations";
+import ChemistrySimulations from "./Simulations/ChemistrySimulations";
+
+library.add(far, fas, fab);
 
 function App() {
     return (
@@ -36,6 +46,7 @@ function App() {
                             path="/rooms/:room_pk/"
                             component={Rooms}
                         />
+                        <Route exact path="/myrooms/" component={MyRooms} />
                         <Route exact path="/homerooms/:id/" component={Dept} />
                         <Route
                             exact
@@ -59,10 +70,40 @@ function App() {
                             component={EmailConfirm}
                         />
 
-                        <Route
+                        {/* <Route
                             exact
                             path="/notifications"
                             component={Notifications}
+                        /> */}
+
+                        <Route
+                            exact
+                            path="/simulation"
+                            component={Simulations}
+                        />
+
+                        <Route
+                            exact
+                            path="/simulation/biology/"
+                            component={BiologySimulations}
+                        />
+
+                        <Route
+                            exact
+                            path="/simulation/biology/cell/simulation/"
+                            component={CellSimulation}
+                        />
+
+                        <Route
+                            exact
+                            path="/simulation/physics/"
+                            component={PhysicsSimulations}
+                        />
+
+                        <Route
+                            exact
+                            path="/simulation/chemistry/"
+                            component={ChemistrySimulations}
                         />
 
                         <Route component={NotFound} />
@@ -70,8 +111,7 @@ function App() {
                     <CreateCourse />
                 </AuthenticationContextProvider>
             </SettingsContextProvider>
-            {/* <FooterPage /> */}
-            {/* <Footer /> */}
+            <Footer />
         </Router>
     );
 }

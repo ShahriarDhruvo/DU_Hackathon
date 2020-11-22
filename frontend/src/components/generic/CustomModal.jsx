@@ -3,8 +3,8 @@ import { Button, Modal } from "react-bootstrap";
 import { SettingsContext } from "../../contexts/SettingsContext";
 
 const CustomModal = (props) => {
-    const [show, setShow] = useState(false);
     const { isAnimated } = useContext(SettingsContext);
+    const [show, setShow] = useState(props.show ? props.show : false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -15,21 +15,25 @@ const CustomModal = (props) => {
 
     return (
         <>
-            <button
-                onClick={handleShow}
-                disabled={props.edit}
-                style={props.actionButtonStyle}
-                className={props.actionButtonClass}
-            >
-                {props.children}
-            </button>
+            {props.noAction ? (
+                <></>
+            ) : (
+                <button
+                    onClick={handleShow}
+                    disabled={props.edit}
+                    style={props.actionButtonStyle}
+                    className={props.actionButtonClass}
+                >
+                    {props.children}
+                </button>
+            )}
 
             <Modal
-                show={show}
-                animation={isAnimated}
-                onHide={handleClose}
-                className="text-center"
                 centered
+                show={show}
+                onHide={handleClose}
+                animation={isAnimated}
+                className="text-center"
             >
                 <Modal.Header closeButton>
                     <Modal.Title>{props.modalTitle}</Modal.Title>
@@ -38,12 +42,17 @@ const CustomModal = (props) => {
                 <Modal.Body>{props.modalBody}</Modal.Body>
 
                 <Modal.Footer>
-                    <Button
-                        variant={props.actionVariant}
-                        onClick={handleAction}
-                    >
-                        {props.modalTitle}
-                    </Button>
+                    {props.noAction ? (
+                        <></>
+                    ) : (
+                        <Button
+                            variant={props.actionVariant}
+                            onClick={handleAction}
+                        >
+                            {props.modalTitle}
+                        </Button>
+                    )}
+
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>

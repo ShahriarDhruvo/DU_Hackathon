@@ -4,6 +4,7 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import "./Sign.scss";
 import { Link } from "react-router-dom";
+import CustomAlert from "../generic/CustomAlert";
 
 const axios = require("axios");
 
@@ -41,7 +42,6 @@ export default class SignIn extends Component {
     axios
       .post(endpoint, body, config)
       .then((json) => {
-        console.log(json.data)
         localStorage.setItem('username',json.data.user.username);
         localStorage.setItem('status',json.data.user.status);
         localStorage.setItem('reg_no',json.data.user.reg_no);
@@ -52,9 +52,17 @@ export default class SignIn extends Component {
         window.location.href = "/";
       })
       .catch((err) => {
-        console.log(err);
+        this.setState({
+          errors: err.response.data
+        },() => {console.log(this.state.errors)})
       });
   };
+
+    componentWillUnmount() {
+      this.setState({
+        errors: {},
+      },() => console.log(this.state.errors,'sdfghs'))
+    }
 
   render() {
     return (
@@ -69,6 +77,19 @@ export default class SignIn extends Component {
         <Modal.Header closeButton className="sign__header"></Modal.Header>
         <Modal.Body className="sign__body">
           <h2 className="text-center sign__heading">Sign In</h2>
+          
+          {Object.keys(this.state.errors).length !== 0 &&
+          this.state.errors['password'] ? (
+            <CustomAlert status={JSON.stringify('Password: ' + this.state.errors['password'])}/> // non_field_errors
+          ) : 
+          this.state.errors['non_field_errors'] ? (
+            <CustomAlert status={JSON.stringify('Username: This field may not be blank')}/> // non_field_errors
+          ) : 
+          (
+            <div></div>
+          )
+          }
+
           <Form onSubmit={(e) => this.handle_signin(e, this.state)}>
             <Form.Group controlId="signIn__email">
               {/* <Form.Label>Email address</Form.Label> */}

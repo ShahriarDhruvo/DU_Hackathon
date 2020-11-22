@@ -51,7 +51,7 @@ class ItemList(ListAPIView):
         if queryset:
             return queryset
         else:
-            raise NotFound("No item has been created yet!")
+            raise NotFound("No item has been created yet")
 
 
 class ItemCreate(CreateAPIView):

@@ -28,6 +28,7 @@ const DeleteItemModal = (props) => {
         };
 
         loadData();
+        props.updateItemFlag();
     };
 
     return (
