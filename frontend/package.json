@@ -28,6 +28,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.4",
     "react-slick": "^0.27.12",
+    "react-unity-webgl": "^7.1.10",
     "react-year-picker": "^0.3.7",
     "slick-carousel": "^1.8.1"
   },
