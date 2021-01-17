@@ -18,13 +18,13 @@ const Simulations = (props) => {
                                 Biology is the natural science that studies life
                                 and living organisms, including their physical
                                 structure, chemical processes, molecular
-                                interactions, physiological mechanisms,
-                                development and evolution.
+                                interactions, physiological mechanisms and development.
                             </Card.Text>
                             <Button
-                                variant="primary"
+                                size="sm"
                                 as={Link}
                                 to="/simulation/biology/"
+                                variant="outline-primary"
                             >
                                 Show Simulations
                             </Button>
@@ -48,8 +48,9 @@ const Simulations = (props) => {
                                 scientific disciplines.
                             </Card.Text>
                             <Button
-                                variant="primary"
+                                size="sm"
                                 as={Link}
+                                variant="outline-primary"
                                 to="/simulation/physics/"
                             >
                                 Show Simulations
@@ -74,8 +75,9 @@ const Simulations = (props) => {
                                 substances.
                             </Card.Text>
                             <Button
-                                variant="primary"
+                                size="sm"
                                 as={Link}
+                                variant="outline-primary"
                                 to="/simulation/chemistry/"
                             >
                                 Show Simulations

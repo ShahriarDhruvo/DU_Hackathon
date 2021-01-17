@@ -57,94 +57,97 @@ const Navs = () => {
                     </Nav.Link>
                 </Nav>
             ) : (
-                <Nav className="ml-auto">
-                    {/* Unity simulation */}
-                    <NavLink to="/simulation/" className="mr-2">
-                        <FontAwesomeIcon
-                            className="mt-2 p-0 mr-1"
-                            icon={["fab", "unity"]}
-                        />
-                        Simulations
-                    </NavLink>
-                    {/* Unity simulation */}
-
-                    <NavDropdown
-                        alignRight={true}
-                        title={
-                            <FontAwesomeIcon
-                                className="fa-icon"
-                                icon={["fas", "search"]}
-                            />
-                        }
-                        variant=""
-                    >
-                        <Form inline className="nav__src__form">
-                            <InputGroup>
-                                <InputGroup.Prepend>
-                                    <InputGroup.Text className="nav__src__form__icon">
-                                        <FontAwesomeIcon icon="search" />
-                                    </InputGroup.Text>
-                                </InputGroup.Prepend>
-                                <FormControl
-                                    placeholder="Search Course"
-                                    aria-label="search"
-                                    aria-describedby="basic-addon1"
-                                    type="search"
+                    <Nav className="ml-auto">
+                        {/* Unity simulation */}
+                        <Nav.Link>
+                            <NavLink to="/simulation/" style={{ color: "inherit" }}>
+                                <FontAwesomeIcon
+                                    style={{ fontSize: "1.09rem" }}
+                                    icon={["fab", "unity"]}
                                 />
-                            </InputGroup>
-                        </Form>
-                    </NavDropdown>
-                    <NavDropdown
-                        alignRight={true}
-                        title={
-                            <FontAwesomeIcon
-                                className="fa-icon"
-                                icon={["fas", "bell"]}
-                            />
-                        }
-                        variant=""
-                    >
-                        {/* <NavDropdown.Item
+                                <span className="font-weight-bold">
+                                    Simulations
+                                </span>
+                            </NavLink>
+                        </Nav.Link>
+                        {/* Unity simulation */}
+
+                        <NavDropdown
+                            alignRight={true}
+                            title={
+                                <FontAwesomeIcon
+                                    icon={["fas", "search"]}
+                                />
+                            }
+                        >
+                            <Form inline className="nav__src__form">
+                                <InputGroup>
+                                    <InputGroup.Prepend>
+                                        <InputGroup.Text className="nav__src__form__icon">
+                                            <FontAwesomeIcon icon="search" />
+                                        </InputGroup.Text>
+                                    </InputGroup.Prepend>
+                                    <FormControl
+                                        placeholder="Search Course"
+                                        aria-label="search"
+                                        aria-describedby="basic-addon1"
+                                        type="search"
+                                    />
+                                </InputGroup>
+                            </Form>
+                        </NavDropdown>
+
+                        <NavDropdown
+                            alignRight={true}
+                            title={
+                                <FontAwesomeIcon
+                                    className="fa-icon"
+                                    icon={["fas", "bell"]}
+                                />
+                            }
+                            variant=""
+                        >
+                            {/* <NavDropdown.Item
                             eventKey="1"
                             className="text-wrap"
                             style={{ width: "16rem" }}
                         > */}
                             <Notifications />
-                        {/* </NavDropdown.Item> */}
-                    </NavDropdown>
-                    <NavDropdown
-                        alignRight={true}
-                        title={
-                            <FontAwesomeIcon
-                                className="fa-icon"
-                                icon={["fas", "user"]}
-                            />
-                        }
-                        variant=""
-                    >
-                        <NavDropdown.Item
-                            eventKey="1"
-                            as={NavLink}
-                            to="/profile/"
+                            {/* </NavDropdown.Item> */}
+                        </NavDropdown>
+                        <NavDropdown
+                            alignRight={true}
+                            title={
+                                <FontAwesomeIcon
+                                    className="fa-icon"
+                                    icon={["fas", "user"]}
+                                />
+                            }
+                            variant=""
                         >
-                            Profile
+                            <NavDropdown.Item
+                                eventKey="1"
+                                as={NavLink}
+                                to="/profile/"
+                            >
+                                Profile
                         </NavDropdown.Item>
-                        <NavDropdown.Item
-                            eventKey="2"
-                            as={NavLink}
-                            to="/myrooms/"
-                        >
-                            My Rooms
+                            <NavDropdown.Item
+                                eventKey="2"
+                                as={NavLink}
+                                to="/myrooms/"
+                            >
+                                My Rooms
                         </NavDropdown.Item>
-                        <NavDropdown.Item
-                            eventKey="3"
-                            onClick={() => handleLogOut()}
-                        >
-                            Sign Out
+                            <NavDropdown.Item
+                                eventKey="3"
+                                onClick={() => handleLogOut()}
+                            >
+                                Sign Out
                         </NavDropdown.Item>
-                    </NavDropdown>
-                </Nav>
-            )}
+                        </NavDropdown>
+                    </Nav>
+                )}
             <SignIn show={signInShow} onHide={() => setSignInShow(false)} />
             <SignUp show={signUpShow} onHide={() => setSignUpShow(false)} />
         </Navbar>
