@@ -21,12 +21,12 @@ import CreateCourse from "./components/CreateCourse/CreateCourse";
 // import Notifications from "./components/Notifications/Notifications";
 import MyRooms from "./components/My_Rooms/MyRooms";
 
-import CellSimulation from "./Simulations/CellSimulation";
+import Simulation from "./Simulations/Simulation";
 // import FooterPage from "./components/Footer/Footer";
 // import Footer from "./components/generic/Footer";
 
 import Footer from "./components/Footer/Footer";
-import Simulations from "./Simulations/Simulations";
+import SimulationSubjects from "./Simulations/SimulationSubjects";
 import BiologySimulations from "./Simulations/BiologySimulations";
 import PhysicsSimulations from "./Simulations/PhysicsSimulations";
 import ChemistrySimulations from "./Simulations/ChemistrySimulations";
@@ -79,7 +79,7 @@ function App() {
                         <Route
                             exact
                             path="/simulation"
-                            component={Simulations}
+                            component={SimulationSubjects}
                         />
 
                         <Route
@@ -91,7 +91,7 @@ function App() {
                         <Route
                             exact
                             path="/simulation/biology/cell/simulation/"
-                            component={CellSimulation}
+                            component={Simulation}
                         />
 
                         <Route
