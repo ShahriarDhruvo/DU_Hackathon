@@ -70,102 +70,109 @@ const Profile = () => {
     }, [handleLogOut]);
 
     return (
-      <Container fluid>
-        {status ? (
-          <CustomAlert status={status} />
-        ) : (
-          <div>
-            <div className="mb-3 container profile">
-              <h2>
-                <FontAwesomeIcon className="fa-icon" icon={["fas", "user"]} />{" "}
-                {user.username} {"  "}
-                <small className="profile__status">({user.status})</small>
-              </h2>
-              <br />
-              <h3>Account</h3>
-              <hr></hr>
+        <Container className="vertical-center">
+            {status ? (
+                <CustomAlert status={status} />
+            ) : (
+                <div className="profile col-md-6">
+                    <h2>
+                        <FontAwesomeIcon
+                            className="mr-2"
+                            icon={["fas", "user"]}
+                        />
+                        {user.username}
+                        <small className="profile__status ml-2">
+                            ({user.status})
+                        </small>
+                    </h2>
+                    <br />
+                    <h3>Account</h3>
+                    <hr></hr>
 
-              <Row>
-                <Col>
-                  <h6>
-                    <FontAwesomeIcon
-                      className="fa-icon"
-                      icon={["fas", "university"]}
-                    />{" "}
-                    University:{" "}
-                  </h6>
-                </Col>
-                <Col>
-                  <Form.Control
-                    type="text"
-                    placeholder={user.university}
-                    readOnly
-                  />
-                </Col>
-              </Row>
-              <br />
-              <Row>
-                <Col>
-                  <h6>
-                    <FontAwesomeIcon
-                      className="fa-icon"
-                      icon={["fas", "building"]}
-                    />{" "}
-                    Department:{" "}
-                  </h6>
-                </Col>
-                <Col>
-                  <Form.Control
-                    type="text"
-                    placeholder={user.department}
-                    readOnly
-                  />
-                </Col>
-              </Row>
-              <br />
-              {user.status !== "Teacher" ? (
-                <>
-                <Row>
-                  <Col>
-                    <h6>
-                      <FontAwesomeIcon
-                        className="fa-icon"
-                        icon={["fas", "id-card"]}
-                      />{" "}
-                      Reg. No:{" "}
-                    </h6>
-                  </Col>
-                  <Col>
-                    <Form.Control
-                      type="text"
-                      placeholder={user.reg_no}
-                      readOnly
-                    />
-                  </Col>
-                </Row>
-                <br/>
-                </>
-              ) : null}
-              <Row>
-                <Col>
-                  <h6>
-                    <FontAwesomeIcon
-                      className="fa-icon"
-                      icon={["fas", "envelope"]}
-                    />{" "}
-                    Email:{" "}
-                  </h6>
-                </Col>
-                <Col>
-                  <Form.Control type="text" placeholder={user.email} readOnly />
-                </Col>
-              </Row>
-              <br />
-              <Link to="/password/change/">Change Password</Link>
-            </div>
-          </div>
-        )}
-      </Container>
+                    <Row>
+                        <Col>
+                            <h6>
+                                <FontAwesomeIcon
+                                    className="mr-2"
+                                    icon={["fas", "university"]}
+                                />
+                                University:
+                            </h6>
+                        </Col>
+                        <Col md={6} sm={12}>
+                            <Form.Control
+                                type="text"
+                                placeholder={user.university}
+                                readOnly
+                            />
+                        </Col>
+                    </Row>
+                    <br />
+                    <Row>
+                        <Col>
+                            <h6>
+                                <FontAwesomeIcon
+                                    className="mr-2"
+                                    icon={["fas", "building"]}
+                                />
+                                Department:
+                            </h6>
+                        </Col>
+                        <Col md={6} sm={12}>
+                            <Form.Control
+                                type="text"
+                                placeholder={user.department}
+                                readOnly
+                            />
+                        </Col>
+                    </Row>
+                    <br />
+                    {user.status !== "Teacher" ? (
+                        <>
+                            <Row>
+                                <Col>
+                                    <h6>
+                                        <FontAwesomeIcon
+                                            className="mr-2"
+                                            icon={["fas", "id-card"]}
+                                        />
+                                        Reg. No:
+                                    </h6>
+                                </Col>
+                                <Col md={6} sm={12}>
+                                    <Form.Control
+                                        type="text"
+                                        placeholder={user.reg_no}
+                                        readOnly
+                                    />
+                                </Col>
+                            </Row>
+                            <br />
+                        </>
+                    ) : null}
+                    <Row>
+                        <Col>
+                            <h6>
+                                <FontAwesomeIcon
+                                    className="mr-2"
+                                    icon={["fas", "envelope"]}
+                                />
+                                Email:
+                            </h6>
+                        </Col>
+                        <Col md={6} sm={12}>
+                            <Form.Control
+                                type="text"
+                                placeholder={user.email}
+                                readOnly
+                            />
+                        </Col>
+                    </Row>
+                    <br />
+                    <Link to="/password/change/">Change Password</Link>
+                </div>
+            )}
+        </Container>
     );
 };
 

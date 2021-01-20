@@ -1,5 +1,5 @@
 * {
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Open Sans", sans-serif;
 }
 // @keyframes rotateX {
 //     0% {
@@ -62,25 +62,25 @@ input[type="checkbox"]:checked {
 //     transform: scale(1.02);
 // }
 
-// .clink {
-//     margin-right: 8px;
-//     margin-left: 8px;
-//     transition: 0.5s;
-// }
-
-// .clink:hover {
-//     transform: scale(1.2);
-// }
-
-// .social {
-//     font-size: 1.4rem;
-// }
-
-/* .container {
-    min-height: 82.22vh;
-    padding-bottom: 1rem;
+.clink {
+    margin-right: 8px;
+    margin-left: 8px;
+    transition: 0.5s;
 }
- */
+
+.clink:hover {
+    transform: scale(1.2);
+}
+
+.social {
+    font-size: 1.5rem;
+}
+
+.container {
+    min-height: 80vh;
+    // padding-bottom: 1rem;
+}
+
 .ccard__input {
     flex: 2;
     border: none;

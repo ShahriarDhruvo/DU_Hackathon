@@ -1,65 +1,77 @@
 import React from "react";
+import "./Footer.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {Link} from "react-router-dom";
-import "./Footer.css";
 
-function Footer() {
-  return (
-    <div className="main-footer">
-      <div className="container inner">
-        <div className="row  justify-content-center">
-          <div className="col-auto">
-            <Link to={`/`}>
-              <FontAwesomeIcon
-                style={{ fontSize: "40px", color: "#FFFCF7" }}
-                icon={["fab", "github"]}
-              />
-            </Link>
-          </div>
-          <div className="col-auto">
-            <Link to={`/`}>
-            <FontAwesomeIcon
-                style={{ fontSize: "40px", color: "#FFFCF7" }}
-                icon={["fab", "linkedin"]}
-              />
-            </Link>
-          </div>
-          <div className="col-auto">
-            <Link to={`/`}>
-            <FontAwesomeIcon
-                style={{ fontSize: "40px", color: "#FFFCF7" }}
-                icon={["fab", "stack-overflow"]}
-              />
-            </Link>
-          </div>
-          <div className="col-auto">
-            <Link to={`/`}>
-            <FontAwesomeIcon
-                style={{ fontSize: "40px", color: "#FFFCF7" }}
-                icon={["fab", "facebook-square"]}
-              />
-            </Link>
-          </div>
-          <div className="col-auto">
-            <Link to={`/`}>
-            <FontAwesomeIcon
-                style={{ fontSize: "40px", color: "#FFFCF7" }}
-                icon={["fab", "twitter"]}
-              />
-            </Link>
-          </div>
-        </div>
-        <hr style={{backgroundColor:"#FFFCF7"}} />
-        <div className="row justify-content-center">
-          <div>
-            <p>
-              Copyright &copy;{new Date().getFullYear()} | All rights reserved
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
+const Footer = () => {
+    return (
+        <footer className="footer navbar-static-bottom main-footer text-center rounded-top pb-3">
+            <small>Follow us on</small>
+
+            <ul className="list-inline social">
+                <li className="list-inline-item clink">
+                    <a
+                        href="#"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="social-icon"
+                    >
+                        <FontAwesomeIcon icon={["fab", "facebook-f"]} />
+                    </a>
+                </li>
+
+                <li className="list-inline-item clink">
+                    <a
+                        href="#"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="social-icon"
+                    >
+                        <FontAwesomeIcon icon={["fab", "twitter"]} />
+                    </a>
+                </li>
+
+                <li className="list-inline-item clink">
+                    <a
+                        href="#"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="social-icon"
+                    >
+                        <FontAwesomeIcon icon={["fab", "stack-overflow"]} />
+                    </a>
+                </li>
+
+                <li className="list-inline-item clink">
+                    <a
+                        href="#"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="social-icon"
+                    >
+                        <FontAwesomeIcon icon={["fab", "linkedin"]} />
+                    </a>
+                </li>
+
+                <li className="list-inline-item clink">
+                    <a
+                        href="#"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="social-icon"
+                    >
+                        <FontAwesomeIcon icon={["fab", "github"]} />
+                    </a>
+                </li>
+            </ul>
+
+            <div className="mt-3">
+                <small>
+                    Copyright &copy;{new Date().getFullYear()} | All rights
+                    reserved
+                </small>
+            </div>
+        </footer>
+    );
+};
 
 export default Footer;
