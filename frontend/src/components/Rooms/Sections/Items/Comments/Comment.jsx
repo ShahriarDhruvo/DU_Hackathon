@@ -4,6 +4,7 @@ import CustomAlert from "../../../../generic/CustomAlert";
 import CustomModal from "../../../../generic/CustomModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Counter from "../../../../generic/Counter";
+import Linkify from "react-linkify";
 
 const Comment = (props) => {
     const form = useRef(null);
@@ -52,6 +53,12 @@ const Comment = (props) => {
         loadData();
         props.updateFlag();
     };
+
+    const componentDecorator = (href, text, key) => (
+        <a href={href} key={key} target="_blank" rel="noopener noreferrer">
+            {text}
+        </a>
+    );
 
     return (
         <div>
@@ -126,7 +133,14 @@ const Comment = (props) => {
                                 />
                             </div>
 
-                            <div className="text-right">
+                            <div className="d-flex justify-content-between">
+                                <button
+                                    onClick={handleEdit}
+                                    style={{ color: "red" }}
+                                    className="btn-link btn__none"
+                                >
+                                    Cancel
+                                </button>
                                 <button
                                     type="submit"
                                     className="btn-link btn__none"
@@ -136,7 +150,11 @@ const Comment = (props) => {
                             </div>
                         </form>
                     ) : (
-                        <div className="mt-2">{props.comment.content}</div>
+                        <div className="mt-2">
+                            <Linkify componentDecorator={componentDecorator}>
+                                {props.comment.content}
+                            </Linkify>
+                        </div>
                     )}
                 </div>
             </div>

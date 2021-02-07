@@ -66,8 +66,8 @@ const Footer = () => {
 
             <div className="mt-3">
                 <small>
-                    Copyright &copy;{new Date().getFullYear()} | All rights
-                    reserved
+                    &copy;{new Date().getFullYear()} ClassPortal, Inc | All
+                    rights reserved
                 </small>
             </div>
         </footer>

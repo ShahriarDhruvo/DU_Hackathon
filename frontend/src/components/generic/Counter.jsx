@@ -27,25 +27,24 @@ const Counter = (props) => {
     }, [count, props]);
 
     return (
-        <div
-            style={{ wordBreak: "normal" }}
-            className="mr-2 mt-1 d-flex flex-column"
-        >
-            <button onClick={upCount} className="btn__none">
-                <FontAwesomeIcon
-                    className="fa-icon"
-                    icon={["fas", "chevron-up"]}
-                />
-            </button>
+        <div style={{ wordBreak: "normal" }} className="mr-2 mt-1">
+            <div className="text-center d-flex flex-column">
+                <button onClick={upCount} className="btn__none">
+                    <FontAwesomeIcon
+                        className="fa-icon"
+                        icon={["fas", "chevron-up"]}
+                    />
+                </button>
 
-            {count}
+                {count}
 
-            <button onClick={downCount} className="btn__none">
-                <FontAwesomeIcon
-                    className="fa-icon"
-                    icon={["fas", "chevron-down"]}
-                />
-            </button>
+                <button onClick={downCount} className="btn__none">
+                    <FontAwesomeIcon
+                        className="fa-icon"
+                        icon={["fas", "chevron-down"]}
+                    />
+                </button>
+            </div>
         </div>
     );
 };

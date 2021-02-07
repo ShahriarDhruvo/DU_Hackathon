@@ -1,4 +1,9 @@
 from django.contrib import admin
 from .models import Section
 
-admin.site.register(Section)
+
+class SectionAdmin(admin.ModelAdmin):
+    readonly_fields = ("id",)
+
+
+admin.site.register(Section, SectionAdmin)

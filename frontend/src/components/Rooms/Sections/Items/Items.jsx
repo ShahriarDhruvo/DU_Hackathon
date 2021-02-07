@@ -4,6 +4,7 @@ import CustomAlert from "../../../generic/CustomAlert";
 import Comments from "./Comments/Comments";
 import Moment from "moment";
 import CreateItemModal from "./CreateItemModal";
+import Linkify from "react-linkify";
 
 const Items = (props) => {
     const [items, setItems] = useState([]);
@@ -26,6 +27,12 @@ const Items = (props) => {
 
         loadData();
     }, [props.room_pk, props.section_pk, flag]);
+
+    const componentDecorator = (href, text, key) => (
+        <a href={href} key={key} target="_blank" rel="noopener noreferrer">
+            {text}
+        </a>
+    );
 
     const updateItemFlag = () => setFlag(Math.random());
 
@@ -65,7 +72,13 @@ const Items = (props) => {
                             )}
 
                             <div>
-                                {item.content}
+                                <Linkify
+                                    componentDecorator={componentDecorator}
+                                >
+                                    {item.content}
+                                </Linkify>
+                                <br />
+                                <br />
                                 <div>
                                     Submission Date:{" "}
                                     {Moment(`${item.date} ${item.time}`).format(

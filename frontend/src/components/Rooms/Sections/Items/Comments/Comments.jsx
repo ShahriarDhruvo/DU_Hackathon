@@ -35,13 +35,16 @@ const Comments = (props) => {
     return (
         <>
             <div className="p-2 d-flex flex-column flex-md-row justify-content-around">
-                <button
-                    onClick={handleShow}
-                    className="btn__none my-1"
-                    style={{ color: "#1e88e5" }}
-                >
-                    {!show ? "Show" : "Hide"} comments
-                </button>
+                {comments.length > 0 && (
+                    <button
+                        onClick={handleShow}
+                        className="btn__none my-1"
+                        style={{ color: "#1e88e5" }}
+                    >
+                        {!show ? comments.length : "Hide"}{" "}
+                        {comments.length > 1 ? "comments" : "comment"}
+                    </button>
+                )}
 
                 <UpdateItemModal
                     date={props.date}
@@ -73,6 +76,17 @@ const Comments = (props) => {
             </div>
 
             <div className="mx-3">
+                {!show && comments[comments.length - 1] && (
+                    <div className="mb-2">
+                        <Comment
+                            comment={comments[comments.length - 1]}
+                            room_pk={props.room_pk}
+                            comment_pk={comments[comments.length - 1].id}
+                            updateFlag={updateFlag}
+                        />
+                    </div>
+                )}
+
                 {show && (
                     <>
                         {comments.map((comment) => (
@@ -97,14 +111,14 @@ const Comments = (props) => {
                                     status={status}
                                 />
                             ))}
-
-                        <AddComment
-                            room_pk={props.room_pk}
-                            item_pk={props.item_pk}
-                            updateFlag={updateFlag}
-                        />
                     </>
                 )}
+
+                <AddComment
+                    room_pk={props.room_pk}
+                    item_pk={props.item_pk}
+                    updateFlag={updateFlag}
+                />
             </div>
         </>
     );
