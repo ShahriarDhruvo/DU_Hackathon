@@ -29,7 +29,7 @@ function CreateCourse() {
     const [courses, setCourses] = useState(null);
     //const [select_course, set_select_course] = useState(null);
     //const [created_rooms, set_Created_rooms] = useState([]);
-    const [errors, seterrors] = useState('')
+    const [errors, seterrors] = useState("");
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
@@ -77,7 +77,6 @@ function CreateCourse() {
                 });
         };
         fetchuserrooms();*/
-
     }, []);
 
     const handle_course_create = (e, data) => {
@@ -96,7 +95,7 @@ function CreateCourse() {
                     //console.log(response.data);
                 })
                 .catch((err) => {
-                    seterrors('The item from this course is already created')
+                    seterrors("The item from this course is already created");
                 });
         };
         create_room();
@@ -107,11 +106,11 @@ function CreateCourse() {
             courses.length > 0 &&
             courses.map((item, i) => {
                 //if(!created_rooms.includes(item.id)){
-                    return (
-                        <option key={i} value={item.id}>
-                            {item.title}
-                        </option>
-                    );
+                return (
+                    <option key={i} value={item.id}>
+                        {item.title}
+                    </option>
+                );
                 //}
             });
         return (
@@ -128,9 +127,9 @@ function CreateCourse() {
                         <h2 className="text-center ccourse__heading">
                             Create Room
                         </h2>
-                        {Object.keys(errors).length !==0 ? (
+                        {Object.keys(errors).length !== 0 && (
                             <CustomAlert status={JSON.stringify(errors)} />
-                        ):(<p></p>)}
+                        )}
                         <Form
                             ref={form}
                             className="form"
@@ -177,7 +176,6 @@ function CreateCourse() {
                             Cancel
                         </Button>
                     </Modal.Footer>
-                    
                 </Modal>
             </>
         );

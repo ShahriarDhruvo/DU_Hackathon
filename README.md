@@ -10,11 +10,11 @@ In this lockdown our <b>Hands-on Laboratory Activities</b> are suffering the mos
 <br /> <br />
 So, as the major part of our <i>ClassPortal</i> we tried to solve this issue by introducing <b>Interactive Simulation</b> in our project.
 
-![alt text](https://github.com/ShahriarDhruvo/HackTheVerse_SUST_NOOBs/blob/main/Cell_Simulation_Screenshots/Screenshot%20(150).png?raw=true)
+![alt text](https://github.com/ShahriarDhruvo/HackTheVerse_SUST_NOOBs/blob/main/screenshots/Screenshot%20(150).png?raw=true)
 
-![alt text](https://github.com/ShahriarDhruvo/HackTheVerse_SUST_NOOBs/blob/main/Cell_Simulation_Screenshots/Screenshot%20(154).png?raw=true)
+![alt text](https://github.com/ShahriarDhruvo/HackTheVerse_SUST_NOOBs/blob/main/screenshots/Screenshot%20(154).png?raw=true)
 
-![alt text](https://github.com/ShahriarDhruvo/HackTheVerse_SUST_NOOBs/blob/main/Cell_Simulation_Screenshots/Screenshot%20(155).png?raw=true)
+![alt text](https://github.com/ShahriarDhruvo/HackTheVerse_SUST_NOOBs/blob/main/screenshots/Screenshot%20(155).png?raw=true)
 
 # How to run this project
 1. Install the dependencies in server/requirements.txt

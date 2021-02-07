@@ -22,19 +22,17 @@ const Navs = () => {
     return (
         <Navbar bg="" variant="light" className="nav">
             <Navbar.Brand href="#home" className="nav__brand">
-                <div>
-                    <Link to={`/`}>
-                        <img
-                            src={"/static/img/logo.png"}
-                            width={"40"}
-                            height={"40"}
-                            className={"d-inline-block align-top"}
-                            className="nav__logo"
-                            alt={"logo"}
-                        />
-                        <span className="nav__heading">ClassPortal</span>
-                    </Link>
-                </div>
+                <Link to={`/`}>
+                    <img
+                        src={"/static/img/logo.png"}
+                        width={"40"}
+                        height={"40"}
+                        className={"d-inline-block align-top"}
+                        className="nav__logo"
+                        alt={"logo"}
+                    />
+                    <span className="nav__heading">ClassPortal</span>
+                </Link>
             </Navbar.Brand>
 
             {!localStorage.getItem("isAuthenticated") ? (
@@ -66,7 +64,7 @@ const Navs = () => {
                                 style={{ fontSize: "1.09rem" }}
                                 icon={["fab", "unity"]}
                             />
-                            <span className="font-weight-bold">
+                            <span className="d-none d-md-inline font-weight-bold">
                                 Simulations
                             </span>
                         </NavLink>

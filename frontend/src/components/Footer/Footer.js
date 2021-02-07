@@ -10,7 +10,7 @@ const Footer = () => {
             <ul className="list-inline social">
                 <li className="list-inline-item clink">
                     <a
-                        href="#"
+                        href="/"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="social-icon"
@@ -21,7 +21,7 @@ const Footer = () => {
 
                 <li className="list-inline-item clink">
                     <a
-                        href="#"
+                        href="/"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="social-icon"
@@ -32,7 +32,7 @@ const Footer = () => {
 
                 <li className="list-inline-item clink">
                     <a
-                        href="#"
+                        href="/"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="social-icon"
@@ -43,7 +43,7 @@ const Footer = () => {
 
                 <li className="list-inline-item clink">
                     <a
-                        href="#"
+                        href="/"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="social-icon"
@@ -54,7 +54,7 @@ const Footer = () => {
 
                 <li className="list-inline-item clink">
                     <a
-                        href="#"
+                        href="/"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="social-icon"
