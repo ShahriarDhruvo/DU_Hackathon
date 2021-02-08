@@ -74,7 +74,7 @@ const UpdateItemModal = (props) => {
                                     name="date"
                                     className="form-control"
                                     placeholder="12/21/2020"
-                                    defaultValue={props.date}
+                                    defaultValue={props.item.date}
                                 />
                             </div>
 
@@ -87,7 +87,53 @@ const UpdateItemModal = (props) => {
                                     name="time"
                                     placeholder="23:58"
                                     className="form-control"
-                                    defaultValue={props.time}
+                                    defaultValue={props.item.time}
+                                />
+                            </div>
+                        </div>
+
+                        {props.item.attachment && (
+                            <div className="form-group">
+                                Currently:{" "}
+                                <a
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    href={props.item.attachment}
+                                >
+                                    {props.item.attachment.split("/").pop()}
+                                </a>
+                            </div>
+                        )}
+
+                        <div className="form-group">
+                            <div className="row">
+                                {props.item.attachment ? (
+                                    <label
+                                        htmlFor="attachment"
+                                        className="col-6 my-auto"
+                                    >
+                                        Change{" "}
+                                        <span className="text-muted">
+                                            (Optional):
+                                        </span>
+                                    </label>
+                                ) : (
+                                    <label
+                                        htmlFor="attachment"
+                                        className="col-6 my-auto"
+                                    >
+                                        Attachment{" "}
+                                        <span className="text-muted">
+                                            (Optional):
+                                        </span>
+                                    </label>
+                                )}
+
+                                <input
+                                    type="file"
+                                    id="attachment"
+                                    name="attachment"
+                                    className="col-6 form-control-file"
                                 />
                             </div>
                         </div>
@@ -102,12 +148,26 @@ const UpdateItemModal = (props) => {
                                 name="content"
                                 placeholder="Content"
                                 className="form-control"
-                                defaultValue={props.content}
+                                defaultValue={props.item.content}
                             />
                         </div>
 
-                        <div className="text-center">
-                            <button type="submit" className="btn btn-primary">
+                        <div className="d-flex justify-content-between">
+                            <button
+                                onClick={handleClose}
+                                className="btn btn-outline-danger w-25"
+                            >
+                                <FontAwesomeIcon
+                                    className="mr-2"
+                                    icon={["fas", "times"]}
+                                />
+                                Cancel
+                            </button>
+
+                            <button
+                                type="submit"
+                                className="btn btn-primary w-25"
+                            >
                                 <FontAwesomeIcon
                                     className="mr-2"
                                     icon={["fas", "wrench"]}

@@ -5,6 +5,7 @@ import Comments from "./Comments/Comments";
 import Moment from "moment";
 import CreateItemModal from "./CreateItemModal";
 import Linkify from "react-linkify";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Items = (props) => {
     const [items, setItems] = useState([]);
@@ -45,6 +46,7 @@ const Items = (props) => {
                     updateItemFlag={updateItemFlag}
                     actionButtonClass="btn btn-outline-primary btn-sm mt-1 mb-4"
                 >
+                    <FontAwesomeIcon className="mr-2" icon={["fas", "plus"]} />
                     Create an Item
                 </CreateItemModal>
             </div>
@@ -77,10 +79,29 @@ const Items = (props) => {
                                 >
                                     {item.content}
                                 </Linkify>
-                                <br />
-                                <br />
-                                <div>
-                                    Submission Date:{" "}
+                                <br /> <br />
+                                {item.attachment && (
+                                    <>
+                                        <div style={{ fontSize: "0.85rem" }}>
+                                            <span className="font-weight-bold">
+                                                Attachment:{" "}
+                                            </span>
+                                            <a
+                                                target="_blank"
+                                                href={item.attachment}
+                                                rel="noopener noreferrer"
+                                            >
+                                                {item.attachment
+                                                    .split("/")
+                                                    .pop()}
+                                            </a>
+                                        </div>
+                                    </>
+                                )}
+                                <div style={{ fontSize: "0.85rem" }}>
+                                    <span className="font-weight-bold">
+                                        Submission Date:{" "}
+                                    </span>
                                     {Moment(`${item.date} ${item.time}`).format(
                                         "LLLL"
                                     )}
@@ -89,10 +110,8 @@ const Items = (props) => {
                         </Card.Body>
 
                         <Comments
-                            date={item.date}
-                            time={item.time}
+                            item={item}
                             item_pk={item.id}
-                            content={item.content}
                             room_pk={props.room_pk}
                             updateItemFlag={updateItemFlag}
                         />

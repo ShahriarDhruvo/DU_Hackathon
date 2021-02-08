@@ -47,11 +47,9 @@ const Comments = (props) => {
                 )}
 
                 <UpdateItemModal
-                    date={props.date}
-                    time={props.time}
+                    item={props.item}
                     modalTitle="Update"
                     actionButtonSize="sm"
-                    content={props.content}
                     actionVariant="primary"
                     room_pk={props.room_pk}
                     item_pk={props.item_pk}

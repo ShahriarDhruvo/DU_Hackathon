@@ -18,7 +18,7 @@ class Item(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL
     )
-    attachments = models.FileField(
+    attachment = models.FileField(
         upload_to="attachments/from_items/",
         blank=True,
         default="",
@@ -77,7 +77,7 @@ class Comment(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, null=True, on_delete=models.CASCADE
     )
-    attachments = models.FileField(
+    attachment = models.FileField(
         upload_to="attachments/from_comments/",
         blank=True,
         default="",

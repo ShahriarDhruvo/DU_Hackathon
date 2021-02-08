@@ -33,11 +33,12 @@ const UpdateSectionModal = (props) => {
                 const firstError =
                     firstErrorKey.toUpperCase() + ": " + data[firstErrorKey];
                 setStatus(firstError);
-            } else handleClose();
+            }
         };
 
         loadData();
         props.updateFlag();
+        handleClose();
     };
 
     return (

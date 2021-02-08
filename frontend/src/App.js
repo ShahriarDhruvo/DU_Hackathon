@@ -33,7 +33,7 @@ import ChemistrySimulations from "./Simulations/ChemistrySimulations";
 
 library.add(far, fas, fab);
 
-function App() {
+const App = () => {
     return (
         <Router>
             <SettingsContextProvider>
@@ -114,6 +114,6 @@ function App() {
             <Footer />
         </Router>
     );
-}
+};
 
 export default App;

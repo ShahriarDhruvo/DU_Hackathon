@@ -57,7 +57,7 @@ const RoomMembers = (props) => {
         };
 
         if (localStorage.getItem("status") !== "2" || isCR) loadData();
-    }, [isCR]);
+    }, [isCR, props.room_pk]);
 
     const updateFlag = () => setFlag(Math.random());
 

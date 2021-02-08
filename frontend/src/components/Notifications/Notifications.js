@@ -111,7 +111,6 @@
 // // ReactDOM.render(workflowStatus, mount);
 
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { NavDropdown } from "react-bootstrap";
 
 const Notifications = () => {

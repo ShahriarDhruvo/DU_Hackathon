@@ -2,6 +2,7 @@ import { Modal } from "react-bootstrap";
 import React, { useContext, useState, useRef } from "react";
 import CustomAlert from "../../../generic/CustomAlert";
 import { SettingsContext } from "../../../../contexts/SettingsContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const CreateItemModal = (props) => {
     const form = useRef(null);
@@ -94,6 +95,27 @@ const CreateItemModal = (props) => {
                         </div>
 
                         <div className="form-group">
+                            <div className="row">
+                                <label
+                                    htmlFor="attachment"
+                                    className="col-6 my-auto"
+                                >
+                                    Attachment{" "}
+                                    <span className="text-muted">
+                                        (Optional):
+                                    </span>
+                                </label>
+
+                                <input
+                                    type="file"
+                                    id="attachment"
+                                    name="attachment"
+                                    className="col-6 form-control-file"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="form-group">
                             <label>Content</label>
 
                             <textarea
@@ -106,8 +128,26 @@ const CreateItemModal = (props) => {
                             />
                         </div>
 
-                        <div className="text-center">
-                            <button type="submit" className="btn btn-primary">
+                        <div className="d-flex justify-content-between">
+                            <button
+                                onClick={handleClose}
+                                className="btn btn-outline-danger w-25"
+                            >
+                                <FontAwesomeIcon
+                                    className="mr-2"
+                                    icon={["fas", "times"]}
+                                />
+                                Cancel
+                            </button>
+
+                            <button
+                                type="submit"
+                                className="btn btn-primary w-25"
+                            >
+                                <FontAwesomeIcon
+                                    className="mr-2"
+                                    icon={["fas", "plus"]}
+                                />
                                 Create
                             </button>
                         </div>

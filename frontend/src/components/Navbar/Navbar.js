@@ -14,25 +14,25 @@ import { AuthenticationContext } from "../../contexts/AuthenticationContext";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { Link } from "react-router-dom";
 import Notifications from "../Notifications/Notifications";
+import { SettingsContext } from "../../contexts/SettingsContext";
 
 const Navs = () => {
+    const { isAnimated } = useContext(SettingsContext);
     const [signInShow, setSignInShow] = React.useState(false);
     const [signUpShow, setSignUpShow] = React.useState(false);
     const { handleLogOut } = useContext(AuthenticationContext);
+
     return (
         <Navbar bg="" variant="light" className="nav">
-            <Navbar.Brand href="#home" className="nav__brand">
-                <Link to={`/`}>
-                    <img
-                        src={"/static/img/logo.png"}
-                        width={"40"}
-                        height={"40"}
-                        className={"d-inline-block align-top"}
-                        className="nav__logo"
-                        alt={"logo"}
-                    />
-                    <span className="nav__heading">ClassPortal</span>
-                </Link>
+            <Navbar.Brand as={Link} to="/" className="nav__brand">
+                <img
+                    src={"/static/img/logo.png"}
+                    width={"40"}
+                    height={"40"}
+                    className={"d-inline-block align-top"}
+                    alt={"logo"}
+                />
+                <span className="nav__heading">ClassPortal</span>
             </Navbar.Brand>
 
             {!localStorage.getItem("isAuthenticated") ? (
@@ -58,7 +58,7 @@ const Navs = () => {
             ) : (
                 <Nav className="ml-auto">
                     {/* Unity simulation */}
-                    <Nav.Link>
+                    {/* <Nav.Link>
                         <NavLink to="/simulation/" id="nav-dropdown">
                             <FontAwesomeIcon
                                 style={{ fontSize: "1.09rem" }}
@@ -68,18 +68,13 @@ const Navs = () => {
                                 Simulations
                             </span>
                         </NavLink>
-                    </Nav.Link>
+                    </Nav.Link> */}
                     {/* Unity simulation */}
 
                     <NavDropdown
                         id="nav-dropdown"
                         alignRight={true}
-                        title={
-                            <FontAwesomeIcon
-                                // className="nav__items"
-                                icon={["fas", "search"]}
-                            />
-                        }
+                        title={<FontAwesomeIcon icon={["fas", "search"]} />}
                     >
                         <Form inline className="nav__src__form">
                             <InputGroup>
@@ -145,8 +140,16 @@ const Navs = () => {
                     </NavDropdown>
                 </Nav>
             )}
-            <SignIn show={signInShow} onHide={() => setSignInShow(false)} />
-            <SignUp show={signUpShow} onHide={() => setSignUpShow(false)} />
+            <SignIn
+                show={signInShow}
+                animation={isAnimated}
+                onHide={() => setSignInShow(false)}
+            />
+            <SignUp
+                show={signUpShow}
+                animation={isAnimated}
+                onHide={() => setSignUpShow(false)}
+            />
         </Navbar>
     );
 };

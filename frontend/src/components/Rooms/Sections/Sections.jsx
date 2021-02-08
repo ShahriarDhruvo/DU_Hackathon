@@ -6,11 +6,12 @@ import Tab from "@material-ui/core/Tab";
 import Box from "@material-ui/core/Box";
 import Items from "./Items/Items";
 import CustomAlert from "../../generic/CustomAlert";
-import CreateItemModal from "./Items/CreateItemModal";
+// import CreateItemModal from "./Items/CreateItemModal";
 import { Row } from "react-bootstrap";
 import CreateSectionModal from "./CreateSectionModal";
 import DeleteSectionModal from "./DeleteSectionModal";
 import UpdateSectionModal from "./UpdateSectionModal";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const TabPanel = (props) => {
     const { children, value, index, ...other } = props;
@@ -128,6 +129,10 @@ const Sections = (props) => {
                                 updateFlag={updateFlag}
                                 actionButtonClass="btn btn-outline-amber btn-sm my-1"
                             >
+                                <FontAwesomeIcon
+                                    className="mr-2"
+                                    icon={["fas", "wrench"]}
+                                />
                                 Update this Section
                             </UpdateSectionModal>
 
@@ -140,6 +145,10 @@ const Sections = (props) => {
                                 actionButtonClass="btn btn-outline-danger btn-sm my-1"
                                 modalBody={`Do you really want to delete "${section.title}" section?`}
                             >
+                                <FontAwesomeIcon
+                                    className="mr-2"
+                                    icon={["fas", "times"]}
+                                />
                                 Delete this Section
                             </DeleteSectionModal>
                         </Row>

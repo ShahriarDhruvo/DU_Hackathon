@@ -5,13 +5,17 @@ import CustomModal from "../../../../generic/CustomModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Counter from "../../../../generic/Counter";
 import Linkify from "react-linkify";
+import CommentAttachmentModal from "./CommentAttachmentModal";
 
 const Comment = (props) => {
     const form = useRef(null);
     const [edit, setEdit] = useState(false);
     const [status, setStatus] = useState(undefined);
 
-    const handleEdit = () => setEdit(!edit);
+    const handleEdit = (e) => {
+        e.preventDefault();
+        setEdit(!edit);
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -105,6 +109,18 @@ const Comment = (props) => {
                                     icon={["fa", "trash-alt"]}
                                 />
                             </CustomModal>
+
+                            <CommentAttachmentModal
+                                room_pk={props.room_pk}
+                                comment={props.comment}
+                                updateFlag={props.updateFlag}
+                                actionButtonClass="btn-link btn__none text-secondary"
+                            >
+                                <FontAwesomeIcon
+                                    className="mr-2"
+                                    icon={["fa", "paperclip"]}
+                                />
+                            </CommentAttachmentModal>
                         </div>
                     </div>
 
@@ -154,6 +170,26 @@ const Comment = (props) => {
                             <Linkify componentDecorator={componentDecorator}>
                                 {props.comment.content}
                             </Linkify>
+
+                            {props.comment.attachment && (
+                                <>
+                                    <br /> <br />
+                                    <div style={{ fontSize: "0.85rem" }}>
+                                        <span className="font-weight-bold">
+                                            Attachment:{" "}
+                                        </span>
+                                        <a
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            href={props.comment.attachment}
+                                        >
+                                            {props.comment.attachment
+                                                .split("/")
+                                                .pop()}
+                                        </a>
+                                    </div>
+                                </>
+                            )}
                         </div>
                     )}
                 </div>

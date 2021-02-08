@@ -1,62 +1,62 @@
 #nav-dropdown {
-	color: #5e60ce;
+    color: #5e60ce;
 }
 
 .nav {
-  // background-color: #fffcf7;
-  &__heading {
-    display: none;
-    font-family: 'Josefin Sans', sans-serif;
-  }
-  &__icon {
-    &__bell {
-      margin-right: 12px;
-      padding: 0;
-      border: none;
-      background: none;
-      text-decoration: none !important;
+    // background-color: #fffcf7;
+    &__heading {
+        display: none;
+        font-family: "Josefin Sans", sans-serif;
     }
-  }
-  &__src__form {
-    width: 13rem;
-    padding: 8px;
     &__icon {
-      background-color: transparent;
-      &:focus,
-      &:active {
+        &__bell {
+            margin-right: 12px;
+            padding: 0;
+            border: none;
+            background: none;
+            text-decoration: none !important;
+        }
+    }
+    &__src__form {
+        width: 13rem;
+        padding: 8px;
+        &__icon {
+            background-color: transparent;
+            &:focus,
+            &:active {
+                background-color: transparent;
+                text-decoration: none;
+            }
+        }
+    }
+    &__btn__sign {
+        margin-right: -10px;
         background-color: transparent;
+        border: solid 2.2px #5e60ce;
+        color: #5e60ce;
+        border-radius: 5px;
+        padding: 4px 4px;
+        text-align: center;
         text-decoration: none;
-      }
+        font-family: "Josefin Sans", sans-serif;
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.03);
+        }
     }
-  }
-  &__btn__sign {
-    margin-right: -10px;
-    background-color: transparent;
-    border: solid 2.2px #5e60ce;
-    color: #5e60ce;
-    border-radius: 5px;
-    padding: 4px 4px;
-    text-align: center;
-    text-decoration: none;
-    font-family: 'Josefin Sans', sans-serif;
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.03);
-    }
-  }
 }
 
 @media screen and (min-width: 990px) {
-  .nav {
-    &__heading {
-      display: inline-block;
-      color: #5e60ce;
-      font-size: 27px;
-      margin-left: 3px;
+    .nav {
+        &__heading {
+            display: inline-block;
+            color: #5e60ce;
+            font-size: 27px;
+            margin-left: 3px;
+        }
+        &__btn__sign {
+            color: #5e60ce;
+            border-radius: 8px;
+            padding: 10px 20px;
+        }
     }
-    &__btn__sign {
-      color: #5e60ce;
-      border-radius: 8px;
-      padding: 10px 20px;
-    }
-  }
 }

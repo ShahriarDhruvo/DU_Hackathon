@@ -22,7 +22,7 @@ class ItemCreateSerializer(serializers.ModelSerializer):
 class ItemUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
-        fields = ["id", "content", "date", "time", "attachments"]
+        fields = ["id", "content", "date", "time", "attachment"]
 
 
 # All comment serializers
@@ -47,4 +47,4 @@ class CommentUpdateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Comment
-        fields = ["id", "content", "comment_datetime", "vote", "attachments"]
+        fields = ["id", "content", "comment_datetime", "vote", "attachment"]

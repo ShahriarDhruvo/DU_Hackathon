@@ -40,8 +40,9 @@ function CreateCourse() {
             },
         };
 
+        const dept_id = localStorage.getItem("dept_id");
+
         const loadCourse = async () => {
-            const dept_id = localStorage.getItem("dept_id");
             let endpoint = `api/v1/university/departments/courses/${dept_id}/list/`;
             let tmpcourse = [];
             await axios
@@ -58,7 +59,7 @@ function CreateCourse() {
                     //.log(err);
                 });
         };
-        loadCourse();
+        dept_id && loadCourse();
 
         /*const fetchuserrooms = async () => {
             let endpoint2 = `/api/v1/rooms/user_room_list/`;
@@ -101,7 +102,7 @@ function CreateCourse() {
         create_room();
     };
 
-    if (localStorage.getItem("status") == 1 && courses) {
+    if (localStorage.getItem("status") === "1" && courses) {
         let courselist =
             courses.length > 0 &&
             courses.map((item, i) => {

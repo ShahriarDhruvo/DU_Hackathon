@@ -129,7 +129,7 @@ export default class Home extends Component {
     }
 
     room_enroll(room_id) {
-        if (localStorage.getItem("status") == 2) {
+        if (localStorage.getItem("status") === "2") {
             let body = new FormData();
             let endpoint = `/api/v1/rooms/pending_requests/${room_id}/create/`;
             axios

@@ -36,13 +36,13 @@ const AddComment = (props) => {
 
         loadData();
         props.updateFlag();
-        document.getElementById("add-comment-form").reset();
+        document.getElementById("add-comment-form1").reset();
     };
 
     return (
         <form
             ref={form}
-            id="add-comment-form"
+            id="add-comment-form1"
             onSubmit={handleSubmit}
             className={classes.root + " my-3"}
         >
