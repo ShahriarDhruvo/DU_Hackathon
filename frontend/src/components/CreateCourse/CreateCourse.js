@@ -1,12 +1,12 @@
-import React, { useEffect, useState, useRef } from "react";
-import Modal from "react-bootstrap/Modal";
-import "./CreateCourse.scss";
+import React, { useEffect, useState, useRef, useContext } from "react";
+import { Modal, Button } from "react-bootstrap";
 import { Form } from "react-bootstrap";
 import { makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import CustomAlert from "../generic/CustomAlert";
+import "./CreateCourse.scss";
+import { SettingsContext } from "../../contexts/SettingsContext";
 const axios = require("axios");
 
 const useStyles = makeStyles((theme) => ({
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function CreateCourse() {
+const CreateCourse = (props) => {
     const classes = useStyles();
     const form = useRef(null);
     const [show, setShow] = useState(false);
@@ -32,6 +32,8 @@ function CreateCourse() {
     const [errors, seterrors] = useState("");
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    const { isAnimated } = useContext(SettingsContext);
 
     useEffect(() => {
         let config = {
@@ -80,8 +82,9 @@ function CreateCourse() {
         fetchuserrooms();*/
     }, []);
 
-    const handle_course_create = (e, data) => {
+    const handle_course_create = (e) => {
         e.preventDefault();
+
         const create_room = async () => {
             const body = new FormData(form.current);
             let config = {
@@ -100,6 +103,8 @@ function CreateCourse() {
                 });
         };
         create_room();
+        window.location.replace("/");
+        handleClose();
     };
 
     if (localStorage.getItem("status") === "1" && courses) {
@@ -123,11 +128,14 @@ function CreateCourse() {
                 >
                     <AddIcon />
                 </Fab>
-                <Modal show={show} centered>
+                <Modal
+                    centered
+                    show={show}
+                    onHide={handleClose}
+                    animation={isAnimated}
+                >
                     <Modal.Body>
-                        <h2 className="text-center ccourse__heading">
-                            Create Room
-                        </h2>
+                        <h2 className="text-center">Create Room</h2>
                         {Object.keys(errors).length !== 0 && (
                             <CustomAlert status={JSON.stringify(errors)} />
                         )}
@@ -161,28 +169,30 @@ function CreateCourse() {
                                 />
                             </Form.Group>
 
-                            <div className="text-center">
+                            <div className="d-flex justify-content-between">
                                 <Button
-                                    variant="btn-block"
+                                    className="w-25"
+                                    onClick={handleClose}
+                                    variant="outline-danger"
+                                >
+                                    Cancel
+                                </Button>
+
+                                <Button
                                     type="submit"
-                                    className="sign__submit"
+                                    className="w-25 course__submit"
                                 >
                                     Create
                                 </Button>
                             </div>
                         </Form>
                     </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="secondary" onClick={handleClose}>
-                            Cancel
-                        </Button>
-                    </Modal.Footer>
                 </Modal>
             </>
         );
     } else {
         return <div></div>;
     }
-}
+};
 
 export default CreateCourse;

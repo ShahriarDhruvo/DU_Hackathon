@@ -103,6 +103,7 @@ const Rooms = (props) => {
                 </UpdateRoomModal>
 
                 <CustomModal
+                    redirect="/"
                     modalTitle="Delete"
                     actionVariant="danger"
                     handleAction={handleDelete}

@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import { withRouter } from "react-router";
 import { Button, Modal } from "react-bootstrap";
 import { SettingsContext } from "../../contexts/SettingsContext";
 
@@ -9,6 +10,7 @@ const CustomModal = (props) => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const handleAction = () => {
+        props.redirect && props.history.push(props.redirect);
         handleClose();
         props.handleAction();
     };
@@ -41,7 +43,11 @@ const CustomModal = (props) => {
 
                 <Modal.Body>{props.modalBody}</Modal.Body>
 
-                <Modal.Footer>
+                <Modal.Footer className="d-flex justify-content-between">
+                    <Button variant="secondary" onClick={handleClose}>
+                        Close
+                    </Button>
+
                     {props.noAction ? (
                         <></>
                     ) : (
@@ -52,14 +58,10 @@ const CustomModal = (props) => {
                             {props.modalTitle}
                         </Button>
                     )}
-
-                    <Button variant="secondary" onClick={handleClose}>
-                        Close
-                    </Button>
                 </Modal.Footer>
             </Modal>
         </>
     );
 };
 
-export default CustomModal;
+export default withRouter(CustomModal);

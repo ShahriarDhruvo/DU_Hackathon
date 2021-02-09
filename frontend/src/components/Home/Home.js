@@ -188,16 +188,28 @@ export default class Home extends Component {
                 },
             ],
         };
+
         let deptcoursel;
+
         if (Object.keys(this.state.dept).length > 0) {
-            deptcoursel = this.state.dept.map((iitem, i) => (
+            deptcoursel = this.state.dept.map((iitem) => (
                 <div key={iitem.id}>
-                    {this.state.rooms[iitem.id] ? (
+                    {this.state.rooms[iitem.id] && (
                         <div>
-                            <h3 className="dept__name">{iitem.name}</h3>
+                            <h3 className="dept__name">
+                                {iitem.name} (
+                                {this.state.rooms[iitem.id].length < 3
+                                    ? (settings.slidesToShow = this.state.rooms[
+                                          iitem.id
+                                      ].length)
+                                    : (settings.slidesToShow = 3)}
+                                )
+                            </h3>
+
                             <style>{cssstyle}</style>
+
                             <Slider {...settings}>
-                                {this.state.rooms[iitem.id] ? (
+                                {this.state.rooms[iitem.id] &&
                                     this.state.rooms[iitem.id].map((item) => (
                                         <div key={item.id}>
                                             <Card
@@ -210,7 +222,8 @@ export default class Home extends Component {
                                                             item.course.split(
                                                                 ","
                                                             )[0]
-                                                        }
+                                                        }{" "}
+                                                        ({item.year})
                                                     </Card.Title>
                                                     <Card.Subtitle className="mb-2 text-muted">
                                                         {
@@ -272,24 +285,20 @@ export default class Home extends Component {
                                                 </Card.Body>
                                             </Card>
                                         </div>
-                                    ))
-                                ) : (
-                                    <p></p>
-                                )}
+                                    ))}
                             </Slider>
+
                             <div className="d-flex justify-content-center">
                                 <Button
                                     color="primary"
                                     style={{ marginTop: "40px" }}
                                 >
                                     <Link to={`/homerooms/${iitem.id}`}>
-                                        See More
+                                        Show All
                                     </Link>
                                 </Button>
                             </div>
                         </div>
-                    ) : (
-                        <p></p>
                     )}
                 </div>
             ));
@@ -297,8 +306,7 @@ export default class Home extends Component {
 
         return (
             <div>
-                {this.state.rooms &&
-                Object.keys(this.state.rooms).length > 0 ? (
+                {this.state.rooms && Object.keys(this.state.rooms).length > 0 && (
                     <div>
                         <Header />
                         <h2 className="pageIntro">All Availabe Rooms</h2>
@@ -306,9 +314,6 @@ export default class Home extends Component {
                             {deptcoursel}
                         </Container>
                     </div>
-                ) : (
-                    // enrolled courses will be shown here:
-                    <div></div>
                 )}
             </div>
         );

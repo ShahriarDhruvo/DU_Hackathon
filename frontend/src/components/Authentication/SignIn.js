@@ -33,7 +33,7 @@ export default class SignIn extends Component {
         let endpoint = "/api/v1/accounts/login/";
         var obj = { username: data.username, password: data.password };
         let body = JSON.stringify(obj);
-        console.log(body);
+        
         let config = {
             headers: {
                 "Content-Type": "application/json",

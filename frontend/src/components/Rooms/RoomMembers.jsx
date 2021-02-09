@@ -52,40 +52,46 @@ const RoomMembers = (props) => {
 
             const data = await response.json();
 
-            if (!response.ok && response.status !== 404) setStatus(data.detail);
-            else if (response.status !== 404) setPendingUsers(data);
+            if (
+                !response.ok &&
+                response.status !== 404 &&
+                localStorage.getItem("status") !== "2"
+            )
+                setStatus(data.detail);
+            else setPendingUsers(data);
         };
 
-        if (localStorage.getItem("status") !== "2" || isCR) loadData();
-    }, [isCR, props.room_pk]);
+        if (localStorage.getItem("status") !== "2" || isCR || flag) loadData();
+    }, [isCR, flag, props.room_pk]);
 
     const updateFlag = () => setFlag(Math.random());
 
     const handleAddPendingUser = (pending_request_pk, username, userstatus) => {
-        let API_URL = `/api/v1/rooms/add/${props.room_pk}/${userstatus}/${username}/`;
-
+        // Deleting from pending users list
         const loadData = async () => {
+            let API_URL = `/api/v1/rooms/pending_requests/${props.room_pk}/delete/${pending_request_pk}/`;
+            let response = await fetch(API_URL, {
+                method: "DELETE",
+            });
+
+            if (!response.ok) {
+                let data = await response.json();
+                setStatus(data.detail);
+            }
+        };
+
+        const loadAddMemberData = async () => {
+            let API_URL = `/api/v1/rooms/add/${props.room_pk}/${userstatus}/${username}/`;
+
             let response = await fetch(API_URL, {
                 method: "PATCH",
             });
 
             let data = await response.json();
-
             if (!response.ok) setStatus(data.detail);
-
-            // Deleting from pending users list
-            API_URL = `/api/v1/rooms/pending_requests/${props.room_pk}/delete/${pending_request_pk}/`;
-
-            response = await fetch(API_URL, {
-                method: "DELETE",
-            });
-
-            if (!response.ok) {
-                data = await response.json();
-                setStatus(data.detail);
-            }
         };
 
+        loadAddMemberData();
         loadData();
         updateFlag();
     };
@@ -191,145 +197,109 @@ const RoomMembers = (props) => {
                 ))}
             </div>
 
-            <div className="card-header my-3 border-top members__header">
-                Class Representatives
-            </div>
-
-            <div className="mx-3">
-                {members.class_representatives.map((class_representative) => (
-                    <div key={class_representative} className="border p-2 my-2">
-                        <div className="mb-2">{class_representative}</div>
-
-                        {localStorage.getItem("status") !== "2" && (
-                            <CustomModal
-                                actionVariant="danger"
-                                modalTitle="Remove CR"
-                                handleAction={() =>
-                                    handleRemoveMember(
-                                        class_representative,
-                                        "class_representative"
-                                    )
-                                }
-                                actionButtonClass="btn btn-outline-danger btn-sm mx-1"
-                                modalBody={`Do you want to remove ${class_representative} from Class Representative's list?`}
-                            >
-                                RCR
-                            </CustomModal>
-                        )}
-
-                        {localStorage.getItem("status") !== "2" && (
-                            <CustomModal
-                                actionVariant="danger"
-                                modalTitle="Remove Member"
-                                handleAction={() =>
-                                    handleRemoveMember(
-                                        class_representative,
-                                        "class_representative"
-                                    )
-                                }
-                                actionButtonClass="btn btn-outline-danger btn-sm mx-1"
-                                modalBody={`Do you really want to remove ${class_representative} from this room?`}
-                            >
-                                <FontAwesomeIcon icon={["fas", "user-slash"]} />
-                            </CustomModal>
-                        )}
-                    </div>
-                ))}
-            </div>
-
-            <div className="card-header my-3 border-top members__header">
-                Students
-            </div>
-
-            <div className="mx-3">
-                {members.students.map((student) => (
-                    <div key={student} className="border p-2 my-2">
-                        <div className="mb-2">{student}</div>
-
-                        {localStorage.getItem("status") !== "2" && (
-                            <CustomModal
-                                actionVariant="info"
-                                modalTitle="Add CR"
-                                handleAction={() =>
-                                    handleAddMember(
-                                        student,
-                                        "class_representative"
-                                    )
-                                }
-                                actionButtonClass="btn btn-outline-info btn-sm mx-1"
-                                modalBody={`Do you want to add ${student} as a Class Representative of this room?`}
-                            >
-                                CR
-                            </CustomModal>
-                        )}
-
-                        {(localStorage.getItem("status") !== "2" || isCR) && (
-                            <CustomModal
-                                actionVariant="danger"
-                                modalTitle="Remove Member"
-                                handleAction={() =>
-                                    handleRemoveMember(student, "student")
-                                }
-                                actionButtonClass="btn btn-outline-danger btn-sm mx-1"
-                                modalBody={`Do you really want to remove ${student} from this room?`}
-                            >
-                                <FontAwesomeIcon icon={["fas", "user-slash"]} />
-                            </CustomModal>
-                        )}
-                    </div>
-                ))}
-            </div>
-
-            {(localStorage.getItem("status") !== "2" || isCR) && (
+            {members.class_representatives.length !== 0 && (
                 <>
                     <div className="card-header my-3 border-top members__header">
-                        Pending Requests
+                        Class Representatives
                     </div>
 
                     <div className="mx-3">
-                        {pendingUsers.map((pendingUser) => (
-                            <div
-                                key={pendingUser.id}
-                                className="border p-2 my-2"
-                            >
-                                <div className="mb-2">{pendingUser.user}</div>
+                        {members.class_representatives.map(
+                            (class_representative) => (
+                                <div
+                                    key={class_representative}
+                                    className="border p-2 my-2"
+                                >
+                                    <div className="mb-2">
+                                        {class_representative}
+                                    </div>
 
-                                {(localStorage.getItem("status") !== "2" ||
-                                    isCR) && (
+                                    {localStorage.getItem("status") !== "2" && (
+                                        <CustomModal
+                                            actionVariant="danger"
+                                            modalTitle="Remove CR"
+                                            handleAction={() =>
+                                                handleRemoveMember(
+                                                    class_representative,
+                                                    "class_representative"
+                                                )
+                                            }
+                                            actionButtonClass="btn btn-outline-danger btn-sm mx-1"
+                                            modalBody={`Do you want to remove ${class_representative} from Class Representative's list?`}
+                                        >
+                                            RCR
+                                        </CustomModal>
+                                    )}
+
+                                    {localStorage.getItem("status") !== "2" && (
+                                        <CustomModal
+                                            actionVariant="danger"
+                                            modalTitle="Remove Member"
+                                            handleAction={() =>
+                                                handleRemoveMember(
+                                                    class_representative,
+                                                    "class_representative"
+                                                )
+                                            }
+                                            actionButtonClass="btn btn-outline-danger btn-sm mx-1"
+                                            modalBody={`Do you really want to remove ${class_representative} from this room?`}
+                                        >
+                                            <FontAwesomeIcon
+                                                icon={["fas", "user-slash"]}
+                                            />
+                                        </CustomModal>
+                                    )}
+                                </div>
+                            )
+                        )}
+                    </div>
+                </>
+            )}
+
+            {members.students.length !== 0 && (
+                <>
+                    <div className="card-header my-3 border-top members__header">
+                        Students
+                    </div>
+
+                    <div className="mx-3">
+                        {members.students.map((student) => (
+                            <div key={student} className="border p-2 my-2">
+                                <div className="mb-2">{student}</div>
+
+                                {localStorage.getItem("status") !== "2" && (
                                     <CustomModal
-                                        modalTitle="Accept Request"
-                                        actionVariant="success"
+                                        actionVariant="info"
+                                        modalTitle="Add CR"
                                         handleAction={() =>
-                                            handleAddPendingUser(
-                                                pendingUser.id,
-                                                pendingUser.user,
-                                                pendingUser.user_status
+                                            handleAddMember(
+                                                student,
+                                                "class_representative"
                                             )
                                         }
-                                        actionButtonClass="btn btn-outline-success btn-sm mx-1"
-                                        modalBody={`Do you want to accept ${pendingUser.user}'s request?`}
+                                        actionButtonClass="btn btn-outline-info btn-sm mx-1"
+                                        modalBody={`Do you want to add ${student} as a Class Representative of this room?`}
                                     >
-                                        <FontAwesomeIcon
-                                            icon={["fas", "user-plus"]}
-                                        />
+                                        CR
                                     </CustomModal>
                                 )}
 
                                 {(localStorage.getItem("status") !== "2" ||
                                     isCR) && (
                                     <CustomModal
-                                        modalTitle="Reject Request"
                                         actionVariant="danger"
+                                        modalTitle="Remove Member"
                                         handleAction={() =>
-                                            handleRemovePendingUser(
-                                                pendingUser.id
+                                            handleRemoveMember(
+                                                student,
+                                                "student"
                                             )
                                         }
                                         actionButtonClass="btn btn-outline-danger btn-sm mx-1"
-                                        modalBody={`Do you really want to reject ${pendingUser.user}'s request?`}
+                                        modalBody={`Do you really want to remove ${student} from this room?`}
                                     >
                                         <FontAwesomeIcon
-                                            icon={["fas", "user-times"]}
+                                            icon={["fas", "user-slash"]}
                                         />
                                     </CustomModal>
                                 )}
@@ -338,6 +308,72 @@ const RoomMembers = (props) => {
                     </div>
                 </>
             )}
+
+            {!pendingUsers.detail &&
+                pendingUsers.length !== 0 &&
+                (localStorage.getItem("status") !== "2" || isCR) && (
+                    <>
+                        <div className="card-header my-3 border-top members__header">
+                            Pending Requests
+                        </div>
+
+                        <div className="mx-3">
+                            {!pendingUsers.detail &&
+                                pendingUsers.map((pendingUser) => (
+                                    <div
+                                        key={pendingUser.id}
+                                        className="border p-2 my-2"
+                                    >
+                                        <div className="mb-2">
+                                            {pendingUser.user}
+                                        </div>
+
+                                        {(localStorage.getItem("status") !==
+                                            "2" ||
+                                            isCR) && (
+                                            <CustomModal
+                                                modalTitle="Accept Request"
+                                                actionVariant="success"
+                                                handleAction={() =>
+                                                    handleAddPendingUser(
+                                                        pendingUser.id,
+                                                        pendingUser.user,
+                                                        pendingUser.user_status
+                                                    )
+                                                }
+                                                actionButtonClass="btn btn-outline-success btn-sm mx-1"
+                                                modalBody={`Do you want to accept ${pendingUser.user}'s request?`}
+                                            >
+                                                <FontAwesomeIcon
+                                                    icon={["fas", "user-plus"]}
+                                                />
+                                            </CustomModal>
+                                        )}
+
+                                        {(localStorage.getItem("status") !==
+                                            "2" ||
+                                            isCR) && (
+                                            <CustomModal
+                                                modalTitle="Reject Request"
+                                                actionVariant="danger"
+                                                handleAction={() =>
+                                                    handleRemovePendingUser(
+                                                        pendingUser.id
+                                                    )
+                                                }
+                                                actionButtonClass="btn btn-outline-danger btn-sm mx-1"
+                                                modalBody={`Do you really want to reject ${pendingUser.user}'s request?`}
+                                            >
+                                                <FontAwesomeIcon
+                                                    icon={["fas", "user-times"]}
+                                                />
+                                            </CustomModal>
+                                        )}
+                                    </div>
+                                ))}
+                        </div>
+                    </>
+                )}
         </div>
     );
 };

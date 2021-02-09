@@ -221,37 +221,31 @@ class SignUp extends Component {
                                     />
                                 ) : this.state.errors["username"] ? (
                                     <CustomAlert
-                                        status={
-                                            "Username: " +
-                                            this.state.errors["username"]
-                                        }
+                                        status={this.state.errors["username"]}
                                     />
                                 ) : this.state.errors["email"] ? (
                                     <CustomAlert
-                                        status={
-                                            "Email: " +
-                                            this.state.errors["email"]
-                                        }
+                                        status={this.state.errors["email"]}
                                     />
                                 ) : this.state.errors["password1"] ? (
                                     <CustomAlert
-                                        status={
-                                            "Password: " +
-                                            this.state.errors["password1"]
-                                        }
+                                        status={this.state.errors["password1"]}
                                     />
                                 ) : this.state.errors["password2"] ? (
                                     <CustomAlert
-                                        status={
-                                            "Confirm Password: " +
-                                            this.state.errors["password2"]
-                                        }
+                                        status={this.state.errors["password2"]}
                                     />
                                 ) : (
                                     <CustomAlert
-                                        status={
-                                            "There is an account with these credentials"
-                                        }
+                                        status={`${
+                                            Object.keys(this.state.errors)[0]
+                                        }: ${
+                                            this.state.errors[
+                                                Object.keys(
+                                                    this.state.errors
+                                                )[0]
+                                            ]
+                                        }`}
                                     />
                                 ))}
 
@@ -265,7 +259,7 @@ class SignUp extends Component {
                                     controlId="exampleForm.ControlSelect1"
                                     onChange={this.toggleForm}
                                 >
-                                    <Form.Control as="select">
+                                    <Form.Control as="select" required>
                                         <option value="null">
                                             Select Role
                                         </option>
@@ -281,6 +275,7 @@ class SignUp extends Component {
                                             controlId="signUp__userId"
                                         >
                                             <Form.Control
+                                                required
                                                 type="text"
                                                 placeholder="Name"
                                                 name="name"
@@ -293,6 +288,7 @@ class SignUp extends Component {
                                     {this.state.status === "2" ? (
                                         <Form.Group as={Col} controlId="regNo">
                                             <Form.Control
+                                                required
                                                 type="number"
                                                 placeholder="Registration No"
                                                 name="reg_no"
@@ -307,6 +303,7 @@ class SignUp extends Component {
                                             controlId="signUp__userId"
                                         >
                                             <Form.Control
+                                                required
                                                 type="text"
                                                 placeholder="Username"
                                                 name="username"
@@ -320,6 +317,7 @@ class SignUp extends Component {
                                 <Form.Row>
                                     <Form.Group as={Col} controlId="university">
                                         <Form.Control
+                                            required
                                             as="select"
                                             type="number"
                                             onChange={this.handle_change_uni}
@@ -329,6 +327,7 @@ class SignUp extends Component {
                                     </Form.Group>
                                     <Form.Group as={Col} controlId="department">
                                         <Form.Control
+                                            required
                                             as="select"
                                             onChange={this.handle_change_dept}
                                         >
@@ -338,6 +337,7 @@ class SignUp extends Component {
                                 </Form.Row>
                                 <Form.Group controlId="signUp__email">
                                     <Form.Control
+                                        required
                                         type="email"
                                         placeholder="Email Address"
                                         name="email"
@@ -347,6 +347,7 @@ class SignUp extends Component {
                                 <Form.Row>
                                     <Form.Group as={Col} controlId="password">
                                         <Form.Control
+                                            required
                                             type="password"
                                             placeholder="Password"
                                             name="password1"
@@ -358,6 +359,7 @@ class SignUp extends Component {
                                         controlId="confirm_password"
                                     >
                                         <Form.Control
+                                            required
                                             type="password"
                                             placeholder="Confirm Password"
                                             name="password2"
