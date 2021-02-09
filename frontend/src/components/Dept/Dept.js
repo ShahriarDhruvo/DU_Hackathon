@@ -103,7 +103,7 @@ export default class Dept extends Component {
                     <Card border="primary" className="course">
                         <Card.Body>
                             <Card.Title className="course__name">
-                                {item.course.split(",")[0]}
+                                {item.course.split(",")[0]} ({item.year})
                             </Card.Title>
                             <Card.Subtitle className="mb-2 text-muted">
                                 {item.course.split(",")[1]}

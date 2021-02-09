@@ -8,6 +8,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Header from "../Header/Header";
 import { Link } from "react-router-dom";
+import CustomModal from "../generic/CustomModal";
+import CustomAlert from "../generic/CustomAlert";
 const axios = require("axios");
 
 export default class Home extends Component {
@@ -17,9 +19,12 @@ export default class Home extends Component {
         this.state = {
             dept: [],
             rooms: {},
-            promise: false,
             dept_id: null,
+            promise: false,
             dept_size: null,
+            variant: "danger",
+            status: undefined,
+            pending_rooms_id: [],
             enrolled_rooms_id: [],
         };
     }
@@ -47,7 +52,7 @@ export default class Home extends Component {
                     });
                 })
                 .catch((err) => {
-                    //console.log(err);
+                    // this.setState({ status: err });
                 });
         };
         await fetchdept();
@@ -71,10 +76,12 @@ export default class Home extends Component {
                         });
                     })
                     .catch((err) => {
-                        //console.log(err);
+                        // this.setState({ status: err });
                     });
             }
         };
+
+        await fetchrooms();
 
         const fetchuserrooms = async () => {
             let endpoint2 = `/api/v1/rooms/user_room_list/`;
@@ -94,12 +101,33 @@ export default class Home extends Component {
                     });
                 })
                 .catch((err) => {
-                    //console.log(err);
+                    // this.setState({ status: err });
                 });
         };
-        await fetchrooms();
+
+        const fetchUserPendingRooms = async () => {
+            const API_URL = "api/v1/rooms/user_pending_request_room_list/";
+
+            const response = await fetch(API_URL, {
+                method: "GET",
+            });
+
+            const data = await response.json();
+
+            let tmp = [];
+
+            for (let i = 0; i < data.length; i++) tmp.push(data[i].id);
+
+            this.setState({
+                pending_rooms_id: tmp,
+            });
+
+            // if (!response.ok) this.setState({ status: data.detail });
+        };
+
         if (localStorage.getItem("isAuthenticated")) {
             await fetchuserrooms();
+            fetchUserPendingRooms();
         }
     }
 
@@ -119,7 +147,7 @@ export default class Home extends Component {
                     localStorage.setItem("dept_name", response.data[0].name);
                 })
                 .catch((err) => {
-                    // console.log(err)
+                    // this.setState({ status: err });
                 });
         };
 
@@ -128,7 +156,7 @@ export default class Home extends Component {
         }
     }
 
-    room_enroll(room_id) {
+    room_enroll(room_id, isPending) {
         if (localStorage.getItem("status") === "2") {
             let body = new FormData();
             let endpoint = `/api/v1/rooms/pending_requests/${room_id}/create/`;
@@ -136,8 +164,21 @@ export default class Home extends Component {
                 .post(endpoint, body)
                 .then((response) => {})
                 .catch((err) => {
-                    //console.log(err)
+                    // this.setState({ status: err });
                 });
+        }
+
+        if (isPending) {
+            this.setState({
+                variant: "info",
+                status:
+                    "A teacher or CR needs to approve your request to enter this room",
+            });
+        } else {
+            this.setState({
+                variant: "success",
+                status: "A request has been sent to join the room",
+            });
         }
     }
 
@@ -254,33 +295,33 @@ export default class Home extends Component {
                                                                 </Button>
                                                             </Link>
                                                         </div>
-                                                    ) : localStorage.getItem(
-                                                          "isAuthenticated"
-                                                      ) ? (
-                                                        <Button
-                                                            variant="outlined"
-                                                            color="primary"
-                                                            style={{
-                                                                float: "right",
-                                                            }}
-                                                            onClick={() =>
-                                                                this.room_enroll(
+                                                    ) : (
+                                                        localStorage.getItem(
+                                                            "isAuthenticated"
+                                                        ) && (
+                                                            <Button
+                                                                variant="outlined"
+                                                                color="primary"
+                                                                style={{
+                                                                    float:
+                                                                        "right",
+                                                                }}
+                                                                onClick={() =>
+                                                                    this.room_enroll(
+                                                                        item.id,
+                                                                        this.state.pending_rooms_id.includes(
+                                                                            item.id
+                                                                        )
+                                                                    )
+                                                                }
+                                                            >
+                                                                {this.state.pending_rooms_id.includes(
                                                                     item.id
                                                                 )
-                                                            }
-                                                        >
-                                                            Enroll
-                                                        </Button>
-                                                    ) : (
-                                                        <Button
-                                                            variant="outlined"
-                                                            color="primary"
-                                                            style={{
-                                                                float: "right",
-                                                            }}
-                                                        >
-                                                            Enroll
-                                                        </Button>
+                                                                    ? "Pending..."
+                                                                    : "Enroll"}
+                                                            </Button>
+                                                        )
                                                     )}
                                                 </Card.Body>
                                             </Card>
@@ -310,6 +351,21 @@ export default class Home extends Component {
                     <div>
                         <Header />
                         <h2 className="pageIntro">All Availabe Rooms</h2>
+
+                        {this.state.status && (
+                            <CustomModal
+                                show={true}
+                                noAction={true}
+                                modalTitle="Error"
+                                modalBody={
+                                    <CustomAlert
+                                        status={this.state.status}
+                                        variant={this.state.variant}
+                                    />
+                                }
+                            />
+                        )}
+
                         <Container className="dept" fluid>
                             {deptcoursel}
                         </Container>

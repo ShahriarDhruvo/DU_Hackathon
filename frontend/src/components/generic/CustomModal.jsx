@@ -43,22 +43,26 @@ const CustomModal = (props) => {
 
                 <Modal.Body>{props.modalBody}</Modal.Body>
 
-                <Modal.Footer className="d-flex justify-content-between">
-                    <Button variant="secondary" onClick={handleClose}>
-                        Close
-                    </Button>
+                {!props.noAction ? (
+                    <Modal.Footer className="d-flex justify-content-between">
+                        <Button variant="secondary" onClick={handleClose}>
+                            Close
+                        </Button>
 
-                    {props.noAction ? (
-                        <></>
-                    ) : (
                         <Button
                             variant={props.actionVariant}
                             onClick={handleAction}
                         >
                             {props.modalTitle}
                         </Button>
-                    )}
-                </Modal.Footer>
+                    </Modal.Footer>
+                ) : (
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={handleClose}>
+                            Close
+                        </Button>
+                    </Modal.Footer>
+                )}
             </Modal>
         </>
     );

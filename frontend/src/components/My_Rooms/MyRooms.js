@@ -83,7 +83,17 @@ export default class MyRooms extends Component {
         return (
             <Container className="dept" fluid>
                 <h2 className="dept__name">My Rooms</h2>
-                <CardColumns className="container">{courselists}</CardColumns>
+                {courselists.length ? (
+                    <CardColumns className="container">
+                        {courselists}
+                    </CardColumns>
+                ) : (
+                    <div className="container">
+                        <h3 className="text-center text-muted">
+                            You haven't joined any room yet!
+                        </h3>
+                    </div>
+                )}
             </Container>
         );
     }
