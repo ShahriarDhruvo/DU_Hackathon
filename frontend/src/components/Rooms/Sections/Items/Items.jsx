@@ -39,7 +39,7 @@ const Items = (props) => {
 
     return (
         <>
-            <div className="text-center">
+            <div className="text-right">
                 <CreateItemModal
                     room_pk={props.room_pk}
                     section_pk={props.section_pk}
@@ -55,8 +55,8 @@ const Items = (props) => {
                 items.map((item) => (
                     <Card
                         key={item.id}
+                        className="mx-auto mb-3 border-main"
                         style={{ maxWidth: "60rem" }}
-                        className="mx-auto mb-3"
                     >
                         <Card.Header className="d-md-flex justify-content-between">
                             <div>

@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Form, Container, Button } from "react-bootstrap";
+import { Form, Container, Card, Button } from "react-bootstrap";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CustomAlert from "./CustomAlert";
@@ -9,22 +9,6 @@ const PasswordChange = (props) => {
     const [status, setStatus] = useState(undefined);
     const [variant, setVariant] = useState("danger");
     const form = useRef(null);
-
-    // const { handleLogOut } = useContext(AuthenticationContext);
-
-    // useEffect(() => {
-    //     let API_URL = "/api/v1/work/list/";
-
-    //     const loadData = async () => {
-    //         let response = await fetch(API_URL, {
-    //             method: "GET",
-    //         });
-
-    //         if (response.status === 401) handleLogOut();
-    //     };
-
-    //     loadData();
-    // });
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -56,8 +40,8 @@ const PasswordChange = (props) => {
 
     return (
         <Container className="vertical-center">
-            <div className="col bg-main-bg" style={{ maxWidth: "28rem" }}>
-                <div className="text-center">
+            <Card className="col border-main" style={{ maxWidth: "28rem" }}>
+                <Card.Body className="text-center">
                     <h5 className="mb-4">Change Password</h5>
 
                     <Form
@@ -128,12 +112,12 @@ const PasswordChange = (props) => {
                             />
                         </div>
 
-                        <div className="d-flex justify-content-between mt-4">
+                        <div className="d-md-flex justify-content-between mt-4">
                             <Button
                                 size="sm"
                                 type="submit"
                                 variant="main"
-                                className="mr-2"
+                                className="mb-2 mb-md-0 mr-sm-2"
                             >
                                 <FontAwesomeIcon
                                     className="mr-2"
@@ -155,8 +139,8 @@ const PasswordChange = (props) => {
                             </Button>
                         </div>
                     </Form>
-                </div>
-            </div>
+                </Card.Body>
+            </Card>
         </Container>
     );
 };

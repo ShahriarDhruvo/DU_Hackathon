@@ -10,6 +10,7 @@ import Header from "../Header/Header";
 import { Link } from "react-router-dom";
 import CustomModal from "../generic/CustomModal";
 import CustomAlert from "../generic/CustomAlert";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const axios = require("axios");
 
 export default class Home extends Component {
@@ -106,7 +107,7 @@ export default class Home extends Component {
         };
 
         const fetchUserPendingRooms = async () => {
-            const API_URL = "api/v1/rooms/user_pending_request_room_list/";
+            const API_URL = "/api/v1/rooms/user_pending_request_room_list/";
 
             const response = await fetch(API_URL, {
                 method: "GET",
@@ -157,24 +158,23 @@ export default class Home extends Component {
     }
 
     room_enroll(room_id, isPending) {
-        if (localStorage.getItem("status") === "2") {
-            let body = new FormData();
-            let endpoint = `/api/v1/rooms/pending_requests/${room_id}/create/`;
-            axios
-                .post(endpoint, body)
-                .then((response) => {})
-                .catch((err) => {
-                    // this.setState({ status: err });
-                });
-        }
+        const loadData = async () => {
+            const API_URL = `/api/v1/rooms/pending_requests/${room_id}/create/`;
 
-        if (isPending) {
-            this.setState({
-                variant: "info",
-                status:
-                    "A teacher or CR needs to approve your request to enter this room",
+            const formData = new FormData();
+
+            const response = await fetch(API_URL, {
+                method: "POST",
+                body: formData,
             });
-        } else {
+
+            const data = await response.json();
+            if (!response.ok) this.setState({ status: data.detail });
+        };
+
+        loadData();
+
+        if (!isPending) {
             this.setState({
                 variant: "success",
                 status: "A request has been sent to join the room",
@@ -254,8 +254,8 @@ export default class Home extends Component {
                                     this.state.rooms[iitem.id].map((item) => (
                                         <div key={item.id}>
                                             <Card
+                                                border="main"
                                                 className="course"
-                                                border="primary"
                                             >
                                                 <Card.Body>
                                                     <Card.Title className="course__name">
@@ -291,6 +291,13 @@ export default class Home extends Component {
                                                                             "right",
                                                                     }}
                                                                 >
+                                                                    <FontAwesomeIcon
+                                                                        icon={[
+                                                                            "fas",
+                                                                            "sign-in-alt",
+                                                                        ]}
+                                                                        className="mr-2"
+                                                                    />
                                                                     Enter
                                                                 </Button>
                                                             </Link>
@@ -317,9 +324,29 @@ export default class Home extends Component {
                                                             >
                                                                 {this.state.pending_rooms_id.includes(
                                                                     item.id
-                                                                )
-                                                                    ? "Pending..."
-                                                                    : "Enroll"}
+                                                                ) ? (
+                                                                    <>
+                                                                        <FontAwesomeIcon
+                                                                            icon={[
+                                                                                "fas",
+                                                                                "spinner",
+                                                                            ]}
+                                                                            className="mr-2"
+                                                                        />
+                                                                        Pending...
+                                                                    </>
+                                                                ) : (
+                                                                    <>
+                                                                        <FontAwesomeIcon
+                                                                            icon={[
+                                                                                "fas",
+                                                                                "paper-plane",
+                                                                            ]}
+                                                                            className="mr-2"
+                                                                        />
+                                                                        Enroll
+                                                                    </>
+                                                                )}
                                                             </Button>
                                                         )
                                                     )}
@@ -345,6 +372,12 @@ export default class Home extends Component {
             ));
         }
 
+        const handleCloseAction = () => {
+            this.setState({
+                status: undefined,
+            });
+        };
+
         return (
             <div>
                 {this.state.rooms && Object.keys(this.state.rooms).length > 0 && (
@@ -357,6 +390,7 @@ export default class Home extends Component {
                                 show={true}
                                 noAction={true}
                                 modalTitle="Error"
+                                handleCloseAction={handleCloseAction}
                                 modalBody={
                                     <CustomAlert
                                         status={this.state.status}

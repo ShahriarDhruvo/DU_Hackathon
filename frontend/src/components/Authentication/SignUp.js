@@ -8,7 +8,7 @@ import CustomAlert from "../generic/CustomAlert";
 // import { createHashHistory } from "history";
 import LoadingScreen from "../generic/LoadingScreen";
 import { withRouter } from "react-router-dom";
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // export const history = createHashHistory();
 const axios = require("axios");
@@ -35,8 +35,8 @@ class SignUp extends Component {
     }
 
     componentDidMount() {
-        let endpoint = "api/v1/university/departments/list/";
-        let endpoint1 = "api/v1/university/details/";
+        let endpoint = "/api/v1/university/departments/list/";
+        let endpoint1 = "/api/v1/university/details/";
         let config = {
             headers: {
                 "Content-Type": "application/json",
@@ -84,7 +84,7 @@ class SignUp extends Component {
     handle_signup = (e, data) => {
         e.preventDefault();
 
-        let endpoint = "api/v1/accounts/registration/";
+        let endpoint = "/api/v1/accounts/registration/";
         var obj;
         if (this.state.status === "2")
             obj = {
@@ -368,10 +368,14 @@ class SignUp extends Component {
                                     </Form.Group>
                                 </Form.Row>
                                 <Button
-                                    variant="btn-block"
                                     type="submit"
+                                    variant="btn-block"
                                     className="w-100 sign__submit"
                                 >
+                                    <FontAwesomeIcon
+                                        className="mr-2"
+                                        icon={["fas", "user-plus"]}
+                                    />
                                     SignUp
                                 </Button>
                             </Form>

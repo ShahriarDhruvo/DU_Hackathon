@@ -47,17 +47,14 @@ const UpdateRoomModal = (props) => {
 
             <Modal
                 centered
+                size="sm"
                 show={show}
                 onHide={handleClose}
                 animation={isAnimated}
             >
                 <Modal.Header closeButton>Update this Room</Modal.Header>
                 <Modal.Body>
-                    <form
-                        ref={form}
-                        className="text-center"
-                        onSubmit={handleCreateSection}
-                    >
+                    <form ref={form} onSubmit={handleCreateSection}>
                         {status && (
                             <CustomAlert variant="warning" status={status} />
                         )}
@@ -86,7 +83,7 @@ const UpdateRoomModal = (props) => {
                             />
                         </div>
 
-                        <button type="submit" className="btn btn-primary">
+                        <button type="submit" className="w-100 btn btn-main">
                             Update
                         </button>
                     </form>

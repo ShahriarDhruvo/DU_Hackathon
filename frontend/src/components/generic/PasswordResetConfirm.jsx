@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container, Button, Form } from "react-bootstrap";
+import { Container, Card, Button, Form } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -47,8 +47,8 @@ const PassworResetConfirm = (props) => {
 
     return (
         <Container className="vertical-center">
-            <div className="col ccard bg-main-bg" style={{ maxWidth: "28rem" }}>
-                <div className="p-3 p-sm-4 text-center">
+            <Card className="col border-main" style={{ maxWidth: "28rem" }}>
+                <Card.Body className="p-3 p-sm-4 text-center">
                     <h5 className="card-title mb-4">Reset Password</h5>
 
                     <Form id="password-reset-form" onSubmit={handleSubmit}>
@@ -92,7 +92,7 @@ const PassworResetConfirm = (props) => {
                             />
                         </div>
 
-                        <div className="mt-4">
+                        <div className="mt-4 d-md-flex justify-content-between">
                             <Button
                                 size="sm"
                                 type="submit"
@@ -119,8 +119,8 @@ const PassworResetConfirm = (props) => {
                             </Button>
                         </div>
                     </Form>
-                </div>
-            </div>
+                </Card.Body>
+            </Card>
         </Container>
     );
 };

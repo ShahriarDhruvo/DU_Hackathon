@@ -7,7 +7,11 @@ const CustomModal = (props) => {
     const { isAnimated } = useContext(SettingsContext);
     const [show, setShow] = useState(props.show ? props.show : false);
 
-    const handleClose = () => setShow(false);
+    const handleClose = () => {
+        setShow(false);
+        props.handleCloseAction && props.handleCloseAction();
+    };
+
     const handleShow = () => setShow(true);
     const handleAction = () => {
         props.redirect && props.history.push(props.redirect);
@@ -17,9 +21,7 @@ const CustomModal = (props) => {
 
     return (
         <>
-            {props.noAction ? (
-                <></>
-            ) : (
+            {!props.noAction && (
                 <button
                     onClick={handleShow}
                     disabled={props.edit}

@@ -65,17 +65,15 @@ const Rooms = (props) => {
 
     return (
         <Container>
-            <div className="mb-2 text-center ">
+            <div className="mb-2 text-center text-secondary">
                 <h4 className="my-4">
-                    {room.course_title} ({room.year})
-                    <br />
-                    {room.course_details}
+                    {room.course_title} ({room.year}) {room.course_details}
                     <br />
                     {room.group && `Group: ${room.group}`}
                 </h4>
             </div>
 
-            <div className="mb-3 d-flex flex-column flex-md-row justify-content-around">
+            <div className="d-flex flex-column flex-md-row justify-content-end">
                 <RoomMembersModal
                     actionButtonSize="sm"
                     room_pk={params.room_pk}
@@ -93,7 +91,7 @@ const Rooms = (props) => {
                     actionVariant="primary"
                     room_pk={params.room_pk}
                     updateFlag={updateFlag}
-                    actionButtonClass="btn btn-outline-success btn-sm mb-2"
+                    actionButtonClass="btn btn-outline-secondary btn-sm mb-2 mr-md-2"
                 >
                     <FontAwesomeIcon
                         icon={["fas", "wrench"]}
@@ -120,11 +118,14 @@ const Rooms = (props) => {
 
             {status && <CustomAlert variant="warning" status={status} />}
 
-            <Row>
-                <Col md={3} className="d-none d-md-block border px-0">
+            <Row className="p-3">
+                <Col
+                    md={3}
+                    className="rounded d-none d-md-block border border-main border-right-0 px-0"
+                >
                     <RoomMembers room_pk={params.room_pk} />
                 </Col>
-                <Col md={9} className="border px-0">
+                <Col md={9} className="rounded border border-main px-0">
                     <Sections room_pk={params.room_pk} />
                 </Col>
             </Row>

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Container, Button } from "react-bootstrap";
+import { Container, Card, Button } from "react-bootstrap";
 import { useParams, Link } from "react-router-dom";
 import CustomAlert from "./CustomAlert";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const EmailConfirm = () => {
     const [status, setStatus] = useState(undefined);
@@ -32,8 +33,8 @@ const EmailConfirm = () => {
 
     return (
         <Container className="d-flex align-items-center justify-content-center">
-            <div
-                className="ccard p-4 text-center bg-main-bg"
+            <Card
+                className="p-3 text-center border-main"
                 style={{ maxWidth: "28rem" }}
             >
                 <CustomAlert
@@ -46,15 +47,23 @@ const EmailConfirm = () => {
                 />
 
                 {status === "ok" ? (
-                    <Button variant="main" as={Link} to="/">
-                        HomePage
+                    <Button variant="main" as={Link} to="/login">
+                        <FontAwesomeIcon
+                            className="mr-2"
+                            icon={["fas", "sign-in-alt"]}
+                        />
+                        SignIn
                     </Button>
                 ) : (
                     <Button variant="main" as={Link} to="/">
-                        HomePAge
+                        <FontAwesomeIcon
+                            className="mr-2"
+                            icon={["fas", "home"]}
+                        />
+                        Go to HomePage
                     </Button>
                 )}
-            </div>
+            </Card>
         </Container>
     );
 };

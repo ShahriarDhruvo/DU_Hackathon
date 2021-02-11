@@ -49,6 +49,7 @@ const UpdateSectionModal = (props) => {
 
             <Modal
                 centered
+                size="sm"
                 show={show}
                 onHide={handleClose}
                 animation={isAnimated}
@@ -58,7 +59,6 @@ const UpdateSectionModal = (props) => {
                     <form
                         ref={form}
                         onSubmit={handleUpdateSection}
-                        className="text-center"
                     >
                         {status && (
                             <CustomAlert variant="warning" status={status} />
@@ -78,7 +78,7 @@ const UpdateSectionModal = (props) => {
                             />
                         </div>
 
-                        <button type="submit" className="btn btn-primary">
+                        <button type="submit" className="w-100 btn btn-main">
                             <FontAwesomeIcon
                                 className="mr-2"
                                 icon={["fas", "wrench"]}

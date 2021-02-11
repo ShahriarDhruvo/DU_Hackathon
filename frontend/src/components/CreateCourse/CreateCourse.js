@@ -45,7 +45,7 @@ const CreateCourse = (props) => {
         const dept_id = localStorage.getItem("dept_id");
 
         const loadCourse = async () => {
-            let endpoint = `api/v1/university/departments/courses/${dept_id}/list/`;
+            let endpoint = `/api/v1/university/departments/courses/${dept_id}/list/`;
             let tmpcourse = [];
             await axios
                 .get(endpoint, config)
@@ -85,26 +85,26 @@ const CreateCourse = (props) => {
     const handle_course_create = (e) => {
         e.preventDefault();
 
-        const create_room = async () => {
-            const body = new FormData(form.current);
-            let config = {
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            };
-            let endpoint = `api/v1/rooms/create/`;
-            await axios
-                .post(endpoint, body, config)
-                .then((response) => {
-                    //console.log(response.data);
-                })
-                .catch((err) => {
-                    seterrors("The item from this course is already created");
+        const loadData = async () => {
+            const API_URL = "/api/v1/rooms/create/";
+            const formData = new FormData(form.current);
+
+            try {
+                const response = await fetch(API_URL, {
+                    method: "POST",
+                    body: formData,
                 });
+
+                const data = await response.json();
+
+                if (!response.ok) seterrors(data.detail);
+                else handleClose();
+            } catch (error) {
+                seterrors(error);
+            }
         };
-        create_room();
-        window.location.replace("/");
-        handleClose();
+
+        loadData();
     };
 
     if (localStorage.getItem("status") === "1" && courses) {
@@ -122,12 +122,13 @@ const CreateCourse = (props) => {
         return (
             <>
                 <Fab
-                    style={{ backgroundColor: "#c35cff", color: "#FFFCF7" }}
-                    className={classes.fab}
                     onClick={handleShow}
+                    className={classes.fab}
+                    style={{ backgroundColor: "#c35cff", color: "#FFFCF7" }}
                 >
                     <AddIcon />
                 </Fab>
+
                 <Modal
                     centered
                     show={show}
@@ -171,7 +172,6 @@ const CreateCourse = (props) => {
 
                             <div className="d-flex justify-content-between">
                                 <Button
-                                    className="w-25"
                                     onClick={handleClose}
                                     variant="outline-danger"
                                 >
@@ -180,7 +180,7 @@ const CreateCourse = (props) => {
 
                                 <Button
                                     type="submit"
-                                    className="w-25 course__submit"
+                                    className="course__submit"
                                 >
                                     Create
                                 </Button>

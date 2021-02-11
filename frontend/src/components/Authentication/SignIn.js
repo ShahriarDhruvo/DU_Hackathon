@@ -5,6 +5,7 @@ import Form from "react-bootstrap/Form";
 import "./Sign.scss";
 import { Link } from "react-router-dom";
 import CustomAlert from "../generic/CustomAlert";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const axios = require("axios");
 
@@ -33,7 +34,7 @@ export default class SignIn extends Component {
         let endpoint = "/api/v1/accounts/login/";
         var obj = { username: data.username, password: data.password };
         let body = JSON.stringify(obj);
-        
+
         let config = {
             headers: {
                 "Content-Type": "application/json",
@@ -127,6 +128,10 @@ export default class SignIn extends Component {
                             type="submit"
                             className="w-100 sign__submit"
                         >
+                            <FontAwesomeIcon
+                                className="mr-2"
+                                icon={["fas", "sign-in-alt"]}
+                            />
                             SignIn
                         </Button>
                     </Form>

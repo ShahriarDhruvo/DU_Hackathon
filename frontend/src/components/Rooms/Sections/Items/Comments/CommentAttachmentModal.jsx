@@ -29,11 +29,11 @@ const CommentAttachmentModal = (props) => {
             const data = await response.json();
 
             if (!response.ok) setStatus(data.detail);
+            else handleClose();
         };
 
         loadData();
         props.updateFlag();
-        handleClose();
     };
 
     return (
@@ -91,7 +91,6 @@ const CommentAttachmentModal = (props) => {
                         <div className="d-flex justify-content-between">
                             <Button
                                 size="sm"
-                                className="w-25"
                                 onClick={handleClose}
                                 variant="outline-danger"
                             >

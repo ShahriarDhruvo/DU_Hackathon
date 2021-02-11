@@ -112,6 +112,8 @@
 
 import React, { useState, useEffect } from "react";
 import { NavDropdown } from "react-bootstrap";
+import CustomAlert from "../generic/CustomAlert";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Notifications = () => {
     const [status, setStatus] = useState(undefined);
@@ -134,24 +136,24 @@ const Notifications = () => {
         loadData();
     }, []);
 
-    console.log(notifications);
-
     return (
-        <NavDropdown.Item
-            eventKey="1"
-            className="text-wrap"
-            style={{ width: "16rem" }}
-        >
-            {status && (
-                <div className="h4 text-muted text-center py-5">{status}</div>
-            )}
+        <>
+            {status && <CustomAlert variant="warning" status={status} />}
 
             {notifications.map((notification) => (
-                <div key={notification.id} className="card-footer my-2">
+                <NavDropdown.Item
+                    key={notification.id}
+                    className="text-wrap my-2"
+                    style={{ width: "16rem" }}
+                >
+                    <FontAwesomeIcon
+                        className="mr-2"
+                        icon={["fas", "exclamation-circle"]}
+                    />
                     {notification.content}
-                </div>
+                </NavDropdown.Item>
             ))}
-        </NavDropdown.Item>
+        </>
     );
 };
 

@@ -73,7 +73,11 @@ const Sections = (props) => {
 
     return (
         <>
-            <AppBar position="static" color="default">
+            <AppBar
+                color="default"
+                position="static"
+                className="text-primary rounded"
+            >
                 <Tabs
                     value={value}
                     textColor="primary"
@@ -110,7 +114,7 @@ const Sections = (props) => {
                             <CustomAlert variant="warning" status={status} />
                         )}
 
-                        <Row className="d-flex justify-content-around">
+                        <Row className="d-flex justify-content-between px-3">
                             {/* <CreateItemModal
                                 room_pk={props.room_pk}
                                 section_pk={section.id}

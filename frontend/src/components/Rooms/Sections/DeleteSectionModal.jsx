@@ -54,15 +54,16 @@ const DeleteSectionModal = (props) => {
                     {props.modalBody}
                 </Modal.Body>
 
-                <Modal.Footer>
+                <Modal.Footer className="d-flex justify-content-between">
+                    <Button variant="secondary" onClick={handleClose}>
+                        Close
+                    </Button>
+                    
                     <Button
                         variant={props.actionVariant}
                         onClick={handleAction}
                     >
                         {props.modalTitle}
-                    </Button>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Close
                     </Button>
                 </Modal.Footer>
             </Modal>

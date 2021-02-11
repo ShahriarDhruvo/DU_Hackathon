@@ -33,10 +33,16 @@ const Simulation = () => {
 
     return (
         <>
-            {simulation.fileName &&
-                <Container fluid className="mt-4" style={{ maxWidth: "100rem" }}>
+            {simulation.fileName && (
+                <Container
+                    fluid
+                    className="mt-4"
+                    style={{ maxWidth: "100rem" }}
+                >
                     <h3 className="text-center">{simulation.title}</h3>
-                    <p className="text-justify my-4">{simulation.description}</p>
+                    <p className="text-justify my-4">
+                        {simulation.description}
+                    </p>
 
                     {/* <div className={!display ? "text-center" : "d-none"}>
                         <Spinner animation="grow" className="mb-2 mr-2" />
@@ -46,10 +52,14 @@ const Simulation = () => {
                     {/* <div className={!display && "d-none"}> */}
                     <div>
                         <div className="rounded border border-dark p-2">
-                            <Unity className="rounded" unityContent={unityContent} />
+                            <Unity
+                                className="rounded"
+                                unityContent={unityContent}
+                            />
                         </div>
 
                         <Button
+                            variant="main"
                             className="d-block mx-auto my-4"
                             onClick={() => unityContent.setFullscreen(true)}
                         >
@@ -61,7 +71,7 @@ const Simulation = () => {
                         </Button>
                     </div>
                 </Container>
-            }
+            )}
         </>
     );
 };

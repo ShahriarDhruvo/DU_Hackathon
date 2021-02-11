@@ -7,8 +7,7 @@ const PhysicsSimulations = (props) => {
     // Dummy data for getting at least 3 comming soon cards
     useEffect(() => {
         let tmp = [];
-        for(let i=0; i<3; i++) 
-            tmp.push(i);
+        for (let i = 0; i < 3; i++) tmp.push(i);
         setSimulations(tmp);
     }, []);
 
@@ -17,21 +16,22 @@ const PhysicsSimulations = (props) => {
             <Row>
                 {simulations.map((simulation) => (
                     <Col md={4} sm={6} key={simulation} className="mb-4">
-                        <Card>
+                        <Card border="main">
                             <Card.Img
                                 variant="top"
                                 src="/static/img/Coming_Soon.jpg"
+                                className="border-bottom border-main"
                             />
                             <Card.Body>
                                 <Card.Title>Coming Soon</Card.Title>
                                 <Card.Text>
                                     Cras cursus magna libero, eu viverra augue
-                                    feugiat eget. In hac habitasse platea dictumst.
-                                    Etiam ut sem vel magna aliquet maximus. Sed
-                                    pulvinar tellus turpis, pharetra porta ligula
-                                    dictum ut.
+                                    feugiat eget. In hac habitasse platea
+                                    dictumst. Etiam ut sem vel magna aliquet
+                                    maximus. Sed pulvinar tellus turpis,
+                                    pharetra porta ligula dictum ut.
                                 </Card.Text>
-                                <Button size="sm" disabled variant="primary">
+                                <Button size="sm" disabled variant="main">
                                     Show Simulations
                                 </Button>
                             </Card.Body>

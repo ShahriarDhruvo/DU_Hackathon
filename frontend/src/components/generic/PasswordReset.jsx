@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Form, Container, Button } from "react-bootstrap";
+import { Form, Container, Card, Button } from "react-bootstrap";
 import { usePromiseTracker, trackPromise } from "react-promise-tracker";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -47,11 +47,8 @@ const PasswordReset = (props) => {
             ) : status ? (
                 <CustomAlert status={status} variant={variant} />
             ) : (
-                <div
-                    className="col ccard bg-main-bg"
-                    style={{ maxWidth: "28rem" }}
-                >
-                    <div className="p-3 p-sm-4 text-center">
+                <Card className="col border-main" style={{ maxWidth: "28rem" }}>
+                    <Card.Body className="p-3 p-sm-4 text-center">
                         <Form
                             id="password-reset-form"
                             ref={form}
@@ -77,7 +74,7 @@ const PasswordReset = (props) => {
                                 />
                             </div>
 
-                            <div className="mt-4">
+                            <div className="mt-4 d-flex justify-content-between">
                                 <Button
                                     size="sm"
                                     type="submit"
@@ -103,8 +100,8 @@ const PasswordReset = (props) => {
                                 </Button>
                             </div>
                         </Form>
-                    </div>
-                </div>
+                    </Card.Body>
+                </Card>
             )}
         </Container>
     );

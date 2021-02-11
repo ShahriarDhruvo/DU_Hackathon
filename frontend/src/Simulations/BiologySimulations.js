@@ -8,8 +8,7 @@ const BiologySimulations = (props) => {
     // Dummy data for getting at least 3 comming soon cards
     useEffect(() => {
         let tmp = [];
-        for (let i = 0; i < 2; i++)
-            tmp.push(i);
+        for (let i = 0; i < 2; i++) tmp.push(i);
         setSimulations(tmp);
     }, []);
 
@@ -18,49 +17,53 @@ const BiologySimulations = (props) => {
             <Row>
                 <>
                     <Col md={4} sm={6} className="mb-4">
-                        <Card>
+                        <Card border="main">
                             <Card.Img
                                 variant="top"
+                                className="border-bottom border-main"
                                 src="/static/img/Simulations/CellSimulation.jpg"
                             />
                             <Card.Body>
                                 <Card.Title>Cell Simulation</Card.Title>
                                 <Card.Text>
-                                    The cell is the basic structural, functional,
-                                    and biological unit of all known organisms. A
-                                    cell is the smallest unit of life. Cells are
-                                    often called the "building blocks of life".
-                        </Card.Text>
+                                    The cell is the basic structural,
+                                    functional, and biological unit of all known
+                                    organisms. A cell is the smallest unit of
+                                    life. Cells are often called the "building
+                                    blocks of life".
+                                </Card.Text>
                                 <Button
                                     size="sm"
                                     as={Link}
-                                    variant="primary"
+                                    variant="main"
                                     to="/simulation/biology/cell/simulation/"
                                 >
                                     Show Simulations
-                        </Button>
+                                </Button>
                             </Card.Body>
                         </Card>
                     </Col>
+
                     {simulations.map((simulation) => (
                         <Col md={4} sm={6} key={simulation} className="mb-4">
-                            <Card>
+                            <Card border="main">
                                 <Card.Img
                                     variant="top"
                                     src="/static/img/Coming_Soon.jpg"
+                                    className="border-bottom border-main"
                                 />
                                 <Card.Body>
                                     <Card.Title>Coming Soon</Card.Title>
                                     <Card.Text>
-                                        Cras cursus magna libero, eu viverra augue
-                                        feugiat eget. In hac habitasse platea dictumst.
-                                        Etiam ut sem vel magna aliquet maximus. Sed
-                                        pulvinar tellus turpis, pharetra porta ligula
-                                        dictum ut.
-                                </Card.Text>
-                                    <Button size="sm" disabled variant="primary">
+                                        Cras cursus magna libero, eu viverra
+                                        augue feugiat eget. In hac habitasse
+                                        platea dictumst. Etiam ut sem vel magna
+                                        aliquet maximus. Sed pulvinar tellus
+                                        turpis, pharetra porta ligula dictum ut.
+                                    </Card.Text>
+                                    <Button size="sm" disabled variant="main">
                                         Show Simulations
-                                </Button>
+                                    </Button>
                                 </Card.Body>
                             </Card>
                         </Col>

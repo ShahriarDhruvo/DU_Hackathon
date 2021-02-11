@@ -58,17 +58,15 @@ const Navs = () => {
             ) : (
                 <Nav className="ml-auto">
                     {/* Unity simulation */}
-                    {/* <Nav.Link>
-                        <NavLink to="/simulation/" id="nav-dropdown">
-                            <FontAwesomeIcon
-                                style={{ fontSize: "1.09rem" }}
-                                icon={["fab", "unity"]}
-                            />
-                            <span className="d-none d-md-inline font-weight-bold">
-                                Simulations
-                            </span>
-                        </NavLink>
-                    </Nav.Link> */}
+                    <Nav.Link as={NavLink} to="/simulation/" id="nav-dropdown">
+                        <FontAwesomeIcon
+                            style={{ fontSize: "1.09rem" }}
+                            icon={["fab", "unity"]}
+                        />
+                        <span className="d-none d-md-inline font-weight-bold">
+                            Simulations
+                        </span>
+                    </Nav.Link>
                     {/* Unity simulation */}
 
                     <NavDropdown

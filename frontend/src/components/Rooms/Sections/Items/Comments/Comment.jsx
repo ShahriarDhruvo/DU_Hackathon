@@ -13,7 +13,7 @@ const Comment = (props) => {
     const [status, setStatus] = useState(undefined);
 
     const handleEdit = (e) => {
-        e.preventDefault();
+        // e.preventDefault();
         setEdit(!edit);
     };
 
@@ -64,8 +64,22 @@ const Comment = (props) => {
         </a>
     );
 
+    const handleCloseAction = () => setStatus(undefined);
+
     return (
         <div>
+            {status && (
+                <CustomModal
+                    show={true}
+                    noAction={true}
+                    modalTitle="Error"
+                    handleCloseAction={handleCloseAction}
+                    modalBody={
+                        <CustomAlert variant="warning" status={status} />
+                    }
+                />
+            )}
+
             <div className="d-flex">
                 <Counter
                     room_pk={props.room_pk}
@@ -130,13 +144,6 @@ const Comment = (props) => {
                             className="mt-2"
                             onSubmit={handleSubmit}
                         >
-                            {status && (
-                                <CustomAlert
-                                    status={status}
-                                    variant="warning"
-                                />
-                            )}
-
                             <div className="form-group">
                                 <textarea
                                     required

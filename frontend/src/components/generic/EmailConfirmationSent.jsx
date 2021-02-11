@@ -1,5 +1,5 @@
 import React from "react";
-import { Container } from "react-bootstrap";
+import { Container, Card } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import CustomAlert from "./CustomAlert";
 
@@ -8,8 +8,8 @@ const EmailConfirmationSent = () => {
 
     return (
         <Container className="vertical-center">
-            <div
-                className="ccard p-3 p-sm-4 bg-main-bg text-center"
+            <Card
+                className="p-3 p-sm-4 border-main text-center"
                 style={{ maxWidth: "28rem" }}
             >
                 <h5>Verify Your E-mail Address</h5>
@@ -23,9 +23,9 @@ const EmailConfirmationSent = () => {
                 <CustomAlert
                     variant="success"
                     alertClass="text-break"
-                    status={`Confirmation e-mail sent to ${params.email}.`}
+                    status={`Confirmation e-mail sent to ${params.email}`}
                 />
-            </div>
+            </Card>
         </Container>
     );
 };

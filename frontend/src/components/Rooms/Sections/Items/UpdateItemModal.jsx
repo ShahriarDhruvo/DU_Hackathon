@@ -155,7 +155,7 @@ const UpdateItemModal = (props) => {
                         <div className="d-flex justify-content-between">
                             <button
                                 onClick={handleClose}
-                                className="btn btn-outline-danger w-25"
+                                className="btn btn-outline-danger"
                             >
                                 <FontAwesomeIcon
                                     className="mr-2"
@@ -166,7 +166,7 @@ const UpdateItemModal = (props) => {
 
                             <button
                                 type="submit"
-                                className="btn btn-primary w-25"
+                                className="btn btn-main"
                             >
                                 <FontAwesomeIcon
                                     className="mr-2"

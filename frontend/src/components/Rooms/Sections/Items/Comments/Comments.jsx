@@ -35,17 +35,6 @@ const Comments = (props) => {
     return (
         <>
             <div className="p-2 d-flex flex-column flex-md-row justify-content-around">
-                {comments.length > 0 && (
-                    <button
-                        onClick={handleShow}
-                        className="btn__none my-1"
-                        style={{ color: "#1e88e5" }}
-                    >
-                        {!show ? comments.length : "Hide"}{" "}
-                        {comments.length > 1 ? "comments" : "comment"}
-                    </button>
-                )}
-
                 <UpdateItemModal
                     item={props.item}
                     modalTitle="Update"
@@ -71,6 +60,17 @@ const Comments = (props) => {
                 >
                     Delete this Item
                 </DeleteItemModal>
+
+                {comments.length > 0 && (
+                    <button
+                        onClick={handleShow}
+                        className="btn__none my-1"
+                        style={{ color: "#1e88e5" }}
+                    >
+                        {!show ? comments.length : "Hide"}{" "}
+                        {comments.length > 1 ? "comments" : "comment"}
+                    </button>
+                )}
             </div>
 
             <div className="mx-3">

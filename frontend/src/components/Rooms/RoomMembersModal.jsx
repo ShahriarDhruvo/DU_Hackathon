@@ -29,10 +29,14 @@ const RoomMembersModal = (props) => {
                 onHide={handleClose}
                 animation={isAnimated}
             >
-                <Modal.Header closeButton></Modal.Header>
                 <Modal.Body className="p-0">
                     <RoomMembers room_pk={props.room_pk} />
                 </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Close
+                    </Button>
+                </Modal.Footer>
             </Modal>
         </>
     );

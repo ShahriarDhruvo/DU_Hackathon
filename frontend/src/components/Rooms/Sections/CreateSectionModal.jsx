@@ -62,6 +62,7 @@ const CreateSectionModal = (props) => {
 
             <Modal
                 centered
+                size="sm"
                 show={show}
                 onHide={handleClose}
                 animation={isAnimated}
@@ -90,7 +91,7 @@ const CreateSectionModal = (props) => {
                             />
                         </div>
 
-                        <button type="submit" className="btn btn-primary">
+                        <button type="submit" className="w-100 btn btn-main">
                             Create
                         </button>
                     </form>

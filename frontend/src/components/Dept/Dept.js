@@ -4,6 +4,7 @@ import Card from "react-bootstrap/Card";
 import { CardColumns } from "react-bootstrap";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const axios = require("axios");
 
 export default class Dept extends Component {
@@ -16,6 +17,7 @@ export default class Dept extends Component {
             rooms_length: null,
             dept_name: "",
             dept_id: null,
+            pending_rooms_id: [],
             enrolled_rooms_id: [],
         };
     }
@@ -84,9 +86,31 @@ export default class Dept extends Component {
                     });
                 })
                 .catch((err) => {
-                    console.log(err);
+                    // console.log(err);
                 });
         };
+
+        const fetchUserPendingRooms = async () => {
+            const API_URL = "/api/v1/rooms/user_pending_request_room_list/";
+
+            const response = await fetch(API_URL, {
+                method: "GET",
+            });
+
+            const data = await response.json();
+
+            let tmp = [];
+
+            for (let i = 0; i < data.length; i++) tmp.push(data[i].id);
+
+            this.setState({
+                pending_rooms_id: tmp,
+            });
+
+            // if (!response.ok) this.setState({ status: data.detail });
+        };
+
+        if (localStorage.getItem("isAuthenticated")) fetchUserPendingRooms();
 
         if (id) {
             await fetchcourses();
@@ -100,7 +124,7 @@ export default class Dept extends Component {
         if (this.state.rooms) {
             courselists = this.state.rooms.map((item) => (
                 <div key={item.id}>
-                    <Card border="primary" className="course">
+                    <Card border="main" className="course">
                         <Card.Body>
                             <Card.Title className="course__name">
                                 {item.course.split(",")[0]} ({item.year})
@@ -120,6 +144,10 @@ export default class Dept extends Component {
                                                 marginBottom: "10px",
                                             }}
                                         >
+                                            <FontAwesomeIcon
+                                                icon={["fas", "sign-in-alt"]}
+                                                className="mr-2"
+                                            />
                                             Enter
                                         </Button>
                                     </Link>
@@ -132,8 +160,34 @@ export default class Dept extends Component {
                                         float: "right",
                                         marginBottom: "10px",
                                     }}
+                                    onClick={() =>
+                                        this.room_enroll(
+                                            item.id,
+                                            this.state.pending_rooms_id.includes(
+                                                item.id
+                                            )
+                                        )
+                                    }
                                 >
-                                    Enroll
+                                    {this.state.pending_rooms_id.includes(
+                                        item.id
+                                    ) ? (
+                                        <>
+                                            <FontAwesomeIcon
+                                                icon={["fas", "spinner"]}
+                                                className="mr-2"
+                                            />
+                                            Pending...
+                                        </>
+                                    ) : (
+                                        <>
+                                            <FontAwesomeIcon
+                                                icon={["fas", "paper-plane"]}
+                                                className="mr-2"
+                                            />
+                                            Enroll
+                                        </>
+                                    )}
                                 </Button>
                             )}
                         </Card.Body>

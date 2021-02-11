@@ -30,6 +30,8 @@ import SimulationSubjects from "./Simulations/SimulationSubjects";
 import BiologySimulations from "./Simulations/BiologySimulations";
 import PhysicsSimulations from "./Simulations/PhysicsSimulations";
 import ChemistrySimulations from "./Simulations/ChemistrySimulations";
+import SignInPage from "./components/Authentication/SignInPage";
+import PassworResetConfirm from "./components/generic/PasswordResetConfirm";
 
 library.add(far, fas, fab);
 
@@ -55,6 +57,11 @@ const App = () => {
                         />
                         <Route
                             exact
+                            path="/password/reset/confirm/:uid/:token/"
+                            component={PassworResetConfirm}
+                        />
+                        <Route
+                            exact
                             path="/password/change/"
                             component={PasswordChange}
                         />
@@ -69,6 +76,7 @@ const App = () => {
                             path="/email/confirmation/:key/"
                             component={EmailConfirm}
                         />
+                        <Route exact path="/login/" component={SignInPage} />
 
                         {/* <Route
                             exact
