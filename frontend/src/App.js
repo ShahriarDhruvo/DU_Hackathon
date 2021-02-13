@@ -5,7 +5,7 @@ import { far } from "@fortawesome/free-regular-svg-icons";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import Home from "./components/Home/Home";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import EmailConfirmationSent from "./components/generic/EmailConfirmationSent";
 import EmailConfirm from "./components/generic/EmailConfirm";
 import NotFound from "./components/generic/NotFound";
@@ -32,45 +32,55 @@ import PhysicsSimulations from "./Simulations/PhysicsSimulations";
 import ChemistrySimulations from "./Simulations/ChemistrySimulations";
 import SignInPage from "./components/Authentication/SignInPage";
 import PassworResetConfirm from "./components/generic/PasswordResetConfirm";
+import Us from "./components/legends/Us";
 
 library.add(far, fas, fab);
 
 const App = () => {
     return (
-        <Router>
+        <Router basename="/static">
             <SettingsContextProvider>
                 <AuthenticationContextProvider>
                     <Navs />
                     <Switch>
                         <Route exact path="/" component={Home} />
+
                         <Route
                             exact
                             path="/rooms/:room_pk/"
                             component={Rooms}
                         />
+
                         <Route exact path="/myrooms/" component={MyRooms} />
+
                         <Route exact path="/homerooms/:id/" component={Dept} />
+
                         <Route
                             exact
                             path="/password/reset/"
                             component={PasswordReset}
                         />
+
                         <Route
                             exact
                             path="/password/reset/confirm/:uid/:token/"
                             component={PassworResetConfirm}
                         />
+
                         <Route
                             exact
                             path="/password/change/"
                             component={PasswordChange}
                         />
+
                         <Route exact path="/profile/" component={Profile} />
+
                         <Route
                             exact
                             path="/email/confirmation/sent/:email/"
                             component={EmailConfirmationSent}
                         />
+
                         <Route
                             exact
                             path="/email/confirmation/:key/"
@@ -113,6 +123,8 @@ const App = () => {
                             path="/simulation/chemistry/"
                             component={ChemistrySimulations}
                         />
+
+                        <Route exact path="/legends/" component={Us} />
 
                         <Route component={NotFound} />
                     </Switch>

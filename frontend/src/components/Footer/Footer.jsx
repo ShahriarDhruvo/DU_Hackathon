@@ -1,5 +1,6 @@
 import React from "react";
 import "./Footer.scss";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Footer = () => {
@@ -62,14 +63,21 @@ const Footer = () => {
                         <FontAwesomeIcon icon={["fab", "github"]} />
                     </a>
                 </li>
+
+                <div>
+                    <Link
+                        to="/legends"
+                        style={{ fontSize: "0.9rem", color: "white" }}
+                    >
+                        Who are the Legends?
+                    </Link>
+                </div>
             </ul>
 
-            <div className="mt-3">
-                <small>
-                    &copy;{new Date().getFullYear()} ClassPortal, Inc | All
-                    rights reserved
-                </small>
-            </div>
+            <small>
+                &copy;{new Date().getFullYear()} ClassPortal, Inc | All rights
+                reserved
+            </small>
         </footer>
     );
 };

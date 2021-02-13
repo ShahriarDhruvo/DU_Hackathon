@@ -117,7 +117,7 @@ const PasswordChange = (props) => {
                                 size="sm"
                                 type="submit"
                                 variant="main"
-                                className="mb-2 mb-md-0 mr-sm-2"
+                                className="mb-2 mr-sm-2"
                             >
                                 <FontAwesomeIcon
                                     className="mr-2"
@@ -129,6 +129,7 @@ const PasswordChange = (props) => {
                             <Button
                                 size="sm"
                                 variant="outline-main"
+                                className="mb-2"
                                 onClick={() => props.history.goBack()}
                             >
                                 <FontAwesomeIcon

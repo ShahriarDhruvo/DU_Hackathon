@@ -1,9 +1,6 @@
 import React, { useContext } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
-import Form from "react-bootstrap/Form";
-import FormControl from "react-bootstrap/FormControl";
-import InputGroup from "react-bootstrap/InputGroup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SignIn from "../Authentication/SignIn";
 import SignUp from "../Authentication/SignUp";
@@ -69,7 +66,7 @@ const Navs = () => {
                     </Nav.Link>
                     {/* Unity simulation */}
 
-                    <NavDropdown
+                    {/* <NavDropdown
                         id="nav-dropdown"
                         alignRight={true}
                         title={<FontAwesomeIcon icon={["fas", "search"]} />}
@@ -89,7 +86,7 @@ const Navs = () => {
                                 />
                             </InputGroup>
                         </Form>
-                    </NavDropdown>
+                    </NavDropdown> */}
 
                     <NavDropdown
                         id="nav-dropdown"
