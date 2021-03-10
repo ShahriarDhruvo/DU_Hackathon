@@ -1,5 +1,8 @@
 # ClassPortal
-<i>ClassPortal</i> is a project that simplifies the E-learning processes.
+<i>ClassPortal</i> is a project that simplifies the E-learning processes
+
+# Hosting
+Visit <a target="_blank" href="https://classportal.herokuapp.com/">here</a> to see this project live
 
 # Project Purpose
 Because of the Covid-19 outbreak coutries are in lockdown, educational institutes has been closed for a long time now. As a result the whole education system has become a messy. <br /> <br />
@@ -10,11 +13,11 @@ In this lockdown our <b>Hands-on Laboratory Activities</b> are suffering the mos
 <br /> <br />
 So, as the major part of our <i>ClassPortal</i> we tried to solve this issue by introducing <b>Interactive Simulation</b> in our project.
 
-![alt text](https://github.com/ShahriarDhruvo/HackTheVerse_SUST_NOOBs/blob/main/screenshots/Screenshot%20(150).png?raw=true)
+![alt text](https://github.com/ShahriarDhruvo/DU_Hackathon/blob/main/screenshots/Screenshot%20(150).png?raw=true)
 
-![alt text](https://github.com/ShahriarDhruvo/HackTheVerse_SUST_NOOBs/blob/main/screenshots/Screenshot%20(154).png?raw=true)
+![alt text](https://github.com/ShahriarDhruvo/DU_Hackathon/blob/main/screenshots/Screenshot%20(154).png?raw=true)
 
-![alt text](https://github.com/ShahriarDhruvo/HackTheVerse_SUST_NOOBs/blob/main/screenshots/Screenshot%20(155).png?raw=true)
+![alt text](https://github.com/ShahriarDhruvo/DU_Hackathon/blob/main/screenshots/Screenshot%20(155).png?raw=true)
 
 # How to run this project
 1. Install the dependencies in server/requirements.txt
