@@ -1,0 +1,37 @@
+.pageIntro {
+  display: block;
+  font-family: "Josefin Sans", sans-serif;
+  padding-top: 5%;
+  text-align: center;
+  color: #5e60ce;
+}
+
+.dept {
+  padding-top: 1%;
+  &__name {
+    font-family: 'Open Sans', sans-serif;
+    border-left: 7px solid #22236D;
+    background: #EFF0FA;
+    color: #22236D;
+    margin: 1.5em 0px;
+    padding: 1px 10px;
+    quotes:"\201C""\201D""\2018""\2019";
+  }
+}
+@media (min-width: 600px) {
+  .dept {
+    width: 95%;
+  }
+  .course {
+    margin: 10px;
+  }
+}
+@media (min-width: 1025px) {
+  .dept {
+    width: 85%;
+  }
+  .course {
+    margin: 20px;
+  }
+}
+

@@ -1,0 +1,112 @@
+* {
+    font-family: "Open Sans", sans-serif;
+}
+// @keyframes rotateX {
+//     0% {
+//         opacity: 0;
+//         transform: rotateX(-90deg);
+//     }
+//     50% {
+//         transform: rotateX(-20deg);
+//     }
+//     100% {
+//         opacity: 1;
+//         transform: rotateX(0deg);
+//     }
+// }
+
+// .dropdown_menu {
+//     @for $num from 1 through 5 {
+//         .dropdown_item-#{$num} {
+//             animation: rotateX 400ms ($num * 150ms) ease-in-out forwards;
+//             transform-origin: top center;
+//         }
+//     }
+// }
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+input[type="checkbox"] {
+    opacity: 0.5;
+}
+
+input[type="checkbox"]:checked {
+    opacity: 1;
+}
+
+.vertical-center {
+    display: grid;
+    place-items: center;
+}
+
+// .clogo {
+//     font-family: "MuseoModerno";
+// }
+
+.ccard {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.12);
+    border-radius: 0.45rem;
+}
+
+// .card__hover:hover {
+//     cursor: pointer;
+//     transform: scale(1.02);
+// }
+
+.clink {
+    margin-right: 8px;
+    margin-left: 8px;
+    transition: 0.5s;
+}
+
+.clink:hover {
+    transform: scale(1.2);
+}
+
+.social {
+    font-size: 1.5rem;
+}
+
+.container {
+    min-height: 80vh;
+    // padding-bottom: 1rem;
+}
+
+.ccard__input {
+    flex: 2;
+    border: none;
+    outline: none;
+    background: transparent;
+    border-bottom: 2px solid $main;
+}
+
+.ccard__input-prepend {
+    padding: 0.05rem 0.5rem 0.2rem 0.5rem;
+    margin-right: 0.37rem;
+    border-radius: 0.45rem;
+    border: 2px solid $main;
+}
+
+.members__header {
+    color: #3f51b5;
+}
+
+.btn__none {
+    padding: 0;
+    border: none;
+    background: none;
+    text-decoration: none !important;
+
+    &:focus {
+        outline: none;
+    }
+}

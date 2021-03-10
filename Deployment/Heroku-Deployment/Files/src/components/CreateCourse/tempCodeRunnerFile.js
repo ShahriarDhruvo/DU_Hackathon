@@ -1,0 +1,1 @@
+et endpoint = `api/v1/university/departments/courses/${dept_id}/list/`
