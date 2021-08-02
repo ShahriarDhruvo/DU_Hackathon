@@ -3,6 +3,9 @@
 
 # Hosting
 Visit <a target="_blank" href="https://classportal.herokuapp.com/">here</a> to see this project live
+Use the following account for testing purpose:
+    > username: Teacher_EEE
+    > password: Testing321
 
 # Project Purpose
 Because of the Covid-19 outbreak coutries are in lockdown, educational institutes has been closed for a long time now. As a result the whole education system has become a messy. <br /> <br />
