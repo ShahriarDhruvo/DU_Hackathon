@@ -3,8 +3,8 @@
 
 # Hosting
 Visit <a target="_blank" href="https://classportal.herokuapp.com/">here</a> to see this project live. <br /> <br />
-Use the following account for testing purpose: <br /> <br />
-> username: Teacher_EEE
+Use the following account for testing purpose: <br />
+> username: Teacher_EEE <br />
 > password: Testing321
 
 # Project Purpose
